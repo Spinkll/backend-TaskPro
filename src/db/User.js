@@ -15,6 +15,9 @@ const usersSchema = new Schema(
         password: {
             type: String,
         },
+        theme: {
+            type: String,
+        }
     }, {
         timestamps: true
     }

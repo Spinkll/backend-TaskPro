@@ -107,7 +107,8 @@ export const getUser = async (sessionId, sessionToken) => {
         id: getingUser._id,
         name: getingUser.name,
         photo: getingUser.photo,
-        email: getingUser.email
+        email: getingUser.email,
+        theme: getingUser.theme
    };
 
    return user;
@@ -116,8 +117,27 @@ export const getUser = async (sessionId, sessionToken) => {
 export const patchUsertById = async (sessionId, sessionToken, pachedData) => {
 
     const currentUser = await getUser(sessionId, sessionToken);
+    let photo;
 
-    const pachedUser = await User.findByIdAndUpdate(currentUser.id, {...pachedData}, {
+    if(currentUser.photo === 'https://res.cloudinary.com/dnfxykh8j/image/upload/v1730412720/rpio4hnhbkhnahdjn9vu.png' || 
+        currentUser.photo === 'https://res.cloudinary.com/dnfxykh8j/image/upload/v1730411910/wf6g1bi1qvd7spmurqi3.png' || 
+        currentUser.photo === 'https://res.cloudinary.com/dnfxykh8j/image/upload/v1730412681/qzc14xzmletl7ohj16vl.png') {
+     if(pachedData.theme === 'dark') {
+         photo = 'https://res.cloudinary.com/dnfxykh8j/image/upload/v1730412720/rpio4hnhbkhnahdjn9vu.png';
+     }
+ 
+     if(pachedData.theme === 'light') {
+         photo = 'https://res.cloudinary.com/dnfxykh8j/image/upload/v1730411910/wf6g1bi1qvd7spmurqi3.png';
+     }
+ 
+     if(pachedData.theme === 'violet') {
+         photo = 'https://res.cloudinary.com/dnfxykh8j/image/upload/v1730412681/qzc14xzmletl7ohj16vl.png';
+     }
+    } else {
+     photo = pachedData.photo;
+    };
+
+    const pachedUser = await User.findByIdAndUpdate(currentUser.id, {...pachedData, photo: photo}, {
         new: true,
     });
 
@@ -125,9 +145,15 @@ export const patchUsertById = async (sessionId, sessionToken, pachedData) => {
         throw createHttpError(404, {
             status: 404,
             message: "User not found",
-            data: `user id is ${UserID}`
         });
     }
 
-    return pachedUser;
+    const user = {
+        name: pachedUser.name,
+        photo: pachedUser.photo,
+        email: pachedUser.email,
+        theme: pachedUser.theme
+    };
+
+    return user;
 };

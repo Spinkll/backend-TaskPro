@@ -3,8 +3,8 @@ import {model, Schema } from "mongoose";
 const usersSchema = new Schema(
     {
         userId: {
-            type: String,
-            require: true
+            type: Schema.Types.ObjectId, 
+            ref: 'users'
 
         },
         accessToken: {

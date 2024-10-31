@@ -17,6 +17,7 @@ export const registerController = async (req, res) => {
             name: user.name,
             email: user.email,
             id: user.id,
+            theme: user.theme,
             createdAt: user.createdAt,
             updatedAt: user.updatedAt,
             }

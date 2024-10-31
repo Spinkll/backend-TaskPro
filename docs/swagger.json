@@ -385,6 +385,17 @@
                     "description": "User's photo",
                     "type": "string",
                     "format": "binary"
+                  },
+                  "theme": {
+                    "description": "site theme type (dark, light, violet)",
+                    "type": "string",
+                    "enum": [
+                      "dark",
+                      "light",
+                      "violet"
+                    ],
+                    "default": "light",
+                    "example": "light"
                   }
                 }
               }
