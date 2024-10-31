@@ -5,14 +5,7 @@ operationId: patchUser
 description: Partially updates a user's information.
 security:
   - bearerAuth: []
-parameters:
-  - in: path
-    name: userId
-    required: true
-    schema:
-      type: string
-      example: '65ca67e7ae7f10c88b598384'
-    description: The ID of the user to update.
+
 requestBody:
   required: true
   content:

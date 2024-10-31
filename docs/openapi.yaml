@@ -31,7 +31,6 @@ paths:
   /auth/user:
     get:
       $ref: ./swagger/paths/auth/getUser.yaml
-  /auth/user/{userId}:
     patch:
       $ref: ./swagger/paths/auth/patchUser.yaml
 

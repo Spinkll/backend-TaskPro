@@ -66,7 +66,6 @@ export const getUserController = async (req, res) => {
 };
 
 export const patchUserByIdController = async (req, res) => {
-    const userID = req.params.userId;
     const body = req.body;
     const photo = req.file;
 
@@ -79,7 +78,7 @@ export const patchUserByIdController = async (req, res) => {
         }
     }
 
-    const patchedContact = await patchUsertById(userID, {...body, photo: photoUrl});
+    const patchedContact = await patchUsertById(req.cookies.sessionId, req.cookies.sessionToken, {...body, photo: photoUrl});
 
     res.status(200).json({
         status: 200,

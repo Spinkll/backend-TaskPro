@@ -99,8 +99,11 @@ export const getUser = async (sessionId, sessionToken) => {
    return user;
 };
 
-export const patchUsertById = async (UserID, pachedData) => {
-    const pachedUser = await User.findByIdAndUpdate(UserID, {...pachedData}, {
+export const patchUsertById = async (sessionId, sessionToken, pachedData) => {
+
+    const currentUser = await getUser(sessionId, sessionToken);
+
+    const pachedUser = await User.findByIdAndUpdate(currentUser.id, {...pachedData}, {
         new: true,
     });
 

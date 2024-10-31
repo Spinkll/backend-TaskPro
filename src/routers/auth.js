@@ -14,6 +14,6 @@ authRouter.post('/login', validateBody(loginUserValidation), ctrlWrapper(loginCo
 authRouter.post('/logout', ctrlWrapper(logoutController));
 authRouter.post('/refresh', ctrlWrapper(refreshUserController));
 authRouter.get('/user', ctrlWrapper(getUserController));
-authRouter.patch('/user/:userId', upload.single('photo'), validateBody(PathUserValidationShema), ctrlWrapper(patchUserByIdController));
+authRouter.patch('/user', upload.single('photo'), validateBody(PathUserValidationShema), ctrlWrapper(patchUserByIdController));
 
 export default authRouter;
