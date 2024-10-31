@@ -1,0 +1,43 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: hw2-mongodb
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description:
+    API for a notebook application using MongoDB
+tags:
+  - name: auth
+    description: Operations with boards.
+  - name: boards
+    description: Operations with boards.
+servers:
+  - url: http://localhost:3000
+  - url: 
+paths:
+  /auth/register:
+    post:
+      $ref: ./swagger/paths/auth/register.yaml
+  /auth/login:
+    post:
+      $ref: ./swagger/paths/auth/login.yaml
+  /auth/logout:
+    post:
+      $ref: ./swagger/paths/auth/logout.yaml
+  /auth/refresh:
+    post:
+      $ref: ./swagger/paths/auth/refresh.yaml
+  /auth/user:
+    get:
+      $ref: ./swagger/paths/auth/getUser.yaml
+  /auth/user/{userId}:
+    patch:
+      $ref: ./swagger/paths/auth/patchUser.yaml
+
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

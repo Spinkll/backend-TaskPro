@@ -1,0 +1,27 @@
+type: object
+required:
+properties:
+  _id:
+    description: "User id"
+    type: string
+    example: 65e4decdd286b30065d54af9
+  name:
+    description: "User's name"
+    type: string
+    example: 'John Doe'
+  photo:
+    description: "Link to Contact's photo"
+    type: string
+    example: https://res.cloudinary.com/uqwgdu/image/upload/image.png
+  email:
+    description: "User's email"
+    type: string
+    example: mail@example.com
+  createdAt:
+    description: 'date of create'
+    type: string
+    example: 2024-10-12T05:46:48.395Z
+  updatedAt:
+    description: 'date of last update'
+    type: string
+    example: 2024-10-12T05:47:41.792Z

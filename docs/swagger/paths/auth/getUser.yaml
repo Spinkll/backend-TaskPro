@@ -1,0 +1,36 @@
+tags:
+  - auts
+summary: Get User
+operationId: GetUser
+description: 'Get a user data. Attention, the request must be authorized!!!!!'
+security:
+  - bearerAuth: []
+requestBody:
+
+responses:
+  '200':
+    description: Geted a user
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully found user!
+            data:
+              id: 6723826b869a988a57ad865c,
+              name: Copanda2,
+              photo: https://res.cloudinary.com/dnfxykh8j/image/upload/v1730388143/xsowbnzqjbr09b1cbvmy.jpg,
+              email: panda@mail.com
+  '401':
+    description: Unauthorized.
+  '404':
+    $ref: '../../components/responses/404.yaml'
