@@ -13,6 +13,7 @@ export const registerController = async (req, res) => {
         message: 'Successfully registered a user!',
         data: {
             user: {
+            photo: user.photo,
             name: user.name,
             email: user.email,
             id: user.id,

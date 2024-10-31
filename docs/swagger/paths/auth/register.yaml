@@ -27,6 +27,12 @@ requestBody:
             description: "User's password, must have uppercase and lowercase letters, as well as special characters"
             type: string
             example: 'Qweas23!'
+          theme:
+            description: 'site theme type (dark, light, violet)'
+            type: string
+            enum: ['dark', 'light', 'violet']
+            default: 'light'
+            example: 'light'
 
 responses:
   '201':

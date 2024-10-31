@@ -19,9 +19,23 @@ export const registerUser = async (payload) => {
         throw createHttpError(409, 'Email in use');
     }
 
+    let photo;
+
+    if(payload.theme === 'dark') {
+        photo = 'https://res.cloudinary.com/dnfxykh8j/image/upload/v1730412720/rpio4hnhbkhnahdjn9vu.png';
+    }
+
+    if(payload.theme === 'light') {
+        photo = 'https://res.cloudinary.com/dnfxykh8j/image/upload/v1730411910/wf6g1bi1qvd7spmurqi3.png';
+    }
+
+    if(payload.theme === 'violet') {
+        photo = 'https://res.cloudinary.com/dnfxykh8j/image/upload/v1730412681/qzc14xzmletl7ohj16vl.png';
+    }
+
     const hashedPassword = await bcrypt.hash(payload.password, 10);
 
-    user = await User.create({...payload, password: hashedPassword});
+    user = await User.create({...payload, password: hashedPassword, photo});
 
     return user;
 };
