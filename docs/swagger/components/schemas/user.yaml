@@ -1,5 +1,4 @@
 type: object
-required:
 properties:
   _id:
     description: "User id"
@@ -12,11 +11,18 @@ properties:
   photo:
     description: "Link to Contact's photo"
     type: string
-    example: https://res.cloudinary.com/uqwgdu/image/upload/image.png
+    default: 'https://res.cloudinary.com/dnfxykh8j/image/upload/v1730411910/wf6g1bi1qvd7spmurqi3.png'
+    example: https://res.cloudinary.com/dnfxykh8j/image/upload/v1730411910/wf6g1bi1qvd7spmurqi3.png
   email:
     description: "User's email"
     type: string
     example: mail@example.com
+  theme:
+    description: 'site theme type (dark, light, violet)'
+    type: string
+    enum: ['dark', 'light', 'violet']
+    default: 'light'
+    example: 'light'
   createdAt:
     description: 'date of create'
     type: string

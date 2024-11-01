@@ -8,18 +8,21 @@ export const registerController = async (req, res) => {
     const { body } = req;
     const user = await registerUser(body);
 
+    createCookies(user.session, res);
+
     res.json({
         status: 201,
         message: 'Successfully registered a user!',
         data: {
             user: {
-            photo: user.photo,
-            name: user.name,
-            email: user.email,
-            id: user.id,
-            theme: user.theme,
-            createdAt: user.createdAt,
-            updatedAt: user.updatedAt,
+            photo: "https://res.cloudinary.com/dnfxykh8j/image/upload/v1730411910/wf6g1bi1qvd7spmurqi3.png",
+            name: user.user.name,
+            email: user.user.email,
+            id: user.user.id,
+            theme: "light",
+            accessToken: user.session.accessToken,
+            createdAt: user.user.createdAt,
+            updatedAt: user.user.updatedAt,
             }
         }
     });

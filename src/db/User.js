@@ -4,6 +4,7 @@ const usersSchema = new Schema(
     {
         photo: {
             type: String,
+            default: 'https://res.cloudinary.com/dnfxykh8j/image/upload/v1730411910/wf6g1bi1qvd7spmurqi3.png'
         },
         name: {
             type: String,
@@ -17,6 +18,7 @@ const usersSchema = new Schema(
         },
         theme: {
             type: String,
+            default: 'light'
         }
     }, {
         timestamps: true
