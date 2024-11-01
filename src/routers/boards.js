@@ -1,20 +1,35 @@
 import { Router } from 'express';
 import { validateBody } from '../middlewares/validateBody.js';
-import { createBoardSchema } from '../validation/boarders.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
-import {
-  createBoardController,
-  getBoardsController,
-} from '../controllers/boards.js';
+import { authentificate } from '../middlewares/authentificate.js';
+import boardsController from '../controllers/boards.js';
+import columnsController from '../controllers/columns.js';
 
-const boardsRouter = Router();
+const curRouter = Router();
 
-boardsRouter.get('/', getBoardsController);
+curRouter.use(authentificate);
 
-boardsRouter.post(
-  '/',
-  validateBody(createBoardSchema),
-  ctrlWrapper(createBoardController),
-);
+curRouter.get('/', ctrlWrapper(boardsController.getAllBoards));
+curRouter.post('/', ctrlWrapper(boardsController.createBoard));
+curRouter.patch('/:boardId', ctrlWrapper(boardsController.updateBoard));
+curRouter.delete('/:boardId', ctrlWrapper(boardsController.deleteBoard));
 
-export default boardsRouter;
+// Routes для Columns
+curRouter.get('/:boardId/columns', columnsController.getAllColumns);
+curRouter.post('/:boardId/columns', columnsController.createColumn);
+curRouter.patch('/:boardId/columns/:columnId', columnsController.updateColumn);
+curRouter.delete('/:boardId/columns/:columnId', columnsController.deleteColumn);
+
+// // Routes для Cards
+// curRouter.get('/:boardId/columns/:columnId/cards', cardsController.getAllCards);
+// curRouter.post('/:boardId/columns/:columnId/cards', cardsController.createCard);
+// curRouter.patch(
+//   '/:boardId/columns/:columnId/cards/:idCard',
+//   cardsController.updateCard,
+// );
+// curRouter.delete(
+//   '/:boardId/columns/:columnId/cards/:idCard',
+//   cardsController.deleteCard,
+// );
+
+export default curRouter;
