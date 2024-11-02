@@ -42,10 +42,28 @@ responses:
               type: string
               example: Successfully registered a user!
             data:
-              {
-                "accessToken": "QgJWR3Nul5Yskifrbwk1tg=="
-              }
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 65e4decdd286b30065d54af9
+                name:
+                  type: string
+                  example: John Doe
+                photo:
+                  type: string
+                  example: https://res.cloudinary.com/dnfxykh8j/image/upload/v1730411910/wf6g1bi1qvd7spmurqi3.png
+                email:
+                  type: string
+                  example: mail@example.com
+                theme:
+                  type: string
+                  example: light
+                accessToken:
+                  type: string
+                  example: QgJWR3Nul5Yskifrbwk1tg==
+
   '401':
-    description: Unauthorized.
+    $ref: '../../components/responses/401.yaml'
   '404':
     $ref: '../../components/responses/404.yaml'
