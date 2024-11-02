@@ -38,16 +38,22 @@ boardsRouter.delete(
   ctrlWrapper(columnsController.deleteColumn),
 );
 
-// // Routes для Cards
-// curRouter.get('/:boardId/columns/:columnId/cards', cardsController.getAllCards);
-// curRouter.post('/:boardId/columns/:columnId/cards', cardsController.createCard);
-// curRouter.patch(
-//   '/:boardId/columns/:columnId/cards/:idCard',
-//   cardsController.updateCard,
-// );
-// curRouter.delete(
-//   '/:boardId/columns/:columnId/cards/:idCard',
-//   cardsController.deleteCard,
-// );
+// Routes для Cards
+boardsRouter.get(
+  '/:boardId/columns/:columnId/cards',
+  cardsController.getAllCards,
+);
+boardsRouter.post(
+  '/:boardId/columns/:columnId/cards',
+  cardsController.createCard,
+);
+boardsRouter.patch(
+  '/:boardId/columns/:columnId/cards/:idCard',
+  cardsController.updateCard,
+);
+boardsRouter.delete(
+  '/:boardId/columns/:columnId/cards/:idCard',
+  cardsController.deleteCard,
+);
 
 export default boardsRouter;

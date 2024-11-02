@@ -44,12 +44,17 @@ const boardsController = {
 
     const newBoard = await createBoardService(body);
 
+    if (!newBoard) {
+      return res.status(404).json({ message: 'Error crete board' });
+    }
+
     res.status(201).json({
       status: 'success',
       message: 'Board created successfully',
       data: serializeBoard(newBoard),
     });
   },
+
   async getBoard(req, res) {
     const { boardId } = req.params;
     const id = { _id: boardId, userId: req.user.id };
@@ -66,6 +71,7 @@ const boardsController = {
       data: serializeBoard(board),
     });
   },
+
   async updateBoard(req, res) {
     const { boardId } = req.params;
     const updateData = req.body;
@@ -77,6 +83,7 @@ const boardsController = {
         .status(404)
         .json({ status: 'error', message: 'Board not found' });
     }
+
     res.status(200).json({
       status: 'success',
       message: 'Board updated successfully',
@@ -94,12 +101,12 @@ const boardsController = {
         .status(404)
         .json({ status: 'error', message: 'Board not found' });
     }
-    // res.status(204).res();
-    res.status(204).json({
-      status: 'success',
-      message: 'Board deleted successfully',
-      data: deletedBoard,
-    });
+    res.status(204).res();
+    // res.status(204).json({
+    //   status: 'success',
+    //   message: 'Board deleted successfully',
+    //   data: deletedBoard,
+    // });
   },
 };
 

@@ -29,25 +29,63 @@ export const deleteBoardService = async (id) => {
   return await BoardsCollection.findOneAndDelete(id);
 };
 
-export const updateBoardByColumnIdService = async (
-  id,
-  payload,
-  options = {},
-) => {
+export const updateColumnInBoardService = async (id, payload, options = {}) => {
   const column = await BoardsCollection.findByIdAndUpdate(id, {
     $push: { columns: payload },
   });
   return column;
 };
 
-export const deleteBoardByColumnIdService = async (
-  id,
-  payload,
-  options = {},
-) => {
+export const deleteColumnInBoardService = async (id, payload, options = {}) => {
   const { _id } = payload;
   const board = await BoardsCollection.findByIdAndUpdate(id, {
-    $push: { columns: _id },
+    $pull: { columns: _id },
   });
+  return board;
+};
+
+export const updateCardInBoardService = async (id, payload, options = {}) => {
+  const { boardId, columnId, cardId, userId } = id;
+  const updateData = payload;
+  const board = await BoardsCollection.findByIdAndUpdate(
+    {
+      userId: userId,
+      _id: boardId,
+      'columns._id': columnId,
+      'columns.cards._id': cardId,
+    },
+    {
+      $set: {
+        'columns.$[column].cards.$[card]': { ...updateData },
+      },
+    },
+    {
+      arrayFilters: [{ 'column._id': columnId }, { 'card._id': cardId }],
+      new: true,
+    },
+  );
+  return board;
+};
+
+export const deleteCardInBoardService = async (id, payload, options = {}) => {
+  const { boardId, columnId, cardId, userId } = id;
+  const updateData = payload;
+  const board = await BoardsCollection.findByIdAndUpdate(
+    {
+      userId: userId,
+      _id: boardId,
+      'columns._id': columnId,
+      'columns.cards._id': cardId,
+    },
+    {
+      $pull: {
+        'columns.$[column].cards.$[card]': { ...updateData },
+      },
+    },
+    {
+      arrayFilters: [{ 'column._id': columnId }, { 'card._id': cardId }],
+      new: true,
+    },
+  );
   return board;
 };

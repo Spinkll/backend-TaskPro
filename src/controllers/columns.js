@@ -9,21 +9,24 @@ import {
   updateColumnService,
 } from '../services/columns.js';
 import {
-  deleteBoardByColumnIdService,
-  updateBoardByColumnIdService,
+  deleteColumnInBoardService,
+  updateColumnInBoardService,
 } from '../services/boards.js';
 
 const columnsController = {
   // Отримати всі колонки для дошки
   async getAllColumns(req, res) {
     const { boardId } = req.params;
-    const id = { _id: boardId };
 
-    const board = await getColumnsService(id);
+    const board = await getColumnsService({
+      _id: boardId,
+      userId: req.user.id,
+    });
 
     if (!board) {
       return res.status(404).json({ message: 'Board not found!' });
     }
+
     if (!board.columns) {
       return res.status(404).json({ message: 'Column not found!' });
     }
@@ -43,18 +46,28 @@ const columnsController = {
   async createColumn(req, res) {
     const { boardId } = req.params;
     const { title } = req.body;
-    const body = {
+
+    const board = await getBoardByIdService({
+      _id: boardId,
+      userId: req.user.id,
+    });
+    if (!board) {
+      return res
+        .status(404)
+        .json({ status: 'error', message: 'Board not found.' });
+    }
+
+    const newColumn = await createColumnService({
       title: title,
       boardId: boardId,
       userId: req.user.id,
-    };
+    });
 
-    const newColumn = await createColumnService(body);
     if (!newColumn) {
-      return res.status(404).json({ message: 'Column not found' });
+      return res.status(404).json({ message: 'Error crete column' });
     }
 
-    const newBoard = await updateBoardByColumnIdService(
+    const newBoard = await updateColumnInBoardService(
       { _id: boardId },
       newColumn,
     );
@@ -67,8 +80,22 @@ const columnsController = {
   },
   async getByIdColumn(req, res) {
     const { columnId, boardId } = req.params;
-    const id = { _id: columnId };
-    const column = await getColumnByIdService(id);
+
+    const board = await getBoardByIdService({
+      _id: boardId,
+      userId: req.user.id,
+    });
+    if (!board) {
+      return res
+        .status(404)
+        .json({ status: 'error', message: 'Board not found.' });
+    }
+
+    const column = await getColumnByIdService({
+      _id: columnId,
+      boardId,
+      userId: req.user.id,
+    });
     if (!column) {
       return res.status(404).json({ message: 'Column not found' });
     }
@@ -79,24 +106,35 @@ const columnsController = {
       data: column,
     });
   },
+
   // Оновити колонку в дошці
   async updateColumn(req, res) {
     const { columnId, boardId } = req.params;
     const { title } = req.body;
-    const body = {
-      title: title,
-      boardId: boardId,
+
+    const board = await getBoardByIdService({
+      _id: boardId,
       userId: req.user.id,
-    };
-    const id = { _id: columnId };
-    const updatedColumn = await updateColumnService(id, body);
+    });
+    if (!board) {
+      return res
+        .status(404)
+        .json({ status: 'error', message: 'Board not found.' });
+    }
+
+    const updatedColumn = await updateColumnService(
+      { _id: columnId, boardId, userId: req.user.id },
+      title,
+    );
     if (!updatedColumn) {
       return res.status(404).json({ message: 'Column not found' });
     }
-    const updateBoard = await updateBoardByColumnIdService(
+
+    const updateBoard = await updateColumnInBoardService(
       { _id: boardId },
       updatedColumn,
     );
+
     res.status(200).json({
       status: 'success',
       message: 'Column updated successfully',
@@ -108,11 +146,22 @@ const columnsController = {
   async deleteColumn(req, res) {
     const { boardId, columnId } = req.params;
 
+    const board = await getBoardByIdService({
+      _id: boardId,
+      userId: req.user.id,
+    });
+    if (!board) {
+      return res
+        .status(404)
+        .json({ status: 'error', message: 'Board not found.' });
+    }
+
     const deletedColumn = await deleteColumnService({ _id: columnId });
     if (!deletedColumn) {
       return res.status(404).json({ message: 'Column not found' });
     }
-    const updateBoard = deleteBoardByColumnIdService(
+
+    const updateBoard = deleteColumnInBoardService(
       { _id: boardId },
       deletedColumn,
     );
