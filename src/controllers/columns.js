@@ -1,7 +1,17 @@
 import { ColumnsCollection } from '../db/columns.js';
 import { BoardsCollection } from '../db/boards.js';
 import { serializeColumn } from '../utils/serializeColumn.js';
-import { createColumnService, getColumnsService } from '../services/columns.js';
+import {
+  createColumnService,
+  deleteColumnService,
+  getColumnByIdService,
+  getColumnsService,
+  updateColumnService,
+} from '../services/columns.js';
+import {
+  deleteBoardByColumnIdService,
+  updateBoardByColumnIdService,
+} from '../services/boards.js';
 
 const columnsController = {
   // Отримати всі колонки для дошки
@@ -19,9 +29,9 @@ const columnsController = {
     }
 
     let data = board.columns;
-    // if (board?.columns.length > 1) {
-    //   data = board.columns.map((item) => serializeColumn(item));
-    // }
+    if (board?.columns.length > 1) {
+      data = board.columns.map((item) => serializeColumn(item));
+    }
     res.status(200).json({
       status: 'success',
       message: 'Columns retrieved successfully',
@@ -38,39 +48,55 @@ const columnsController = {
       boardId: boardId,
       userId: req.user.id,
     };
-    // const newColumn = await createColumnService(body);
 
-    const newColumn = new ColumnsCollection({
-      title: title,
-      boardId: boardId,
-      userId: req.user.id,
-    });
-    const savedColumn = await newColumn.save();
-    const id = { _id: boardId };
-    await BoardsCollection.findByIdAndUpdate(id, {
-      $push: { columns: savedColumn },
-    });
+    const newColumn = await createColumnService(body);
+    if (!newColumn) {
+      return res.status(404).json({ message: 'Column not found' });
+    }
+
+    const newBoard = await updateBoardByColumnIdService(
+      { _id: boardId },
+      newColumn,
+    );
 
     res.status(201).json({
       status: 'success',
       message: 'Column created successfully',
-      data: savedColumn,
+      data: newColumn,
     });
   },
+  async getByIdColumn(req, res) {
+    const { columnId, boardId } = req.params;
+    const id = { _id: columnId };
+    const column = await getColumnByIdService(id);
+    if (!column) {
+      return res.status(404).json({ message: 'Column not found' });
+    }
 
+    res.status(200).json({
+      status: 'success',
+      message: 'Column updated successfully',
+      data: column,
+    });
+  },
   // Оновити колонку в дошці
   async updateColumn(req, res) {
-    const { columnId } = req.params;
+    const { columnId, boardId } = req.params;
     const { title } = req.body;
+    const body = {
+      title: title,
+      boardId: boardId,
+      userId: req.user.id,
+    };
     const id = { _id: columnId };
-    const updatedColumn = await ColumnsCollection.findByIdAndUpdate(
-      id,
-      { title },
-      { new: true },
-    );
+    const updatedColumn = await updateColumnService(id, body);
     if (!updatedColumn) {
       return res.status(404).json({ message: 'Column not found' });
     }
+    const updateBoard = await updateBoardByColumnIdService(
+      { _id: boardId },
+      updatedColumn,
+    );
     res.status(200).json({
       status: 'success',
       message: 'Column updated successfully',
@@ -81,19 +107,20 @@ const columnsController = {
   // Видалити колонку з дошки
   async deleteColumn(req, res) {
     const { boardId, columnId } = req.params;
-    const deletedColumn = await ColumnsCollection.findByIdAndDelete(columnId);
+
+    const deletedColumn = await deleteColumnService({ _id: columnId });
     if (!deletedColumn) {
       return res.status(404).json({ message: 'Column not found' });
     }
-
-    await BoardsCollection.findByIdAndUpdate(boardId, {
-      $pull: { columns: deletedColumn._id },
-    });
+    const updateBoard = deleteBoardByColumnIdService(
+      { _id: boardId },
+      deletedColumn,
+    );
 
     res.status(200).json({
       status: 'success',
       message: 'Column deleted successfully',
-      data: deletedColumn,
+      data: updateBoard,
     });
   },
 };

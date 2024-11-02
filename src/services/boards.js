@@ -34,8 +34,20 @@ export const updateBoardByColumnIdService = async (
   payload,
   options = {},
 ) => {
-  const board = await BoardsCollection.findByIdAndUpdate(id, {
+  const column = await BoardsCollection.findByIdAndUpdate(id, {
     $push: { columns: payload },
+  });
+  return column;
+};
+
+export const deleteBoardByColumnIdService = async (
+  id,
+  payload,
+  options = {},
+) => {
+  const { _id } = payload;
+  const board = await BoardsCollection.findByIdAndUpdate(id, {
+    $push: { columns: _id },
   });
   return board;
 };

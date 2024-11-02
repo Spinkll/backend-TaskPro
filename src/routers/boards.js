@@ -21,7 +21,14 @@ boardsRouter.get(
   '/:boardId/columns',
   ctrlWrapper(columnsController.getAllColumns),
 );
-boardsRouter.post('/:boardId/columns', columnsController.createColumn);
+boardsRouter.post(
+  '/:boardId/columns',
+  ctrlWrapper(columnsController.createColumn),
+);
+boardsRouter.get(
+  '/:boardId/columns/:columnId',
+  ctrlWrapper(columnsController.getByIdColumn), //повертає column!!!
+);
 boardsRouter.patch(
   '/:boardId/columns/:columnId',
   ctrlWrapper(columnsController.updateColumn),

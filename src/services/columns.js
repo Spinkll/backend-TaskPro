@@ -12,8 +12,6 @@ export const getColumnByIdService = async (id) => {
 
 export const createColumnService = async (payload) => {
   const newColumn = await ColumnsCollection.create(payload);
-  const { boardId } = payload;
-  await updateBoardByColumnIdService({ _id: boardId }, newColumn);
   return newColumn;
 };
 
@@ -23,8 +21,6 @@ export const updateColumnService = async (id, payload, options = {}) => {
     includeResultMetadata: true,
     ...options,
   });
-  const { boardId } = payload;
-  await updateBoardByColumnIdService({ _id: boardId }, rawResult.value);
   return {
     column: rawResult.value,
     isNew: !rawResult.lastErrorObject.updatedExisting,
@@ -32,5 +28,5 @@ export const updateColumnService = async (id, payload, options = {}) => {
 };
 
 export const deleteColumnService = async (id) => {
-  return await ColumnsCollection.findOneAndDelete(id);
+  return await ColumnsCollection.findByIdAndDelete(id);
 };
