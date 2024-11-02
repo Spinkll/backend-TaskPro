@@ -498,9 +498,7 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "title",
-                  "background",
-                  "icon"
+                  "title"
                 ],
                 "properties": {
                   "title": {

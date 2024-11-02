@@ -12,8 +12,6 @@ requestBody:
         type: object
         required:
           - title
-          - background
-          - icon
         properties:
           title:
             description: "Board's title"
