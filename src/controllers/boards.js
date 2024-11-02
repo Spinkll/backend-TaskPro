@@ -1,16 +1,17 @@
 import { BoardsCollection } from '../db/boards.js';
 import { serializeBoard } from '../utils/serializeBoard.js';
+import { serializeColumn } from '../utils/serializeColumn.js';
 
 const boardsController = {
   async getAllBoards(req, res) {
     const boards = await BoardsCollection.find({
       userId: req.user.id,
     });
-    const data = boards.map((item) => serializeBoard(item));
+
     res.status(200).json({
       status: 'success',
       message: 'Boards retrieved successfully',
-      boards: data,
+      boards: boards,
     });
   },
 
@@ -26,7 +27,7 @@ const boardsController = {
     res.status(201).json({
       status: 'success',
       message: 'Board created successfully',
-      data: serializeBoard(savedBoard),
+      data: savedBoard,
     });
   },
 
@@ -47,7 +48,7 @@ const boardsController = {
     res.status(200).json({
       status: 'success',
       message: 'Board updated successfully',
-      data: serializeBoard(updatedBoard),
+      data: updatedBoard,
     });
   },
 
@@ -66,7 +67,7 @@ const boardsController = {
     res.status(200).json({
       status: 'success',
       message: 'Board deleted successfully',
-      data: serializeBoard(deletedBoard),
+      data: deletedBoard,
     });
   },
 };

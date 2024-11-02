@@ -1,19 +1,29 @@
 import { ColumnsCollection } from '../db/columns.js';
 import { BoardsCollection } from '../db/boards.js';
+import { serializeBoard } from '../utils/serializeBoard.js';
+import { serializeColumn } from '../utils/serializeColumn.js';
+// import { convertToMongoObjId } from '../utils/convertToMongoObjId.js';
 
 const columnsController = {
   // Отримати всі колонки для дошки
   async getAllColumns(req, res) {
     const { boardId } = req.params;
-    const board = await BoardsCollection.findById(boardId).populate('columns');
+    const id = { _id: boardId };
+    const board = await BoardsCollection.findById(id).populate('columns');
     if (!board) {
-      return res.status(404).json({ message: 'Board not found' });
+      return res.status(404).json({ message: 'Board not found!' });
     }
-    const data = boards.columns.map((item) => serializeColumn(item));
+    if (!board.columns) {
+      return res.status(404).json({ message: 'Column not found!' });
+    }
+    let data = board.columns;
+    if (board?.columns.length > 1) {
+      data = board.columns.map((item) => serializeColumn(item));
+    }
     res.status(200).json({
       status: 'success',
       message: 'Columns retrieved successfully',
-      data: data,
+      data: board.columns,
     });
   },
 

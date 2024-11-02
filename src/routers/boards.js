@@ -15,10 +15,22 @@ curRouter.patch('/:boardId', ctrlWrapper(boardsController.updateBoard));
 curRouter.delete('/:boardId', ctrlWrapper(boardsController.deleteBoard));
 
 // Routes для Columns
-curRouter.get('/:boardId/columns', columnsController.getAllColumns);
-curRouter.post('/:boardId/columns', columnsController.createColumn);
-curRouter.patch('/:boardId/columns/:columnId', columnsController.updateColumn);
-curRouter.delete('/:boardId/columns/:columnId', columnsController.deleteColumn);
+curRouter.get(
+  '/:boardId/columns',
+  ctrlWrapper(columnsController.getAllColumns),
+);
+curRouter.post(
+  '/:boardId/columns',
+  ctrlWrapper(columnsController.createColumn),
+);
+curRouter.patch(
+  '/:boardId/columns/:columnId',
+  ctrlWrapper(columnsController.updateColumn),
+);
+curRouter.delete(
+  '/:boardId/columns/:columnId',
+  ctrlWrapper(columnsController.deleteColumn),
+);
 
 // // Routes для Cards
 // curRouter.get('/:boardId/columns/:columnId/cards', cardsController.getAllCards);
