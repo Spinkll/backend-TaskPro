@@ -9,7 +9,7 @@ info:
     API for a notebook application using MongoDB
 tags:
   - name: auth
-    description: Operations with boards.
+    description: Operations with user.
   - name: boards
     description: Operations with boards.
 servers:
@@ -33,7 +33,11 @@ paths:
       $ref: ./swagger/paths/auth/getUser.yaml
     patch:
       $ref: ./swagger/paths/auth/patchUser.yaml
-
+  /:
+    get:
+      $ref: ./swagger/paths/boards/get.yaml
+    post:
+      $ref: ./swagger/paths/boards/post.yaml
 
 components:
   securitySchemes:

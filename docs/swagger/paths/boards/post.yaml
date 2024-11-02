@@ -1,0 +1,49 @@
+tags:
+  - boards
+summary: Create board
+operationId: createBoard
+description: 'Create a board with payload'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - title
+          - background
+          - icon
+        properties:
+          title:
+            description: "Board's title"
+            type: string
+            example: 'Project 1'
+          background:
+            description: "Board's background"
+            type: string
+            example: grey
+          icon:
+            description: /src/images/icons.svg#icon-icon-1-square
+            type: string
+            example: 'Qweas23!'
+
+responses:
+  '201':
+    description: Creates a board
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            data:
+              type: object
+              example:
+                $ref: '../../components/schemas/boards.yaml'
+  '404':
+    description: NotFoundError
+
