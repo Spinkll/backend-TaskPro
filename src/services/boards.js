@@ -1,5 +1,41 @@
-import { boardsModel } from '../db/boards.js';
+import { BoardsCollection } from '../db/boards.js';
 
-export const createBoard = async (payload) => {
-  return await boardsModel.create(payload);
+export const getBoardsService = async (id) => {
+  return await BoardsCollection.find(id);
+};
+
+export const getBoardByIdService = async (id) => {
+  return await BoardsCollection.findOne(id);
+};
+
+export const createBoardService = async (payload) => {
+  return await BoardsCollection.create(payload);
+};
+
+export const updateBoardService = async (id, payload, options = {}) => {
+  const rawResult = await BoardsCollection.findOneAndUpdate(id, payload, {
+    new: true,
+    includeResultMetadata: true,
+    ...options,
+  });
+
+  return {
+    board: rawResult.value,
+    isNew: !rawResult.lastErrorObject.updatedExisting,
+  };
+};
+
+export const deleteBoardService = async (id) => {
+  return await BoardsCollection.findOneAndDelete(id);
+};
+
+export const updateBoardByColumnIdService = async (
+  id,
+  payload,
+  options = {},
+) => {
+  const board = await BoardsCollection.findByIdAndUpdate(id, {
+    $push: { columns: payload },
+  });
+  return board;
 };

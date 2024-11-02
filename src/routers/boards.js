@@ -4,30 +4,29 @@ import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { authentificate } from '../middlewares/authentificate.js';
 import boardsController from '../controllers/boards.js';
 import columnsController from '../controllers/columns.js';
+import cardsController from '../controllers/cards.js';
 
-const curRouter = Router();
+const boardsRouter = Router();
 
-curRouter.use(authentificate);
+boardsRouter.use(authentificate);
 
-curRouter.get('/', ctrlWrapper(boardsController.getAllBoards));
-curRouter.post('/', ctrlWrapper(boardsController.createBoard));
-curRouter.patch('/:boardId', ctrlWrapper(boardsController.updateBoard));
-curRouter.delete('/:boardId', ctrlWrapper(boardsController.deleteBoard));
+boardsRouter.get('/', ctrlWrapper(boardsController.getAllBoards));
+boardsRouter.post('/', ctrlWrapper(boardsController.createBoard));
+boardsRouter.get('/:boardId', ctrlWrapper(boardsController.getBoard));
+boardsRouter.patch('/:boardId', ctrlWrapper(boardsController.updateBoard));
+boardsRouter.delete('/:boardId', ctrlWrapper(boardsController.deleteBoard));
 
 // Routes для Columns
-curRouter.get(
+boardsRouter.get(
   '/:boardId/columns',
   ctrlWrapper(columnsController.getAllColumns),
 );
-curRouter.post(
-  '/:boardId/columns',
-  ctrlWrapper(columnsController.createColumn),
-);
-curRouter.patch(
+boardsRouter.post('/:boardId/columns', columnsController.createColumn);
+boardsRouter.patch(
   '/:boardId/columns/:columnId',
   ctrlWrapper(columnsController.updateColumn),
 );
-curRouter.delete(
+boardsRouter.delete(
   '/:boardId/columns/:columnId',
   ctrlWrapper(columnsController.deleteColumn),
 );
@@ -44,4 +43,4 @@ curRouter.delete(
 //   cardsController.deleteCard,
 // );
 
-export default curRouter;
+export default boardsRouter;

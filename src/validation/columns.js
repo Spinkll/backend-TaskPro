@@ -3,6 +3,7 @@ import { updateCardSchema } from './cards.js';
 
 export const createColumnSchema = Joi.object({
   title: Joi.string().required().min(2).max(20).required(),
+  cards: Joi.array().items(updateCardSchema),
 });
 
 export const updateColumnSchema = Joi.object({
