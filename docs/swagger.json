@@ -20,7 +20,7 @@
   "tags": [
     {
       "name": "auth",
-      "description": "Operations with boards."
+      "description": "Operations with user."
     },
     {
       "name": "boards",
@@ -102,11 +102,8 @@
               }
             }
           },
-          "401": {
-            "description": "Unauthorized."
-          },
-          "404": {
-            "$ref": "#/components/responses/404"
+          "409": {
+            "$ref": "#/components/responses/409"
           }
         }
       }
@@ -171,7 +168,33 @@
                       "example": "Successfully registered a user!"
                     },
                     "data": {
-                      "accessToken": "QgJWR3Nul5Yskifrbwk1tg=="
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "65e4decdd286b30065d54af9"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "John Doe"
+                        },
+                        "photo": {
+                          "type": "string",
+                          "example": "https://res.cloudinary.com/dnfxykh8j/image/upload/v1730411910/wf6g1bi1qvd7spmurqi3.png"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "mail@example.com"
+                        },
+                        "theme": {
+                          "type": "string",
+                          "example": "light"
+                        },
+                        "accessToken": {
+                          "type": "string",
+                          "example": "QgJWR3Nul5Yskifrbwk1tg=="
+                        }
+                      }
                     }
                   }
                 }
@@ -179,7 +202,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized."
+            "$ref": "#/components/responses/401"
           },
           "404": {
             "$ref": "#/components/responses/404"
@@ -266,7 +289,13 @@
                       "example": "Successfully is refreshed!"
                     },
                     "data": {
-                      "accessToken": "gocx91Da6+mfdrgJlCn5qQ=="
+                      "type": "object",
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "gocx91Da6+mfdrgJlCn5qQ=="
+                        }
+                      }
                     }
                   }
                 }
@@ -274,10 +303,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized."
-          },
-          "404": {
-            "$ref": "#/components/responses/404"
+            "$ref": "#/components/responses/401"
           }
         }
       }
@@ -318,10 +344,24 @@
                       "example": "Successfully found user!"
                     },
                     "data": {
-                      "id": "6723826b869a988a57ad865c,",
-                      "name": "Copanda2,",
-                      "photo": "https://res.cloudinary.com/dnfxykh8j/image/upload/v1730388143/xsowbnzqjbr09b1cbvmy.jpg,",
-                      "email": "panda@mail.com"
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "6723826b869a988a57ad865c"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "Copanda2"
+                        },
+                        "photo": {
+                          "type": "string",
+                          "example": "https://res.cloudinary.com/dnfxykh8j/image/upload/v1730388143/xsowbnzqjbr09b1cbvmy.jpg"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "panda@mail.com"
+                        }
+                      }
                     }
                   }
                 }
@@ -424,6 +464,126 @@
           }
         }
       }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "boards"
+        ],
+        "summary": "Get boards",
+        "operationId": "GetBoards",
+        "description": "Get a boards data.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": null
+      },
+      "post": {
+        "tags": [
+          "boards"
+        ],
+        "summary": "Create board",
+        "operationId": "createBoard",
+        "description": "Create a board with payload",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title"
+                ],
+                "properties": {
+                  "title": {
+                    "description": "Board's title",
+                    "type": "string",
+                    "example": "Project 1"
+                  },
+                  "background": {
+                    "description": "Board's background",
+                    "type": "string",
+                    "example": "grey"
+                  },
+                  "icon": {
+                    "description": "/src/images/icons.svg#icon-icon-1-square",
+                    "type": "string",
+                    "example": "Qweas23!"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Creates a board",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "description": "board id",
+                            "type": "string",
+                            "example": "65e4decdd286b30065d54af9"
+                          },
+                          "title": {
+                            "description": "Board's title",
+                            "type": "string",
+                            "example": "Project 1"
+                          },
+                          "background": {
+                            "description": "Board's background",
+                            "type": "string",
+                            "default": "grey",
+                            "example": "grey"
+                          },
+                          "icon": {
+                            "description": "Board's icon",
+                            "type": "string",
+                            "default": "/src/images/icons.svg#icon-icon-1-square",
+                            "example": "/src/images/icons.svg#icon-icon-1-square"
+                          },
+                          "createdAt": {
+                            "description": "date of create",
+                            "type": "string",
+                            "example": "2024-10-12T05:46:48.395Z"
+                          },
+                          "updatedAt": {
+                            "description": "date of last update",
+                            "type": "string",
+                            "example": "2024-10-12T05:47:41.792Z"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFoundError"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -483,6 +643,39 @@
       }
     },
     "responses": {
+      "401": {
+        "description": "UnauthorizedError",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "UnauthorizedError"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid password"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "404": {
         "description": "Not found",
         "content": {
@@ -500,7 +693,44 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "Not found"
+                  "example": "User not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "409": {
+        "description": "Email in use",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 409
+                },
+                "message": {
+                  "type": "string",
+                  "example": "ConflictError"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 409
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Email in use"
+                    }
+                  }
                 }
               }
             }
