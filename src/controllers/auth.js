@@ -83,11 +83,11 @@ export const patchUserByIdController = async (req, res) => {
         }
     }
 
-    const patchedContact = await patchUsertById(req.cookies.sessionId, req.cookies.sessionToken, {...body, photo: photoUrl});
+    const patchedUser = await patchUsertById(req.cookies.sessionId, req.cookies.sessionToken, {...body, photo: photoUrl});
 
     res.status(200).json({
         status: 200,
 	    message: "Successfully patched a user!",
-	    data: patchedContact,
+	    data: patchedUser,
     });
 };
