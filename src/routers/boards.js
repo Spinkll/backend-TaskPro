@@ -47,12 +47,17 @@ boardsRouter.post(
   '/:boardId/columns/:columnId/cards',
   cardsController.createCard,
 );
+boardsRouter.get(
+  '/:boardId/columns/:columnId/cards/:cardId',
+  cardsController.getByIdCard,
+);
+//повертає card!!!
 boardsRouter.patch(
-  '/:boardId/columns/:columnId/cards/:idCard',
+  '/:boardId/columns/:columnId/cards/:cardId',
   cardsController.updateCard,
 );
 boardsRouter.delete(
-  '/:boardId/columns/:columnId/cards/:idCard',
+  '/:boardId/columns/:columnId/cards/:cardId',
   cardsController.deleteCard,
 );
 

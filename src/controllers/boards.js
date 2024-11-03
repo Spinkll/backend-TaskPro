@@ -8,6 +8,7 @@ import {
 } from '../services/boards.js';
 import { serializeBoard } from '../utils/serializeBoard.js';
 import { serializeColumn } from '../utils/serializeColumn.js';
+import { serializeCard } from '../utils/serializeCard.js';
 
 const boardsController = {
   async getAllBoards(req, res) {
@@ -18,19 +19,22 @@ const boardsController = {
         .status(404)
         .json({ status: 'error', message: 'Boards not found' });
     }
+
     let data = boards;
-    if (boards?.length > 1) {
+    if (boards?.length >= 1) {
       data = boards.map((board) => {
-        let item = board;
-        if (board.columns?.length > 1) {
-          board.columns = board.columns.map((column) =>
-            serializeColumn(column),
-          );
-          item = board;
+        if (board.columns?.length >= 1) {
+          board.columns = board.columns.map((column) => {
+            if (column.cards?.length >= 1) {
+              column.cards = column.cards.map((card) => serializeCard(card));
+            }
+            return serializeColumn(column);
+          });
         }
-        return serializeBoard(item);
+        return serializeBoard(board);
       });
     }
+
     res.status(200).json({
       status: 'success',
       message: 'Boards retrieved successfully',
@@ -55,7 +59,7 @@ const boardsController = {
     });
   },
 
-  async getBoard(req, res) {
+  async getByIdBoard(req, res) {
     const { boardId } = req.params;
     const id = { _id: boardId, userId: req.user.id };
     const board = await getBoardByIdService(id);
@@ -76,8 +80,8 @@ const boardsController = {
     const { boardId } = req.params;
     const updateData = req.body;
     const id = { _id: boardId, userId: req.user.id };
-    const updatedBoard = await updateBoardService(id, updateData);
 
+    const updatedBoard = await updateBoardService(id, updateData);
     if (!updatedBoard) {
       return res
         .status(404)
@@ -95,13 +99,12 @@ const boardsController = {
     const { boardId } = req.params;
     const id = { _id: boardId, userId: req.user.id };
     const deletedBoard = await deleteBoardService(id);
-
     if (!deletedBoard) {
       return res
         .status(404)
         .json({ status: 'error', message: 'Board not found' });
     }
-    res.status(204).res();
+    res.status(204).send();
     // res.status(204).json({
     //   status: 'success',
     //   message: 'Board deleted successfully',

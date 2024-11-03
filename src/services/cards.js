@@ -1,20 +1,20 @@
-import { CardsCollection } from '../db/cards.js';
-import { ColumnsCollection } from '../db/columns.js';
+import { Card } from '../db/Card.js';
+import { Column } from '../db/Column.js';
 
 export const getCardsService = async (id) => {
-  return await ColumnsCollection.findOne(id).populate('cards');
+  return await Card.find(id);
 };
 
 export const getCardByIdService = async (id) => {
-  return await CardsCollection.findOne(id);
+  return await Card.findOne(id);
 };
 
 export const createCardService = async (payload) => {
-  return await CardsCollection.create(payload);
+  return await Card.create(payload);
 };
 
 export const updateCardService = async (id, payload, options = {}) => {
-  const rawResult = await CardsCollection.findOneAndUpdate(id, payload, {
+  const rawResult = await Card.findOneAndUpdate(id, payload, {
     new: true,
     includeResultMetadata: true,
     ...options,
@@ -26,5 +26,5 @@ export const updateCardService = async (id, payload, options = {}) => {
 };
 
 export const deleteCardService = async (id) => {
-  return await CardsCollection.findByIdAndDelete(id);
+  return await Card.findByIdAndDelete(id);
 };

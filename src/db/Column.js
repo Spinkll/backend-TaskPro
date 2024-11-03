@@ -1,12 +1,12 @@
 import { model, Schema } from 'mongoose';
-import { BG_VARS, ICON_VARS } from '../constants/index.js';
+import { cardSchema } from './Card.js';
 
-const columnSchema = new Schema(
+export const columnSchema = new Schema(
   {
     title: { type: String, required: true },
     userId: { type: Schema.Types.ObjectId, ref: 'users' },
     boardId: { type: Schema.Types.ObjectId, ref: 'boards' },
-    cards: { type: Object },
+    cards: [cardSchema],
   },
   {
     timestamps: true,
@@ -14,4 +14,4 @@ const columnSchema = new Schema(
   },
 );
 
-export const ColumnsCollection = model('columns', columnSchema);
+export const Column = model('columns', columnSchema);

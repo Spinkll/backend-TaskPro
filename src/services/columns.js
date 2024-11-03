@@ -1,44 +1,66 @@
-import { BoardsCollection } from '../db/boards.js';
-import { ColumnsCollection } from '../db/columns.js';
+import { Column } from '../db/Column.js';
 
 export const getColumnsService = async (id) => {
-  return await BoardsCollection.findOne(id).populate('columns');
+  return await Column.find(id);
 };
 
 export const getColumnByIdService = async (id) => {
-  return await ColumnsCollection.findOne(id);
+  return await Column.findOne(id);
 };
 
 export const createColumnService = async (payload) => {
-  const newColumn = await ColumnsCollection.create(payload);
-  return newColumn;
+  return await Column.create(payload);
 };
 
 export const updateColumnService = async (id, payload, options = {}) => {
-  const rawResult = await ColumnsCollection.findOneAndUpdate(id, payload, {
+  const rawResult = await Column.findOneAndUpdate(id, payload, {
     new: true,
     includeResultMetadata: true,
     ...options,
   });
-
-  return {
-    column: rawResult.value,
-    isNew: !rawResult.lastErrorObject.updatedExisting,
-  };
+  return rawResult.value;
+  // {
+  //   column: rawResult.value,
+  //   isNew: !rawResult.lastErrorObject.updatedExisting,
+  // };
 };
 
 export const deleteColumnService = async (id) => {
-  return await ColumnsCollection.findByIdAndDelete(id);
+  return await Column.findByIdAndDelete(id);
 };
 
 export const updateCardInColumnsService = async (id, payload, options = {}) => {
-  return await ColumnsCollection.findByIdAndUpdate(id, {
-    $push: { columns: payload },
-  });
+  const { columnId, boardId, _id: cardId } = payload;
+  const cardIdObj = convertToMongoObjId(cardId);
+  const columnIdObj = convertToMongoObjId(columnId);
+  return await Column.findByIdAndUpdate(
+    {
+      _id: columnIdObj,
+      'cards._id': cardIdObj,
+    },
+    {
+      $set: {
+        'cards.$.title': payload.title,
+        'cards.$.description': payload.description,
+        '.cards.$.priority': payload.priority,
+        '.cards.$.date': payload.date,
+        '.cards.$.columnId': payload.columnId,
+      }, // Оновлює всю колонку даними в `payload`
+    },
+    {
+      new: true,
+    },
+  );
 };
 
 export const deleteCardInColumnsService = async (id, payload, options = {}) => {
-  return await ColumnsCollection.findByIdAndUpdate(id, {
-    $pull: { columns: payload._id },
+  return await Column.findByIdAndUpdate(id, {
+    $pull: { cards: payload._id },
+  });
+};
+
+export const addsCardInColumnsService = async (id, payload, options = {}) => {
+  return await Column.findByIdAndUpdate(id, {
+    $push: { cards: payload },
   });
 };

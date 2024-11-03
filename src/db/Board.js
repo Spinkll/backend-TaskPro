@@ -1,6 +1,8 @@
 import { model, Schema } from 'mongoose';
 import { BG_VARS, ICON_VARS } from '../constants/index.js';
-const boardsSchema = new Schema(
+import { columnSchema } from './Column.js';
+
+const boardSchema = new Schema(
   {
     title: { type: String, required: true },
     background: {
@@ -42,7 +44,7 @@ const boardsSchema = new Schema(
       required: true,
     },
     userId: { type: Schema.Types.ObjectId, ref: 'users' },
-    columns: { type: Object },
+    columns: [columnSchema],
   },
   {
     timestamps: true,
@@ -50,4 +52,4 @@ const boardsSchema = new Schema(
   },
 );
 
-export const BoardsCollection = model('boards', boardsSchema);
+export const Board = model('boards', boardSchema);

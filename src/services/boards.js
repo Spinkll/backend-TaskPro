@@ -1,19 +1,20 @@
-import { BoardsCollection } from '../db/boards.js';
+import { Board } from '../db/Board.js';
+import { convertToMongoObjId } from '../utils/convertToMongoObjId.js';
 
 export const getBoardsService = async (id) => {
-  return await BoardsCollection.find(id);
+  return await Board.find(id);
 };
 
 export const getBoardByIdService = async (id) => {
-  return await BoardsCollection.findOne(id);
+  return await Board.findOne(id);
 };
 
 export const createBoardService = async (payload) => {
-  return await BoardsCollection.create(payload);
+  return await Board.create(payload);
 };
 
 export const updateBoardService = async (id, payload, options = {}) => {
-  const rawResult = await BoardsCollection.findOneAndUpdate(id, payload, {
+  const rawResult = await Board.findOneAndUpdate(id, payload, {
     new: true,
     includeResultMetadata: true,
     ...options,
@@ -26,41 +27,52 @@ export const updateBoardService = async (id, payload, options = {}) => {
 };
 
 export const deleteBoardService = async (id) => {
-  return await BoardsCollection.findOneAndDelete(id);
+  return await Board.findOneAndDelete(id);
 };
 
-export const updateColumnInBoardService = async (id, payload, options = {}) => {
-  const column = await BoardsCollection.findByIdAndUpdate(id, {
-    $push: { columns: payload },
-  });
-  return column;
-};
-
-export const deleteColumnInBoardService = async (id, payload, options = {}) => {
-  const { _id } = payload;
-  const board = await BoardsCollection.findByIdAndUpdate(id, {
-    $pull: { columns: _id },
-  });
+export const addColumnInBoardService = async (id, payload, options = {}) => {
+  const board = await Board.findOneAndUpdate(
+    id,
+    { $push: { columns: payload } },
+    { new: true },
+  );
   return board;
 };
 
-export const updateCardInBoardService = async (id, payload, options = {}) => {
-  const { boardId, columnId, cardId, userId } = id;
-  const updateData = payload;
-  const board = await BoardsCollection.findByIdAndUpdate(
+export const deleteColumnInBoardService = async (id, payload, options = {}) => {
+  const board = await Board.findOneAndUpdate(
+    id,
+    { $pull: { columns: { _id: payload._id } } },
+    { new: true },
+  );
+  return board;
+};
+
+export const updateColumnInBoardService = async (id, payload, options = {}) => {
+  const { _id: columnId, boardId } = payload;
+  const boardIdObj = convertToMongoObjId(boardId);
+  const board = await Board.findOneAndUpdate(
     {
-      userId: userId,
-      _id: boardId,
+      _id: boardIdObj,
       'columns._id': columnId,
-      'columns.cards._id': cardId,
     },
     {
-      $set: {
-        'columns.$[column].cards.$[card]': { ...updateData },
-      },
+      $set: { 'columns.$.title': payload.title }, // Оновлює всю колонку даними в `payload`
     },
     {
-      arrayFilters: [{ 'column._id': columnId }, { 'card._id': cardId }],
+      new: true,
+    },
+  );
+  return board;
+};
+
+export const addsCardInBoardService = async (id, payload, options = {}) => {
+  const { columnId, boardId } = payload;
+  const boardIdObj = convertToMongoObjId(boardId);
+  const board = await Board.findOneAndUpdate(
+    { _id: boardIdObj, 'columns._id': columnId },
+    { $push: { 'columns.$.cards': payload } }, // додаємо картку до конкретної колонки
+    {
       new: true,
     },
   );
@@ -68,23 +80,41 @@ export const updateCardInBoardService = async (id, payload, options = {}) => {
 };
 
 export const deleteCardInBoardService = async (id, payload, options = {}) => {
-  const { boardId, columnId, cardId, userId } = id;
-  const updateData = payload;
-  const board = await BoardsCollection.findByIdAndUpdate(
+  const { columnId, boardId } = payload;
+  const boardIdObj = convertToMongoObjId(boardId);
+  const board = await Board.findOneAndUpdate(
+    { _id: boardIdObj, 'columns._id': columnId },
+    { $pull: { 'columns.$.cards': { _id: payload._id } } }, // видаляемо картку з конкретної колонки
+    { new: true },
+  );
+  return board;
+};
+
+export const updateCardInBoardService = async (id, payload, options = {}) => {
+  const { columnId, boardId, _id: cardId } = id;
+  const cardIdObj = convertToMongoObjId(cardId);
+  const columnIdObj = convertToMongoObjId(columnId);
+  const boardIdObj = convertToMongoObjId(boardId);
+
+  console.log('payload', payload);
+  const board = await Board.findOneAndUpdate(
     {
-      userId: userId,
-      _id: boardId,
-      'columns._id': columnId,
-      'columns.cards._id': cardId,
+      _id: boardIdObj,
+      'columns._id': columnIdObj,
+      'columns.cards._id': cardIdObj,
     },
     {
-      $pull: {
-        'columns.$[column].cards.$[card]': { ...updateData },
+      $set: {
+        'columns.$[column].cards.$[card].title': payload.title,
+        'columns.$[column].cards.$[card].description': payload.description,
+        'columns.$[column].cards.$[card].priority': payload.priority,
+        'columns.$[column].cards.$[card].date': payload.date,
+        'columns.$[column].cards.$[card].columnId': payload.columnId,
       },
     },
     {
-      arrayFilters: [{ 'column._id': columnId }, { 'card._id': cardId }],
       new: true,
+      arrayFilters: [{ 'column._id': columnIdObj }, { 'card._id': cardIdObj }],
     },
   );
   return board;

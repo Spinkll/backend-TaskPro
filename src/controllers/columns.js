@@ -1,6 +1,6 @@
-import { ColumnsCollection } from '../db/columns.js';
-import { BoardsCollection } from '../db/boards.js';
+import { serializeCard } from '../utils/serializeCard.js';
 import { serializeColumn } from '../utils/serializeColumn.js';
+
 import {
   createColumnService,
   deleteColumnService,
@@ -9,7 +9,9 @@ import {
   updateColumnService,
 } from '../services/columns.js';
 import {
+  addColumnInBoardService,
   deleteColumnInBoardService,
+  getBoardByIdService,
   updateColumnInBoardService,
 } from '../services/boards.js';
 
@@ -18,22 +20,32 @@ const columnsController = {
   async getAllColumns(req, res) {
     const { boardId } = req.params;
 
-    const board = await getColumnsService({
+    const board = await getBoardByIdService({
       _id: boardId,
       userId: req.user.id,
     });
-
     if (!board) {
-      return res.status(404).json({ message: 'Board not found!' });
+      return res
+        .status(404)
+        .json({ status: 'error', message: 'Board not found' });
     }
 
-    if (!board.columns) {
-      return res.status(404).json({ message: 'Column not found!' });
+    const columns = await getColumnsService({
+      boardId: boardId,
+      userId: req.user.id,
+    });
+    if (!columns) {
+      return res.status(404).json({ message: 'Columns not found!' });
     }
 
-    let data = board.columns;
-    if (board?.columns.length > 1) {
-      data = board.columns.map((item) => serializeColumn(item));
+    let data = columns;
+    if (columns?.length > 1) {
+      data = columns.map((column) => {
+        if (column.cards?.length >= 1) {
+          column.cards = column.cards.map((card) => serializeCard(card));
+        }
+        return serializeColumn(column);
+      });
     }
     res.status(200).json({
       status: 'success',
@@ -62,22 +74,18 @@ const columnsController = {
       boardId: boardId,
       userId: req.user.id,
     });
-
     if (!newColumn) {
       return res.status(404).json({ message: 'Error crete column' });
     }
 
-    const newBoard = await updateColumnInBoardService(
-      { _id: boardId },
-      newColumn,
-    );
-
+    const newBoard = await addColumnInBoardService({ _id: boardId }, newColumn);
     res.status(201).json({
       status: 'success',
       message: 'Column created successfully',
-      data: newColumn,
+      data: serializeColumn(newColumn),
     });
   },
+
   async getByIdColumn(req, res) {
     const { columnId, boardId } = req.params;
 
@@ -103,7 +111,7 @@ const columnsController = {
     res.status(200).json({
       status: 'success',
       message: 'Column updated successfully',
-      data: column,
+      data: serializeColumn(column),
     });
   },
 
@@ -111,7 +119,6 @@ const columnsController = {
   async updateColumn(req, res) {
     const { columnId, boardId } = req.params;
     const { title } = req.body;
-
     const board = await getBoardByIdService({
       _id: boardId,
       userId: req.user.id,
@@ -119,26 +126,30 @@ const columnsController = {
     if (!board) {
       return res
         .status(404)
-        .json({ status: 'error', message: 'Board not found.' });
+        .json({ status: 'error', message: 'Board not found!' });
     }
 
     const updatedColumn = await updateColumnService(
       { _id: columnId, boardId, userId: req.user.id },
-      title,
+      { title: title },
     );
     if (!updatedColumn) {
-      return res.status(404).json({ message: 'Column not found' });
+      return res
+        .status(404)
+        .json({ message: 'Error to update column in Column!' });
     }
 
     const updateBoard = await updateColumnInBoardService(
       { _id: boardId },
       updatedColumn,
     );
-
+    if (!updateBoard) {
+      return res.status(404).json({ message: 'Error to update col in board!' });
+    }
     res.status(200).json({
       status: 'success',
       message: 'Column updated successfully',
-      data: updatedColumn,
+      data: serializeColumn(updatedColumn),
     });
   },
 
@@ -169,7 +180,7 @@ const columnsController = {
     res.status(200).json({
       status: 'success',
       message: 'Column deleted successfully',
-      data: updateBoard,
+      data: serializeColumn(updateBoard),
     });
   },
 };

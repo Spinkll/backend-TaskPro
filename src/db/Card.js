@@ -1,19 +1,19 @@
 import { model, Schema } from 'mongoose';
 
-const cardSchema = new Schema(
+export const cardSchema = new Schema(
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
     priority: {
       type: String,
-      enum: ['Low', 'Medium', 'High', 'Without'],
-      default: 'Without',
+      enum: ['low', 'medium', 'high', 'without'],
+      default: 'without',
       required: true,
     },
     date: { type: String, required: true },
     userId: { type: Schema.Types.ObjectId, ref: 'users' },
-    boardsId: { type: Schema.Types.ObjectId, ref: 'boards' },
-    columnsId: { type: Schema.Types.ObjectId, ref: 'columns' },
+    boardId: { type: Schema.Types.ObjectId, ref: 'boards' },
+    columnId: { type: Schema.Types.ObjectId, ref: 'columns' },
   },
   {
     timestamps: true,
@@ -21,4 +21,4 @@ const cardSchema = new Schema(
   },
 );
 
-export const CardsCollection = model('cards', cardSchema);
+export const Card = model('cards', cardSchema);
