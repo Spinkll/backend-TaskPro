@@ -110,9 +110,9 @@ export const patchUsertById = async (sessionId, sessionToken, pachedData) => {
     const currentUser = await getUser(sessionId, sessionToken);
     let photo;
 
-    if(currentUser.photo === 'https://res.cloudinary.com/dnfxykh8j/image/upload/v1730412720/rpio4hnhbkhnahdjn9vu.png' ||
-        currentUser.photo === 'https://res.cloudinary.com/dnfxykh8j/image/upload/v1730411910/wf6g1bi1qvd7spmurqi3.png' ||
-        currentUser.photo === 'https://res.cloudinary.com/dnfxykh8j/image/upload/v1730412681/qzc14xzmletl7ohj16vl.png') {
+    if(currentUser.photo === 'https://res.cloudinary.com/dnfxykh8j/image/upload/v1730412720/rpio4hnhbkhnahdjn9vu.png' && !pachedData.photo ||
+        currentUser.photo === 'https://res.cloudinary.com/dnfxykh8j/image/upload/v1730411910/wf6g1bi1qvd7spmurqi3.png' && !pachedData.photo  ||
+        currentUser.photo === 'https://res.cloudinary.com/dnfxykh8j/image/upload/v1730412681/qzc14xzmletl7ohj16vl.png' && !pachedData.photo ) {
      if(pachedData.theme === 'dark') {
          photo = 'https://res.cloudinary.com/dnfxykh8j/image/upload/v1730412720/rpio4hnhbkhnahdjn9vu.png';
      }

@@ -14,8 +14,18 @@ const PORT = Number(env('PORT', '3000'));
 export const startServer = () => {
   const app = express();
 
+  const allowedOrigin = 'http://localhost:5173';
+
   app.use(express.json());
-  app.use(cors());
+  app.use(cors({
+    origin: allowedOrigin,
+    credentials: true,
+  }));
+
+  app.options('*', cors({
+    origin: allowedOrigin,
+    credentials: true,
+  }));
 
   app.use(cookieParser());
 
