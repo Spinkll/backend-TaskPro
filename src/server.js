@@ -17,25 +17,30 @@ export const startServer = () => {
   const allowedOrigin = 'http://localhost:5173';
 
   app.use(express.json());
-  app.use(cors({
-    origin: allowedOrigin,
-    credentials: true,
-  }));
+  app.use(
+    cors({
+      origin: allowedOrigin,
+      credentials: true,
+    }),
+  );
 
-  app.options('*', cors({
-    origin: allowedOrigin,
-    credentials: true,
-  }));
+  app.options(
+    '*',
+    cors({
+      origin: allowedOrigin,
+      credentials: true,
+    }),
+  );
 
   app.use(cookieParser());
 
-  // app.use(
-  //   pino({
-  //     transport: {
-  //       target: 'pino-pretty',
-  //     },
-  //   }),
-  // );
+  app.use(
+    pino({
+      transport: {
+        target: 'pino-pretty',
+      },
+    }),
+  );
 
   app.get('/', (req, res) => {
     res.json({
