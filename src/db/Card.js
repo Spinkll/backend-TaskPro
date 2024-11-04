@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { PRIORITY_VARS } from '../constants';
+import { PRIORITY_VARS } from '../constants/index.js';
 
 export const cardSchema = new Schema(
   {
@@ -15,7 +15,7 @@ export const cardSchema = new Schema(
       ],
       default: PRIORITY_VARS.WITHOUT,
     },
-    date: { type: String, required: true },
+    date: { type: Date, required: true },
     userId: { type: Schema.Types.ObjectId, ref: 'users' },
     boardId: { type: Schema.Types.ObjectId, ref: 'boards' },
     columnId: { type: Schema.Types.ObjectId, ref: 'columns' },

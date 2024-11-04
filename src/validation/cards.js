@@ -13,7 +13,7 @@ export const createCardSchema = Joi.object({
     )
     .default(PRIORITY_VARS.WITHOUT),
   date: Joi.string(),
-  userId: Joi.string().required(),
+  userId: Joi.date().required(),
 });
 
 export const updateCardSchema = Joi.object({
@@ -27,5 +27,5 @@ export const updateCardSchema = Joi.object({
       PRIORITY_VARS.WITHOUT,
     )
     .default(PRIORITY_VARS.WITHOUT),
-  date: Joi.string(),
+  date: Joi.date(),
 });

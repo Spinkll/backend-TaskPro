@@ -15,7 +15,7 @@ export const createBoardSchema = Joi.object({
       ICON_VARS.ICON_7,
       ICON_VARS.ICON_8,
     )
-    .default('icon-1'),
+    .default(ICON_VARS.ICON_1),
   background: Joi.string()
     .valid(
       BG_VARS.BG_1,
@@ -35,7 +35,7 @@ export const createBoardSchema = Joi.object({
       BG_VARS.BG_15,
       BG_VARS.BG_16,
     )
-    .default('bg-1'),
+    .default(BG_VARS.BG_1),
   columns: Joi.array().items(updateColumnSchema),
 });
 
@@ -52,7 +52,7 @@ export const updateBoardSchema = Joi.object({
       ICON_VARS.ICON_7,
       ICON_VARS.ICON_8,
     )
-    .default('icon-1'),
+    .default(ICON_VARS.ICON_1),
   background: Joi.string()
     .valid(
       BG_VARS.BG_1,
@@ -72,6 +72,6 @@ export const updateBoardSchema = Joi.object({
       BG_VARS.BG_15,
       BG_VARS.BG_16,
     )
-    .default('bg-1'),
+    .default(BG_VARS.BG_1),
   columns: Joi.array().items(updateColumnSchema),
 });

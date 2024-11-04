@@ -43,7 +43,7 @@ const boardSchema = new Schema(
       required: true,
     },
     userId: { type: Schema.Types.ObjectId, ref: 'users' },
-    columns: [{ columnSchema }],
+    columns: [{ type: columnSchema }],
   },
   {
     timestamps: true,
