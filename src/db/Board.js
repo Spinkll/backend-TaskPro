@@ -25,7 +25,7 @@ const boardSchema = new Schema(
         BG_VARS.BG_15,
         BG_VARS.BG_16,
       ],
-      default: ICON_VARS.ICON_1,
+      default: BG_VARS.BG_1,
     },
     icon: {
       type: String,
@@ -43,7 +43,7 @@ const boardSchema = new Schema(
       required: true,
     },
     userId: { type: Schema.Types.ObjectId, ref: 'users' },
-    columns: [columnSchema],
+    columns: [{ columnSchema }],
   },
   {
     timestamps: true,

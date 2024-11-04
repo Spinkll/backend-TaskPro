@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose';
+import { PRIORITY_VARS } from '../constants';
 
 export const cardSchema = new Schema(
   {
@@ -6,8 +7,13 @@ export const cardSchema = new Schema(
     description: { type: String, required: true },
     priority: {
       type: String,
-      enum: ['low', 'medium', 'high', 'without'],
-      default: 'without',
+      enum: [
+        PRIORITY_VARS.LOW,
+        PRIORITY_VARS.MEDIUM,
+        PRIORITY_VARS.HIGH,
+        PRIORITY_VARS.WITHOUT,
+      ],
+      default: PRIORITY_VARS.WITHOUT,
     },
     date: { type: String, required: true },
     userId: { type: Schema.Types.ObjectId, ref: 'users' },

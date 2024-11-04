@@ -6,7 +6,7 @@ export const columnSchema = new Schema(
     title: { type: String, required: true },
     userId: { type: Schema.Types.ObjectId, ref: 'users' },
     boardId: { type: Schema.Types.ObjectId, ref: 'boards' },
-    cards: [cardSchema],
+    cards: [{ cardSchema }],
   },
   {
     timestamps: true,
