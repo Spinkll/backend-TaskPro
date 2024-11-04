@@ -23,6 +23,7 @@ export const PRIORITY_VARS = {
   HIGH: 'high',
   WITHOUT: 'without',
 };
+
 export const BG_VARS = {
   BG_1: 'bg-1',
   BG_2: 'bg-2',
