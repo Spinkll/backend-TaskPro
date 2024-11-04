@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { PRIORITY_VARS } from '../constants';
+import { PRIORITY_VARS } from '../constants/index.js';
 
 export const createCardSchema = Joi.object({
   title: Joi.string().min(2).max(20).required(),
