@@ -26,7 +26,6 @@ const boardSchema = new Schema(
         BG_VARS.BG_16,
       ],
       default: ICON_VARS.ICON_1,
-      required: true,
     },
     icon: {
       type: String,

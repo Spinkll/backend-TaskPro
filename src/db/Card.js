@@ -8,7 +8,6 @@ export const cardSchema = new Schema(
       type: String,
       enum: ['low', 'medium', 'high', 'without'],
       default: 'without',
-      required: true,
     },
     date: { type: String, required: true },
     userId: { type: Schema.Types.ObjectId, ref: 'users' },
