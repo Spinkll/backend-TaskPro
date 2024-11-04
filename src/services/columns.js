@@ -25,7 +25,7 @@ export const deleteColumnService = async (id) => {
   return await Column.findByIdAndDelete(id);
 };
 
-export const updateCardInColumnsService = async (id, payload, options = {}) => {
+export const updateCardInColumnService = async (id, payload, options = {}) => {
   const { columnId, boardId, _id: cardId } = payload;
   const cardIdObj = convertToMongoObjId(cardId);
   const columnIdObj = convertToMongoObjId(columnId);
@@ -52,7 +52,7 @@ export const updateCardInColumnsService = async (id, payload, options = {}) => {
   return column.value;
 };
 
-export const deleteCardInColumnsService = async (id, payload, options = {}) => {
+export const deleteCardInColumnService = async (id, payload, options = {}) => {
   const column = await Column.findByIdAndUpdate(
     id,
     {
@@ -67,7 +67,7 @@ export const deleteCardInColumnsService = async (id, payload, options = {}) => {
   return column.value;
 };
 
-export const addsCardInColumnsService = async (id, payload, options = {}) => {
+export const addsCardInColumnService = async (id, payload, options = {}) => {
   const column = await Column.findByIdAndUpdate(
     id,
     {

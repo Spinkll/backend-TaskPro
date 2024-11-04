@@ -9,8 +9,10 @@ import {
 } from '../services/boards.js';
 
 import {
+  addsCardInColumnService,
+  deleteCardInColumnService,
   getColumnByIdService,
-  updateCardInColumnsService,
+  updateCardInColumnService,
 } from '../services/columns.js';
 
 import {
@@ -92,9 +94,15 @@ const createCard = async (req, res, next) => {
     return;
   }
 
+  const updateColumn = addsCardInColumnService(columnId, newCard);
+  if (!updateColumn) {
+    next(createHttpError(404, 'Error add Card to Column.'));
+    return;
+  }
+
   const updateBoard = addsCardInBoardService(boardId, newCard);
   if (!updateBoard) {
-    next(createHttpError(404, 'Error add card to board.'));
+    next(createHttpError(404, 'Error add Card to Board.'));
     return;
   }
 
@@ -145,22 +153,16 @@ const updateCard = async (req, res, next) => {
   const { boardId, columnId, cardId } = req.params;
   const updateData = req.body;
   const id = { _id: cardId, columnId, boardId, userId: req.user.id };
+
   const currentCard = await getCardByIdService(id);
   if (!currentCard) {
     next(createHttpError(404, 'Card not found.'));
     return;
   }
 
-  const updateColumn = await updateCardInColumnsService(
-    {
-      userId: req.user.id,
-      boardId,
-      _id: columnId,
-    },
-    currentCard,
-  );
+  const updateColumn = await updateCardInColumnService(id, updateData);
   if (!updateColumn) {
-    next(createHttpError(404, 'Column not found.'));
+    next(createHttpError(404, 'Error update Card in Column'));
     return;
   }
 
@@ -179,6 +181,7 @@ const updateCard = async (req, res, next) => {
 
 const deleteCard = async (req, res) => {
   const { boardId, columnId, cardId } = req.params;
+
   const board = await getBoardByIdService({
     _id: boardId,
     userId: req.user.id,
@@ -209,7 +212,7 @@ const deleteCard = async (req, res) => {
     return;
   }
 
-  const updateColumn = await deleteCardInColumnsService(
+  const updateColumn = await deleteCardInColumnService(
     {
       _id: columnId,
       boardId,
@@ -227,7 +230,7 @@ const deleteCard = async (req, res) => {
     currentCard,
   );
   if (!updateBoard) {
-    next(createHttpError(404, 'Board not found.'));
+    next(createHttpError(404, 'Error update Card in Board'));
     return;
   }
 
