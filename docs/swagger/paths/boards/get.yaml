@@ -78,4 +78,4 @@ responses:
               example:
                 $ref: '../../components/schemas/Board.yaml'
   '404':
-    description: NotFoundError
+    $ref: '../../components/responses/404.yaml'
