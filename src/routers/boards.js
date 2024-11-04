@@ -6,13 +6,24 @@ import { isValidIds } from '../validation/isValidIds.js';
 import boardsController from '../controllers/boards.js';
 import columnsController from '../controllers/columns.js';
 import cardsController from '../controllers/cards.js';
+import { createBoardSchema, updateBoardSchema } from '../validation/boards.js';
+import {
+  createColumnSchema,
+  updateColumnSchema,
+} from '../validation/columns.js';
+import { createCardSchema, updateCardSchema } from '../validation/cards.js';
 
 const boardsRouter = Router();
 
 boardsRouter.use(authenticate);
 
 boardsRouter.get('/', ctrlWrapper(boardsController.getAllBoards));
-boardsRouter.post('/', ctrlWrapper(boardsController.createBoard));
+boardsRouter.post(
+  '/',
+  validateBody(createBoardSchema),
+  ctrlWrapper(boardsController.createBoard),
+);
+
 boardsRouter.get(
   '/:boardId',
   isValidIds('boardId'),
@@ -21,6 +32,7 @@ boardsRouter.get(
 boardsRouter.patch(
   '/:boardId',
   isValidIds('boardId'),
+  validateBody(updateBoardSchema),
   ctrlWrapper(boardsController.updateBoard),
 );
 boardsRouter.delete(
@@ -38,6 +50,7 @@ boardsRouter.get(
 boardsRouter.post(
   '/:boardId/columns',
   isValidIds('boardId'),
+  validateBody(createColumnSchema),
   ctrlWrapper(columnsController.createColumn),
 );
 boardsRouter.get(
@@ -48,6 +61,7 @@ boardsRouter.get(
 boardsRouter.patch(
   '/:boardId/columns/:columnId',
   isValidIds('boardId', 'columnId'),
+  validateBody(updateColumnSchema),
   ctrlWrapper(columnsController.updateColumn),
 );
 boardsRouter.delete(
@@ -65,6 +79,7 @@ boardsRouter.get(
 boardsRouter.post(
   '/:boardId/columns/:columnId/cards',
   isValidIds('boardId', 'columnId'),
+  validateBody(createCardSchema),
   ctrlWrapper(cardsController.createCard),
 );
 boardsRouter.get(
@@ -76,6 +91,7 @@ boardsRouter.get(
 boardsRouter.patch(
   '/:boardId/columns/:columnId/cards/:cardId',
   isValidIds('boardId', 'columnId', 'cardId'),
+  validateBody(updateCardSchema),
   ctrlWrapper(cardsController.updateCard),
 );
 boardsRouter.delete(
