@@ -465,7 +465,7 @@
         }
       }
     },
-    "/": {
+    "/boards": {
       "get": {
         "tags": [
           "boards"
@@ -478,7 +478,147 @@
             "bearerAuth": []
           }
         ],
-        "requestBody": null
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title"
+                ],
+                "properties": {
+                  "title": {
+                    "description": "Board title",
+                    "type": "string",
+                    "example": "Project 1"
+                  },
+                  "background": {
+                    "description": "Board background",
+                    "type": "string",
+                    "enum": [
+                      "bg-1",
+                      "bg-2",
+                      "bg-3",
+                      "bg-4",
+                      "bg-5",
+                      "bg-6",
+                      "bg-7",
+                      "bg-8",
+                      "bg-9",
+                      "bg-10",
+                      "bg-11",
+                      "bg-12",
+                      "bg-12",
+                      "bg-14",
+                      "bg-15",
+                      "bg-16"
+                    ],
+                    "example": "bg-2"
+                  },
+                  "icon": {
+                    "description": "Board icon",
+                    "type": "string",
+                    "enum": [
+                      "icon-1",
+                      "icon-2",
+                      "icon-3",
+                      "icon-4",
+                      "icon-5",
+                      "icon-6",
+                      "icon-7",
+                      "icon-8"
+                    ],
+                    "example": "icon-3"
+                  },
+                  "columns": {
+                    "description": "Board array of column",
+                    "type": "array",
+                    "example": []
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Get board's list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "type": "object",
+                        "required": [
+                          "title",
+                          "background",
+                          "icon"
+                        ],
+                        "properties": {
+                          "_id": {
+                            "description": "board id",
+                            "type": "string",
+                            "example": "65e4decdd286b30065d54af9"
+                          },
+                          "title": {
+                            "description": "Board's title",
+                            "type": "string",
+                            "example": "Create MagazinePro"
+                          },
+                          "background": {
+                            "description": "Board's background",
+                            "type": "string",
+                            "default": "bg-1",
+                            "example": "bg-1"
+                          },
+                          "icon": {
+                            "description": "Board's icon",
+                            "type": "string",
+                            "default": "icon-1",
+                            "example": "icon-1"
+                          },
+                          "columns": {
+                            "description": "List column Board",
+                            "type": "string",
+                            "default": [
+                              {
+                                "title": "Material",
+                                "boardId": "67280e953bdc839326b08e13",
+                                "cards": [
+                                  {
+                                    "title": "Task #1",
+                                    "description": "Task #1- create list todo",
+                                    "priority": "without",
+                                    "date": "02-11-2024",
+                                    "boardId": "67280e953bdc839326b08e13",
+                                    "columnId": "67280f183bdc839326b08e41",
+                                    "_id": "67280f7a3bdc839326b08e5b"
+                                  }
+                                ],
+                                "_id": "67280f063bdc839326b08e2d"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFoundError"
+          }
+        }
       },
       "post": {
         "tags": [
@@ -538,6 +678,11 @@
                       "type": "object",
                       "example": {
                         "type": "object",
+                        "required": [
+                          "title",
+                          "background",
+                          "icon"
+                        ],
                         "properties": {
                           "_id": {
                             "description": "board id",
@@ -547,29 +692,41 @@
                           "title": {
                             "description": "Board's title",
                             "type": "string",
-                            "example": "Project 1"
+                            "example": "Create MagazinePro"
                           },
                           "background": {
                             "description": "Board's background",
                             "type": "string",
-                            "default": "grey",
-                            "example": "grey"
+                            "default": "bg-1",
+                            "example": "bg-1"
                           },
                           "icon": {
                             "description": "Board's icon",
                             "type": "string",
-                            "default": "/src/images/icons.svg#icon-icon-1-square",
-                            "example": "/src/images/icons.svg#icon-icon-1-square"
+                            "default": "icon-1",
+                            "example": "icon-1"
                           },
-                          "createdAt": {
-                            "description": "date of create",
+                          "columns": {
+                            "description": "List column Board",
                             "type": "string",
-                            "example": "2024-10-12T05:46:48.395Z"
-                          },
-                          "updatedAt": {
-                            "description": "date of last update",
-                            "type": "string",
-                            "example": "2024-10-12T05:47:41.792Z"
+                            "default": [
+                              {
+                                "title": "Material",
+                                "boardId": "67280e953bdc839326b08e13",
+                                "cards": [
+                                  {
+                                    "title": "Task #1",
+                                    "description": "Task #1- create list todo",
+                                    "priority": "without",
+                                    "date": "02-11-2024",
+                                    "boardId": "67280e953bdc839326b08e13",
+                                    "columnId": "67280f183bdc839326b08e41",
+                                    "_id": "67280f7a3bdc839326b08e5b"
+                                  }
+                                ],
+                                "_id": "67280f063bdc839326b08e2d"
+                              }
+                            ]
                           }
                         }
                       }
@@ -581,6 +738,211 @@
           },
           "404": {
             "description": "NotFoundError"
+          }
+        }
+      }
+    },
+    "/boards/:boardId": {
+      "get": {
+        "tags": [
+          "boards"
+        ],
+        "summary": "Get board",
+        "operationId": "GetBoard",
+        "description": "Get a board data.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get board",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found board!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/Board"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "boards"
+        ],
+        "summary": "Update Board",
+        "operationId": "UpdateBoard",
+        "description": "Update a board data.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "boardId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "6727ba623af6846ad7c7abe6"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "description": "Board title",
+                    "type": "string",
+                    "example": "Eddy Canter Din"
+                  },
+                  "icon": {
+                    "description": "Board icon",
+                    "type": "string",
+                    "example": "icon-1"
+                  },
+                  "background": {
+                    "description": "Board background",
+                    "type": "string",
+                    "example": "bg-1"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Patch Board by id and body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully updated a Board!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/Board"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "boards"
+        ],
+        "summary": "Delete board",
+        "operationId": "DeleteBoard",
+        "description": "Delete a board data.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "delete board",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Board deleted successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/Board"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
           }
         }
       }
@@ -638,6 +1000,60 @@
             "description": "date of last update",
             "type": "string",
             "example": "2024-10-12T05:47:41.792Z"
+          }
+        }
+      },
+      "Board": {
+        "type": "object",
+        "required": [
+          "title",
+          "background",
+          "icon"
+        ],
+        "properties": {
+          "_id": {
+            "description": "board id",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "title": {
+            "description": "Board's title",
+            "type": "string",
+            "example": "Create MagazinePro"
+          },
+          "background": {
+            "description": "Board's background",
+            "type": "string",
+            "default": "bg-1",
+            "example": "bg-1"
+          },
+          "icon": {
+            "description": "Board's icon",
+            "type": "string",
+            "default": "icon-1",
+            "example": "icon-1"
+          },
+          "columns": {
+            "description": "List column Board",
+            "type": "string",
+            "default": [
+              {
+                "title": "Material",
+                "boardId": "67280e953bdc839326b08e13",
+                "cards": [
+                  {
+                    "title": "Task #1",
+                    "description": "Task #1- create list todo",
+                    "priority": "without",
+                    "date": "02-11-2024",
+                    "boardId": "67280e953bdc839326b08e13",
+                    "columnId": "67280f183bdc839326b08e41",
+                    "_id": "67280f7a3bdc839326b08e5b"
+                  }
+                ],
+                "_id": "67280f063bdc839326b08e2d"
+              }
+            ]
           }
         }
       }

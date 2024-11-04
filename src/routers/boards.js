@@ -1,18 +1,18 @@
 import { Router } from 'express';
 import { validateBody } from '../middlewares/validateBody.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
-import { authentificate } from '../middlewares/authentificate.js';
+import { authenticate } from '../middlewares/authenticate.js';
 import boardsController from '../controllers/boards.js';
 import columnsController from '../controllers/columns.js';
 import cardsController from '../controllers/cards.js';
 
 const boardsRouter = Router();
 
-boardsRouter.use(authentificate);
+boardsRouter.use(authenticate);
 
 boardsRouter.get('/', ctrlWrapper(boardsController.getAllBoards));
 boardsRouter.post('/', ctrlWrapper(boardsController.createBoard));
-boardsRouter.get('/:boardId', ctrlWrapper(boardsController.getBoard));
+boardsRouter.get('/:boardId', ctrlWrapper(boardsController.getByIdBoard));
 boardsRouter.patch('/:boardId', ctrlWrapper(boardsController.updateBoard));
 boardsRouter.delete('/:boardId', ctrlWrapper(boardsController.deleteBoard));
 
@@ -41,24 +41,24 @@ boardsRouter.delete(
 // Routes для Cards
 boardsRouter.get(
   '/:boardId/columns/:columnId/cards',
-  cardsController.getAllCards,
+  ctrlWrapper(cardsController.getAllCards),
 );
 boardsRouter.post(
   '/:boardId/columns/:columnId/cards',
-  cardsController.createCard,
+  ctrlWrapper(cardsController.createCard),
 );
 boardsRouter.get(
   '/:boardId/columns/:columnId/cards/:cardId',
-  cardsController.getByIdCard,
+  ctrlWrapper(cardsController.getByIdCard),
 );
 //повертає card!!!
 boardsRouter.patch(
   '/:boardId/columns/:columnId/cards/:cardId',
-  cardsController.updateCard,
+  ctrlWrapper(cardsController.updateCard),
 );
 boardsRouter.delete(
   '/:boardId/columns/:columnId/cards/:cardId',
-  cardsController.deleteCard,
+  ctrlWrapper(cardsController.deleteCard),
 );
 
 export default boardsRouter;

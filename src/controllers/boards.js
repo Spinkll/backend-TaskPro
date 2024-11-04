@@ -62,8 +62,8 @@ const boardsController = {
   async getByIdBoard(req, res) {
     const { boardId } = req.params;
     const id = { _id: boardId, userId: req.user.id };
-    const board = await getBoardByIdService(id);
 
+    const board = await getBoardByIdService(id);
     if (!board) {
       return res
         .status(404)
@@ -71,7 +71,7 @@ const boardsController = {
     }
     res.status(200).json({
       status: 'success',
-      message: 'Board deleted successfully',
+      message: 'Successfully found board!',
       data: serializeBoard(board),
     });
   },

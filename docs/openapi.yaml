@@ -5,8 +5,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  description:
-    API for a notebook application using MongoDB
+  description: API for a notebook application using MongoDB
 tags:
   - name: auth
     description: Operations with user.
@@ -33,11 +32,20 @@ paths:
       $ref: ./swagger/paths/auth/getUser.yaml
     patch:
       $ref: ./swagger/paths/auth/patchUser.yaml
-  /:
+
+  /boards:
     get:
       $ref: ./swagger/paths/boards/get.yaml
     post:
       $ref: ./swagger/paths/boards/post.yaml
+
+  /boards/:boardId:
+    get:
+      $ref: ./swagger/paths/boards/{boardId}/get.yaml
+    patch:
+      $ref: ./swagger/paths/boards/{boardId}/patch.yaml
+    delete:
+      $ref: ./swagger/paths/boards/{boardId}/delete.yaml
 
 components:
   securitySchemes:

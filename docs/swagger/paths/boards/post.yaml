@@ -41,7 +41,6 @@ responses:
             data:
               type: object
               example:
-                $ref: '../../components/schemas/boards.yaml'
+                $ref: '../../components/schemas/Board.yaml'
   '404':
     description: NotFoundError
-

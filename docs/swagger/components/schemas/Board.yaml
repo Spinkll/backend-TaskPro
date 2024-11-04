@@ -1,0 +1,47 @@
+type: object
+required:
+  - title
+  - background
+  - icon
+properties:
+  _id:
+    description: 'board id'
+    type: string
+    example: 65e4decdd286b30065d54af9
+  title:
+    description: "Board's title"
+    type: string
+    example: 'Create MagazinePro'
+  background:
+    description: Board's background
+    type: string
+    default: 'bg-1'
+    example: 'bg-1'
+  icon:
+    description: "Board's icon"
+    type: string
+    default: 'icon-1'
+    example: 'icon-1'
+  columns:
+    description: 'List column Board'
+    type: string
+    default:
+      [
+        {
+          'title': 'Material',
+          'boardId': '67280e953bdc839326b08e13',
+          'cards':
+            [
+              {
+                'title': 'Task #1',
+                'description': 'Task #1- create list todo',
+                'priority': 'without',
+                'date': '02-11-2024',
+                'boardId': '67280e953bdc839326b08e13',
+                'columnId': '67280f183bdc839326b08e41',
+                '_id': '67280f7a3bdc839326b08e5b',
+              },
+            ],
+          '_id': '67280f063bdc839326b08e2d',
+        },
+      ]
