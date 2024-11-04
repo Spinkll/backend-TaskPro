@@ -17,6 +17,12 @@ export const ICON_VARS = {
   ICON_8: 'icon-8',
 };
 
+export const PRIORITY_VARS = {
+  LOW: 'low',
+  MEDIUM: 'medium',
+  HIGH: 'high',
+  WITHOUT: 'without',
+};
 export const BG_VARS = {
   BG_1: 'bg-1',
   BG_2: 'bg-2',
