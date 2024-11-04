@@ -14,16 +14,13 @@ export const createBoardService = async (payload) => {
 };
 
 export const updateBoardService = async (id, payload, options = {}) => {
-  const rawResult = await Board.findOneAndUpdate(id, payload, {
+  const board = await Board.findOneAndUpdate(id, payload, {
     new: true,
     includeResultMetadata: true,
     ...options,
   });
 
-  return {
-    board: rawResult.value,
-    isNew: !rawResult.lastErrorObject.updatedExisting,
-  };
+  return board.value;
 };
 
 export const deleteBoardService = async (id) => {
@@ -34,18 +31,20 @@ export const addColumnInBoardService = async (id, payload, options = {}) => {
   const board = await Board.findOneAndUpdate(
     id,
     { $push: { columns: payload } },
-    { new: true },
+    { new: true, includeResultMetadata: true, ...options },
   );
-  return board;
+
+  return board.value;
 };
 
 export const deleteColumnInBoardService = async (id, payload, options = {}) => {
   const board = await Board.findOneAndUpdate(
     id,
     { $pull: { columns: { _id: payload._id } } },
-    { new: true },
+    { new: true, includeResultMetadata: true, ...options },
   );
-  return board;
+
+  return board.value;
 };
 
 export const updateColumnInBoardService = async (id, payload, options = {}) => {
@@ -61,9 +60,12 @@ export const updateColumnInBoardService = async (id, payload, options = {}) => {
     },
     {
       new: true,
+      includeResultMetadata: true,
+      ...options,
     },
   );
-  return board;
+
+  return board.value;
 };
 
 export const addsCardInBoardService = async (id, payload, options = {}) => {
@@ -74,9 +76,12 @@ export const addsCardInBoardService = async (id, payload, options = {}) => {
     { $push: { 'columns.$.cards': payload } }, // додаємо картку до конкретної колонки
     {
       new: true,
+      includeResultMetadata: true,
+      ...options,
     },
   );
-  return board;
+
+  return board.value;
 };
 
 export const deleteCardInBoardService = async (id, payload, options = {}) => {
@@ -85,9 +90,10 @@ export const deleteCardInBoardService = async (id, payload, options = {}) => {
   const board = await Board.findOneAndUpdate(
     { _id: boardIdObj, 'columns._id': columnId },
     { $pull: { 'columns.$.cards': { _id: payload._id } } }, // видаляемо картку з конкретної колонки
-    { new: true },
+    { new: true, includeResultMetadata: true, ...options },
   );
-  return board;
+
+  return board.value;
 };
 
 export const updateCardInBoardService = async (id, payload, options = {}) => {
@@ -115,7 +121,10 @@ export const updateCardInBoardService = async (id, payload, options = {}) => {
     {
       new: true,
       arrayFilters: [{ 'column._id': columnIdObj }, { 'card._id': cardIdObj }],
+      includeResultMetadata: true,
+      ...options,
     },
   );
-  return board;
+
+  return board.value;
 };

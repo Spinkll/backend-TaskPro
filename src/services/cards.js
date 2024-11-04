@@ -14,15 +14,12 @@ export const createCardService = async (payload) => {
 };
 
 export const updateCardService = async (id, payload, options = {}) => {
-  const rawResult = await Card.findOneAndUpdate(id, payload, {
+  const card = await Card.findOneAndUpdate(id, payload, {
     new: true,
     includeResultMetadata: true,
     ...options,
   });
-  return {
-    column: rawResult.value,
-    isNew: !rawResult.lastErrorObject.updatedExisting,
-  };
+  return card.value;
 };
 
 export const deleteCardService = async (id) => {
