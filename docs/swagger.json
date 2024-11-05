@@ -11,10 +11,10 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000"
+      "url": "https://backend-taskpro.onrender.com"
     },
     {
-      "url": "https://backend-taskpro.onrender.com"
+      "url": "http://localhost:3000"
     }
   ],
   "tags": [
@@ -31,7 +31,7 @@
     "/auth/register": {
       "post": {
         "tags": [
-          "auts"
+          "auth"
         ],
         "summary": "Create User",
         "operationId": "createUser",
@@ -65,6 +65,9 @@
                   "password": {
                     "description": "User's password, must have uppercase and lowercase letters, as well as special characters",
                     "type": "string",
+                    "minLength": 8,
+                    "maxLength": 20,
+                    "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[!@#$%^&*(),.?\\\":{}|<>]).+$",
                     "example": "Qweas23!"
                   }
                 }
@@ -96,6 +99,15 @@
                     "data": {
                       "type": "object",
                       "$ref": "#/components/schemas/user"
+                    },
+                    "token": {
+                      "type": "object",
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "gocx91Da6+mfdrgJlCn5qQ=="
+                        }
+                      }
                     }
                   }
                 }
@@ -111,7 +123,7 @@
     "/auth/login": {
       "post": {
         "tags": [
-          "auts"
+          "auth"
         ],
         "summary": "Login User",
         "operationId": "LoginUser",
@@ -139,6 +151,9 @@
                   "password": {
                     "description": "User's password, must have uppercase and lowercase letters, as well as special characters",
                     "type": "string",
+                    "minLength": 8,
+                    "maxLength": 20,
+                    "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[!@#$%^&*(),.?\\\":{}|<>]).+$",
                     "example": "Qweas23!"
                   }
                 }
@@ -189,10 +204,15 @@
                         "theme": {
                           "type": "string",
                           "example": "light"
-                        },
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "object",
+                      "properties": {
                         "accessToken": {
                           "type": "string",
-                          "example": "QgJWR3Nul5Yskifrbwk1tg=="
+                          "example": "gocx91Da6+mfdrgJlCn5qQ=="
                         }
                       }
                     }
@@ -213,7 +233,7 @@
     "/auth/logout": {
       "post": {
         "tags": [
-          "auts"
+          "auth"
         ],
         "summary": "logout User",
         "operationId": "logoutUser",
@@ -256,7 +276,7 @@
     "/auth/refresh": {
       "post": {
         "tags": [
-          "auts"
+          "auth"
         ],
         "summary": "Refresh User",
         "operationId": "RefreshUser",
@@ -311,7 +331,7 @@
     "/auth/user": {
       "get": {
         "tags": [
-          "auts"
+          "auth"
         ],
         "summary": "Get User",
         "operationId": "GetUser",
@@ -378,7 +398,7 @@
       },
       "patch": {
         "tags": [
-          "auts"
+          "auth"
         ],
         "summary": "Partially update a user",
         "operationId": "patchUser",
@@ -606,6 +626,14 @@
             "description": "User's name",
             "type": "string",
             "example": "John Doe"
+          },
+          "password": {
+            "description": "User's password, must have uppercase and lowercase letters, as well as special characters",
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 20,
+            "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[!@#$%^&*(),.?\\\":{}|<>]).+$",
+            "example": "Qweasd!23"
           },
           "photo": {
             "description": "Link to Contact's photo",

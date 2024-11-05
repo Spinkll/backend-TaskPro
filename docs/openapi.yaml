@@ -13,8 +13,8 @@ tags:
   - name: boards
     description: Operations with boards.
 servers:
-  - url: http://localhost:3000
   - url: https://backend-taskpro.onrender.com
+  - url: http://localhost:3000
 paths:
   /auth/register:
     post:
