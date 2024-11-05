@@ -47,6 +47,34 @@ paths:
     delete:
       $ref: ./swagger/paths/boards/{boardId}/delete.yaml
 
+ /boards/:boardId/columns:
+    get:
+      $ref: ./swagger/paths/boards/{boardId}/columns/get.yaml
+    post:
+      $ref: ./swagger/paths/boards/{boardId}/columns/post.yaml
+
+  /boards/:boardId/columns/:columnId:
+    get:
+      $ref: ./swagger/paths/boards/{boardId}/columns/{columnId}/get.yaml
+    patch:
+      $ref: ./swagger/paths/boards/{boardId}/columns/{columnId}/patch.yaml
+    delete:
+      $ref: ./swagger/paths/boards/{boardId}/columns/{columnId}/delete.yaml
+
+   /boards/:boardId/columns/:columnId/cards:
+    get:
+      $ref: ./swagger/paths/boards/{boardId}/columns/:columnId/cards/get.yaml
+    post:
+      $ref: ./swagger/paths/boards/{boardId}/columns/:columnId/cards/post.yaml
+
+   /boards/:boardId/columns/:columnId/cards/:cardId:
+    get:
+      $ref: ./swagger/paths/boards/{boardId}/columns/{columnId}/:columnId/cards/get.yaml
+    patch:
+      $ref: ./swagger/paths/boards/{boardId}/columns/{columnId}/patch.yaml
+    delete:
+      $ref: ./swagger/paths/boards/{boardId}/columns/{columnId}/delete.yaml
+
 components:
   securitySchemes:
     bearerAuth:

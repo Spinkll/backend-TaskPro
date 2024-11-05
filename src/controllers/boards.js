@@ -1,19 +1,16 @@
 import createHttpError from 'http-errors';
 import { serializeBoard } from '../utils/serializeBoard.js';
-import { serializeColumn } from '../utils/serializeColumn.js';
-import { serializeCard } from '../utils/serializeCard.js';
-
 import {
   createBoardService,
   deleteBoardService,
   getBoardByIdService,
-  getBoardsService as getBoardService,
+  getBoardsService,
   updateBoardService,
 } from '../services/boards.js';
 
 const getAllBoards = async (req, res, next) => {
   const id = { userId: req.user.id };
-  const boards = await getBoardService(id);
+  const boards = await getBoardsService(id);
   if (!boards) {
     next(createHttpError(404, 'Boards not found'));
     return;
@@ -21,17 +18,7 @@ const getAllBoards = async (req, res, next) => {
 
   let data = boards;
   if (boards?.length >= 1) {
-    data = boards.map((board) => {
-      if (board.columns?.length >= 1) {
-        board.columns = board.columns.map((column) => {
-          if (column.cards?.length >= 1) {
-            column.cards = column.cards.map((card) => serializeCard(card));
-          }
-          return serializeColumn(column);
-        });
-      }
-      return serializeBoard(board);
-    });
+    data = boards.map((board) => serializeBoard(board));
   }
 
   res.status(200).json({
@@ -67,6 +54,7 @@ const getByIdBoard = async (req, res, next) => {
     next(createHttpError(404, 'Board not found'));
     return;
   }
+
   res.status(200).json({
     status: 'success',
     message: 'Successfully found board!',
@@ -80,11 +68,11 @@ const updateBoard = async (req, res, next) => {
   const id = { _id: boardId, userId: req.user.id };
 
   const updatedBoard = await updateBoardService(id, updateData);
-
   if (!updatedBoard) {
     next(createHttpError(404, 'Board not found'));
     return;
   }
+
   res.status(200).json({
     status: 'success',
     message: 'Board updated successfully',
@@ -95,6 +83,7 @@ const updateBoard = async (req, res, next) => {
 const deleteBoard = async (req, res, next) => {
   const { boardId } = req.params;
   const id = { _id: boardId, userId: req.user.id };
+
   const deletedBoard = await deleteBoardService(id);
   if (!deletedBoard) {
     next(createHttpError(404, 'Board not found'));

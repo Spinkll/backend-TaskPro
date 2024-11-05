@@ -23,12 +23,11 @@ import {
   updateCardService,
 } from '../services/cards.js';
 
-const getAllCards = async (req, res, next) => {
+const getAllCardsByColumn = async (req, res, next) => {
   const { boardId, columnId } = req.params;
 
   const board = await getBoardByIdService({
     _id: boardId,
-    userId: req.user.id,
   });
   if (!board) {
     next(createHttpError(404, 'Board not found'));
@@ -37,8 +36,6 @@ const getAllCards = async (req, res, next) => {
 
   const column = await getColumnByIdService({
     _id: columnId,
-    boardId,
-    userId: req.user.id,
   });
   if (!column) {
     next(createHttpError(404, 'Column not found'));
@@ -47,8 +44,6 @@ const getAllCards = async (req, res, next) => {
 
   const cards = await getCardsService({
     columnId,
-    boardId,
-    userId: req.user.id,
   });
   if (!cards) {
     next(createHttpError(404, 'Cards not found'));
@@ -68,45 +63,19 @@ const getAllCards = async (req, res, next) => {
 };
 
 const createCard = async (req, res, next) => {
-  const { boardId, columnId } = req.params;
+  const { columnId } = req.params;
   const { title, description, priority, date } = req.body;
   const body = {
     title,
     description,
     priority,
     date,
-    boardId,
     columnId,
-    userId: req.user.id,
   };
-
-  const board = await getBoardByIdService({
-    _id: boardId,
-    userId: req.user.id,
-  });
-  if (!board) {
-    next(createHttpError(404, 'Board not found.'));
-    return;
-  }
 
   const newCard = await createCardService(body);
   if (!newCard) {
     next(createHttpError(404, 'Error to create Card.'));
-    return;
-  }
-
-  const updateColumn = await addsCardInColumnService(
-    { _id: columnId },
-    newCard,
-  );
-  if (!updateColumn) {
-    next(createHttpError(404, 'Error add Card to Column.'));
-    return;
-  }
-
-  const updateBoard = await addsCardInBoardService({ _id: boardId }, newCard);
-  if (!updateBoard) {
-    next(createHttpError(404, 'Error add Card to Board.'));
     return;
   }
 
@@ -119,28 +88,18 @@ const createCard = async (req, res, next) => {
 
 const getByIdCard = async (req, res, next) => {
   const { columnId, boardId, cardId } = req.params;
-  const id = { cardId, columnId, boardId, userId: req.user.id };
-
-  const board = await getBoardByIdService({
-    _id: boardId,
-    userId: req.user.id,
-  });
-  if (!board) {
-    next(createHttpError(404, 'Board not found.'));
-    return;
-  }
 
   const column = await getColumnByIdService({
     _id: columnId,
-    boardId,
-    userId: req.user.id,
   });
   if (!column) {
     next(createHttpError(404, 'Column not found.'));
     return;
   }
 
-  const card = await getCardByIdService(id);
+  const card = await getCardByIdService({
+    _id: cardId,
+  });
   if (!card) {
     next(createHttpError(404, 'Card not found.'));
     return;
@@ -155,28 +114,25 @@ const getByIdCard = async (req, res, next) => {
 
 const updateCard = async (req, res, next) => {
   const { boardId, columnId, cardId } = req.params;
-  const { title, description, priority, date } = req.body;
-  const id = { _id: cardId, columnId, boardId, userId: req.user.id };
+  const updateData = req.body;
+
+  const column = await getColumnByIdService({
+    _id: columnId,
+  });
+  if (!column) {
+    next(createHttpError(404, 'Column not found.'));
+    return;
+  }
+
   const currentCard = await getCardByIdService(id);
   if (!currentCard) {
     next(createHttpError(404, 'Card not found.'));
     return;
   }
 
-  const updateCard = await updateCardService(id, body);
+  const updateCard = await updateCardService(id, updateData);
   if (!updateCard) {
     next(createHttpError(404, 'Error update Card in Card'));
-    return;
-  }
-  const updateColumn = await updateCardInColumnService(id, body);
-  if (!updateColumn) {
-    next(createHttpError(404, 'Error update Card in Column'));
-    return;
-  }
-
-  const updateBoard = await updateCardInBoardService(id, updateData);
-  if (!updateBoard) {
-    next(createHttpError(404, 'Error update card in Board'));
     return;
   }
 
@@ -190,19 +146,8 @@ const updateCard = async (req, res, next) => {
 const deleteCard = async (req, res, next) => {
   const { boardId, columnId, cardId } = req.params;
 
-  const board = await getBoardByIdService({
-    _id: boardId,
-    userId: req.user.id,
-  });
-  if (!board) {
-    next(createHttpError(404, 'Board not found.'));
-    return;
-  }
-
   const column = await getColumnByIdService({
     _id: columnId,
-    boardId,
-    userId: req.user.id,
   });
   if (!column) {
     next(createHttpError(404, 'Column not found.'));
@@ -217,28 +162,6 @@ const deleteCard = async (req, res, next) => {
   });
   if (!currentCard) {
     next(createHttpError(404, 'Card not found.'));
-    return;
-  }
-
-  const updateColumn = await deleteCardInColumnService(
-    {
-      _id: columnId,
-      boardId,
-      userId: req.user.id,
-    },
-    currentCard,
-  );
-  if (!updateColumn) {
-    next(createHttpError(404, 'Error update Card in Column'));
-    return;
-  }
-
-  const updateBoard = await deleteCardInBoardService(
-    { _id: cardId, columnId, boardId, userId: req.user.id },
-    currentCard,
-  );
-  if (!updateBoard) {
-    next(createHttpError(404, 'Error update Card in Board'));
     return;
   }
 
