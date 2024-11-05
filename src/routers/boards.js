@@ -78,8 +78,8 @@ boardsRouter.get(
 );
 boardsRouter.post(
   '/:boardId/columns/:columnId/cards',
-  isValidIds('boardId', 'columnId'),
-  validateBody(createCardSchema),
+  // isValidIds('boardId', 'columnId'),
+  // validateBody(createCardSchema),
   ctrlWrapper(cardsController.createCard),
 );
 boardsRouter.get(
@@ -87,7 +87,7 @@ boardsRouter.get(
   isValidIds('boardId', 'columnId', 'cardId'),
   ctrlWrapper(cardsController.getByIdCard),
 );
-//повертає card!!!
+
 boardsRouter.patch(
   '/:boardId/columns/:columnId/cards/:cardId',
   isValidIds('boardId', 'columnId', 'cardId'),

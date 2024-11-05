@@ -17,7 +17,7 @@ import {
   updateColumnInBoardService,
 } from '../services/boards.js';
 
-const getAllColumns = async (req, res) => {
+const getAllColumns = async (req, res, next) => {
   const { boardId } = req.params;
 
   const board = await getBoardByIdService({
@@ -39,7 +39,7 @@ const getAllColumns = async (req, res) => {
   }
 
   let data = columns;
-  if (columns?.length > 1) {
+  if (columns?.length >= 1) {
     data = columns.map((column) => {
       if (column.cards?.length >= 1) {
         column.cards = column.cards.map((card) => serializeCard(card));
@@ -54,7 +54,7 @@ const getAllColumns = async (req, res) => {
   });
 };
 
-const createColumn = async (req, res) => {
+const createColumn = async (req, res, next) => {
   const { boardId } = req.params;
   const { title } = req.body;
 
@@ -85,7 +85,7 @@ const createColumn = async (req, res) => {
   });
 };
 
-const getByIdColumn = async (req, res) => {
+const getByIdColumn = async (req, res, next) => {
   const { columnId, boardId } = req.params;
 
   const board = await getBoardByIdService({
@@ -114,7 +114,7 @@ const getByIdColumn = async (req, res) => {
   });
 };
 
-const updateColumn = async (req, res) => {
+const updateColumn = async (req, res, next) => {
   const { columnId, boardId } = req.params;
   const { title } = req.body;
   const board = await getBoardByIdService({
@@ -150,7 +150,7 @@ const updateColumn = async (req, res) => {
   });
 };
 
-const deleteColumn = async (req, res) => {
+const deleteColumn = async (req, res, next) => {
   const { boardId, columnId } = req.params;
 
   const board = await getBoardByIdService({
@@ -168,7 +168,7 @@ const deleteColumn = async (req, res) => {
     return;
   }
 
-  const updateBoard = deleteColumnInBoardService(
+  const updateBoard = await deleteColumnInBoardService(
     { _id: boardId },
     deletedColumn,
   );

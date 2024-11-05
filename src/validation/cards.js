@@ -3,7 +3,7 @@ import { PRIORITY_VARS } from '../constants/index.js';
 
 export const createCardSchema = Joi.object({
   title: Joi.string().min(2).max(20).required(),
-  description: Joi.string(),
+  description: Joi.string().required(),
   priority: Joi.string()
     .valid(
       PRIORITY_VARS.LOW,
@@ -12,8 +12,7 @@ export const createCardSchema = Joi.object({
       PRIORITY_VARS.WITHOUT,
     )
     .default(PRIORITY_VARS.WITHOUT),
-  date: Joi.string(),
-  userId: Joi.date().required(),
+  date: Joi.string().required(),
 });
 
 export const updateCardSchema = Joi.object({
@@ -27,5 +26,5 @@ export const updateCardSchema = Joi.object({
       PRIORITY_VARS.WITHOUT,
     )
     .default(PRIORITY_VARS.WITHOUT),
-  date: Joi.date(),
+  date: Joi.string(),
 });

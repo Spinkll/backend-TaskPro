@@ -20,6 +20,7 @@ import {
   deleteCardService,
   getCardByIdService,
   getCardsService,
+  updateCardService,
 } from '../services/cards.js';
 
 const getAllCards = async (req, res, next) => {
@@ -94,13 +95,16 @@ const createCard = async (req, res, next) => {
     return;
   }
 
-  const updateColumn = addsCardInColumnService(columnId, newCard);
+  const updateColumn = await addsCardInColumnService(
+    { _id: columnId },
+    newCard,
+  );
   if (!updateColumn) {
     next(createHttpError(404, 'Error add Card to Column.'));
     return;
   }
 
-  const updateBoard = addsCardInBoardService(boardId, newCard);
+  const updateBoard = await addsCardInBoardService({ _id: boardId }, newCard);
   if (!updateBoard) {
     next(createHttpError(404, 'Error add Card to Board.'));
     return;
@@ -151,16 +155,20 @@ const getByIdCard = async (req, res, next) => {
 
 const updateCard = async (req, res, next) => {
   const { boardId, columnId, cardId } = req.params;
-  const updateData = req.body;
+  const { title, description, priority, date } = req.body;
   const id = { _id: cardId, columnId, boardId, userId: req.user.id };
-
   const currentCard = await getCardByIdService(id);
   if (!currentCard) {
     next(createHttpError(404, 'Card not found.'));
     return;
   }
 
-  const updateColumn = await updateCardInColumnService(id, updateData);
+  const updateCard = await updateCardService(id, body);
+  if (!updateCard) {
+    next(createHttpError(404, 'Error update Card in Card'));
+    return;
+  }
+  const updateColumn = await updateCardInColumnService(id, body);
   if (!updateColumn) {
     next(createHttpError(404, 'Error update Card in Column'));
     return;
@@ -179,7 +187,7 @@ const updateCard = async (req, res, next) => {
   });
 };
 
-const deleteCard = async (req, res) => {
+const deleteCard = async (req, res, next) => {
   const { boardId, columnId, cardId } = req.params;
 
   const board = await getBoardByIdService({

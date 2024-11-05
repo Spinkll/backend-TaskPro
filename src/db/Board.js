@@ -40,7 +40,6 @@ const boardSchema = new Schema(
         ICON_VARS.ICON_8,
       ],
       default: ICON_VARS.ICON_1,
-      required: true,
     },
     userId: { type: Schema.Types.ObjectId, ref: 'users' },
     columns: [{ type: columnSchema }],

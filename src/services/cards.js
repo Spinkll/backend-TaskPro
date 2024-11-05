@@ -23,5 +23,5 @@ export const updateCardService = async (id, payload, options = {}) => {
 };
 
 export const deleteCardService = async (id) => {
-  return await Card.findByIdAndDelete(id);
+  return await Card.findOneAndDelete(id);
 };
