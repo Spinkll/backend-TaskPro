@@ -1,5 +1,4 @@
 import { model, Schema } from 'mongoose';
-import { cardSchema } from './Card.js';
 
 export const columnSchema = new Schema(
   {

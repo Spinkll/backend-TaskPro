@@ -8,6 +8,7 @@ import {
   getCardsService,
   updateCardService,
 } from '../services/cards.js';
+import { getBoardByIdService } from '../services/boards.js';
 
 const getAllCards = async (req, res, next) => {
   const { columnId } = req.params;
@@ -16,7 +17,7 @@ const getAllCards = async (req, res, next) => {
     _id: columnId,
   });
   if (!column) {
-    next(createHttpError(404, 'Column not found'));
+    next(createHttpError(404, 'Column not found.'));
     return;
   }
 
@@ -24,7 +25,7 @@ const getAllCards = async (req, res, next) => {
     columnId: columnId,
   });
   if (!cards) {
-    next(createHttpError(404, 'Cards not found'));
+    next(createHttpError(404, 'Cards not found.'));
     return;
   }
 
@@ -35,21 +36,36 @@ const getAllCards = async (req, res, next) => {
 
   res.status(200).json({
     status: 200,
-    message: 'Cards retrieved successfully',
+    message: 'Cards retrieved successfully.',
     data: data,
   });
 };
 
 const createCard = async (req, res, next) => {
-  const { columnId } = req.params;
+  const { columnId, boardId } = req.params;
   const reqBody = req.body;
 
-  const body = {
+  const board = await getBoardByIdService({
+    _id: boardId,
+  });
+  if (!board) {
+    next(createHttpError(404, 'Board not found.'));
+    return;
+  }
+
+  const column = await getColumnByIdService({
+    _id: columnId,
+  });
+  if (!column) {
+    next(createHttpError(404, 'Column not found.'));
+    return;
+  }
+
+  const newCard = await createCardService({
     ...reqBody,
     columnId,
-  };
-
-  const newCard = await createCardService(body);
+    boardId,
+  });
   if (!newCard) {
     next(createHttpError(404, 'Error to create Card.'));
     return;
@@ -64,14 +80,6 @@ const createCard = async (req, res, next) => {
 
 const getByIdCard = async (req, res, next) => {
   const { columnId, cardId } = req.params;
-
-  const column = await getColumnByIdService({
-    _id: columnId,
-  });
-  if (!column) {
-    next(createHttpError(404, 'Column not found.'));
-    return;
-  }
 
   const card = await getCardByIdService({
     _id: cardId,
@@ -92,29 +100,15 @@ const updateCard = async (req, res, next) => {
   const { columnId, cardId } = req.params;
   const reqBody = req.body;
 
-  const column = await getColumnByIdService({
-    _id: columnId,
-  });
-  if (!column) {
-    next(createHttpError(404, 'Column not found.'));
-    return;
-  }
-
-  const currentCard = await getCardByIdService({ _id: cardId });
-  if (!currentCard) {
-    next(createHttpError(404, 'Card not found.'));
-    return;
-  }
-
   const updateCard = await updateCardService({ _id: cardId }, reqBody);
   if (!updateCard) {
-    next(createHttpError(404, 'Error update Card'));
+    next(createHttpError(404, 'Card not foound.'));
     return;
   }
 
   res.status(200).json({
     status: 200,
-    message: 'Card updated successfully',
+    message: 'Card updated successfully.',
     data: serializeCard(updateCard),
   });
 };

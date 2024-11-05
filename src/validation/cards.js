@@ -27,4 +27,5 @@ export const updateCardSchema = Joi.object({
     )
     .default(PRIORITY_VARS.WITHOUT),
   date: Joi.string(),
+  columnId: Joi.string(),
 });

@@ -17,6 +17,7 @@ export const cardSchema = new Schema(
     },
     date: { type: String, required: true },
     columnId: { type: Schema.Types.ObjectId, ref: 'columns' },
+    boardId: { type: Schema.Types.ObjectId, ref: 'boards' },
   },
   {
     timestamps: true,
