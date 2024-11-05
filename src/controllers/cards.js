@@ -1,20 +1,6 @@
 import createHttpError from 'http-errors';
-
 import { serializeCard } from '../utils/serializeCard.js';
-import {
-  addsCardInBoardService,
-  deleteCardInBoardService,
-  getBoardByIdService,
-  updateCardInBoardService,
-} from '../services/boards.js';
-
-import {
-  addsCardInColumnService,
-  deleteCardInColumnService,
-  getColumnByIdService,
-  updateCardInColumnService,
-} from '../services/columns.js';
-
+import { getColumnByIdService } from '../services/columns.js';
 import {
   createCardService,
   deleteCardService,
@@ -23,16 +9,8 @@ import {
   updateCardService,
 } from '../services/cards.js';
 
-const getAllCardsByColumn = async (req, res, next) => {
-  const { boardId, columnId } = req.params;
-
-  const board = await getBoardByIdService({
-    _id: boardId,
-  });
-  if (!board) {
-    next(createHttpError(404, 'Board not found'));
-    return;
-  }
+const getAllCards = async (req, res, next) => {
+  const { columnId } = req.params;
 
   const column = await getColumnByIdService({
     _id: columnId,
@@ -43,7 +21,7 @@ const getAllCardsByColumn = async (req, res, next) => {
   }
 
   const cards = await getCardsService({
-    columnId,
+    columnId: columnId,
   });
   if (!cards) {
     next(createHttpError(404, 'Cards not found'));
@@ -64,12 +42,10 @@ const getAllCardsByColumn = async (req, res, next) => {
 
 const createCard = async (req, res, next) => {
   const { columnId } = req.params;
-  const { title, description, priority, date } = req.body;
+  const reqBody = req.body;
+
   const body = {
-    title,
-    description,
-    priority,
-    date,
+    ...reqBody,
     columnId,
   };
 
@@ -87,7 +63,7 @@ const createCard = async (req, res, next) => {
 };
 
 const getByIdCard = async (req, res, next) => {
-  const { columnId, boardId, cardId } = req.params;
+  const { columnId, cardId } = req.params;
 
   const column = await getColumnByIdService({
     _id: columnId,
@@ -113,8 +89,8 @@ const getByIdCard = async (req, res, next) => {
 };
 
 const updateCard = async (req, res, next) => {
-  const { boardId, columnId, cardId } = req.params;
-  const updateData = req.body;
+  const { columnId, cardId } = req.params;
+  const reqBody = req.body;
 
   const column = await getColumnByIdService({
     _id: columnId,
@@ -124,27 +100,27 @@ const updateCard = async (req, res, next) => {
     return;
   }
 
-  const currentCard = await getCardByIdService(id);
+  const currentCard = await getCardByIdService({ _id: cardId });
   if (!currentCard) {
     next(createHttpError(404, 'Card not found.'));
     return;
   }
 
-  const updateCard = await updateCardService(id, updateData);
+  const updateCard = await updateCardService({ _id: cardId }, reqBody);
   if (!updateCard) {
-    next(createHttpError(404, 'Error update Card in Card'));
+    next(createHttpError(404, 'Error update Card'));
     return;
   }
 
   res.status(200).json({
     status: 200,
     message: 'Card updated successfully',
-    data: serializeCard(updateData),
+    data: serializeCard(updateCard),
   });
 };
 
 const deleteCard = async (req, res, next) => {
-  const { boardId, columnId, cardId } = req.params;
+  const { columnId, cardId } = req.params;
 
   const column = await getColumnByIdService({
     _id: columnId,
@@ -156,9 +132,6 @@ const deleteCard = async (req, res, next) => {
 
   const currentCard = await deleteCardService({
     _id: cardId,
-    columnId,
-    boardId,
-    userId: req.user.id,
   });
   if (!currentCard) {
     next(createHttpError(404, 'Card not found.'));

@@ -47,9 +47,8 @@ const createBoard = async (req, res, next) => {
 
 const getByIdBoard = async (req, res, next) => {
   const { boardId } = req.params;
-  const id = { _id: boardId, userId: req.user.id };
 
-  const board = await getBoardByIdService(id);
+  const board = await getBoardByIdService({ _id: boardId });
   if (!board) {
     next(createHttpError(404, 'Board not found'));
     return;
@@ -65,9 +64,8 @@ const getByIdBoard = async (req, res, next) => {
 const updateBoard = async (req, res, next) => {
   const { boardId } = req.params;
   const updateData = req.body;
-  const id = { _id: boardId, userId: req.user.id };
 
-  const updatedBoard = await updateBoardService(id, updateData);
+  const updatedBoard = await updateBoardService({ _id: boardId }, updateData);
   if (!updatedBoard) {
     next(createHttpError(404, 'Board not found'));
     return;
@@ -82,13 +80,12 @@ const updateBoard = async (req, res, next) => {
 
 const deleteBoard = async (req, res, next) => {
   const { boardId } = req.params;
-  const id = { _id: boardId, userId: req.user.id };
-
-  const deletedBoard = await deleteBoardService(id);
+  const deletedBoard = await deleteBoardService({ _id: boardId });
   if (!deletedBoard) {
     next(createHttpError(404, 'Board not found'));
     return;
   }
+
   res.status(204).send();
 };
 

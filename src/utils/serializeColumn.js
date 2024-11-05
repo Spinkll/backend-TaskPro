@@ -3,6 +3,5 @@ export const serializeColumn = (column) => {
     _id: column._id,
     boardId: column.boardId,
     title: column.title,
-    cards: column?.cards,
   };
 };

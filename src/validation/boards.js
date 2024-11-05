@@ -1,7 +1,6 @@
 import Joi from 'joi';
 import { BG_VARS, ICON_VARS } from '../constants/index.js';
 
-import { updateColumnSchema } from './columns.js';
 export const createBoardSchema = Joi.object({
   title: Joi.string().required().min(2).max(20).required(),
   icon: Joi.string()
@@ -36,7 +35,6 @@ export const createBoardSchema = Joi.object({
       BG_VARS.BG_16,
     )
     .default(BG_VARS.BG_1),
-  columns: Joi.array().items(updateColumnSchema),
 });
 
 export const updateBoardSchema = Joi.object({
@@ -73,5 +71,4 @@ export const updateBoardSchema = Joi.object({
       BG_VARS.BG_16,
     )
     .default(BG_VARS.BG_1),
-  columns: Joi.array().items(updateColumnSchema),
 });

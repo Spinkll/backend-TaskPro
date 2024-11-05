@@ -1,7 +1,6 @@
 import createHttpError from 'http-errors';
-
 import { serializeColumn } from '../utils/serializeColumn.js';
-
+import { getBoardByIdService } from '../services/boards.js';
 import {
   createColumnService,
   deleteColumnService,
@@ -15,7 +14,6 @@ const getAllColumns = async (req, res, next) => {
 
   const board = await getBoardByIdService({
     _id: boardId,
-    userId: req.user.id,
   });
   if (!board) {
     next(createHttpError(404, 'Board not found'));
@@ -24,7 +22,6 @@ const getAllColumns = async (req, res, next) => {
 
   const columns = await getColumnsService({
     boardId: boardId,
-    userId: req.user.id,
   });
   if (!columns) {
     next(createHttpError(404, 'Column not found'));
@@ -44,11 +41,10 @@ const getAllColumns = async (req, res, next) => {
 
 const createColumn = async (req, res, next) => {
   const { boardId } = req.params;
-  const { title } = req.body;
+  const reqBody = req.body;
 
   const board = await getBoardByIdService({
     _id: boardId,
-    userId: req.user.id,
   });
   if (!board) {
     next(createHttpError(404, 'Board not found'));
@@ -56,9 +52,8 @@ const createColumn = async (req, res, next) => {
   }
 
   const newColumn = await createColumnService({
-    title: title,
+    ...reqBody,
     boardId: boardId,
-    userId: req.user.id,
   });
   if (!newColumn) {
     next(createHttpError(404, 'Error create Column'));
@@ -77,7 +72,6 @@ const getByIdColumn = async (req, res, next) => {
 
   const board = await getBoardByIdService({
     _id: boardId,
-    userId: req.user.id,
   });
   if (!board) {
     next(createHttpError(404, 'Board not found'));
@@ -86,8 +80,6 @@ const getByIdColumn = async (req, res, next) => {
 
   const column = await getColumnByIdService({
     _id: columnId,
-    boardId,
-    userId: req.user.id,
   });
   if (!column) {
     next(createHttpError(404, 'Column not found'));
@@ -103,21 +95,17 @@ const getByIdColumn = async (req, res, next) => {
 
 const updateColumn = async (req, res, next) => {
   const { columnId, boardId } = req.params;
-  const { title } = req.body;
+  const reqBody = req.body;
 
   const board = await getBoardByIdService({
     _id: boardId,
-    userId: req.user.id,
   });
   if (!board) {
     next(createHttpError(404, 'Board not found'));
     return;
   }
 
-  const updatedColumn = await updateColumnService(
-    { _id: columnId, boardId, userId: req.user.id },
-    { title: title },
-  );
+  const updatedColumn = await updateColumnService({ _id: columnId }, reqBody);
   if (!updatedColumn) {
     next(createHttpError(404, 'Column not found'));
     return;
@@ -135,7 +123,6 @@ const deleteColumn = async (req, res, next) => {
 
   const board = await getBoardByIdService({
     _id: boardId,
-    userId: req.user.id,
   });
   if (!board) {
     next(createHttpError(404, 'Board not found'));

@@ -42,7 +42,6 @@ const boardSchema = new Schema(
       default: ICON_VARS.ICON_1,
     },
     userId: { type: Schema.Types.ObjectId, ref: 'users' },
-    columns: [{ type: columnSchema }],
   },
   {
     timestamps: true,

@@ -4,6 +4,5 @@ export const serializeBoard = (board) => {
     title: board.title,
     icon: board.icon,
     background: board.background,
-    columns: board?.columns,
   };
 };

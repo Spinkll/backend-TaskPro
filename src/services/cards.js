@@ -1,5 +1,4 @@
 import { Card } from '../db/Card.js';
-import { Column } from '../db/Column.js';
 
 export const getCardsService = async (id) => {
   return await Card.find(id);
