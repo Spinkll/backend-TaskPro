@@ -78,25 +78,25 @@ boardsRouter.get(
 );
 boardsRouter.post(
   '/:boardId/columns/:columnId/cards',
-  // isValidIds('boardId', 'columnId'),
-  // validateBody(createCardSchema),
+  isValidIds('boardId', 'columnId'),
+  validateBody(createCardSchema),
   ctrlWrapper(cardsController.createCard),
 );
 boardsRouter.get(
   '/:boardId/columns/:columnId/cards/:cardId',
-  isValidIds('boardId', 'columnId', 'cardId'),
+  isValidIds('columnId', 'cardId'),
   ctrlWrapper(cardsController.getByIdCard),
 );
 
 boardsRouter.patch(
   '/:boardId/columns/:columnId/cards/:cardId',
-  isValidIds('boardId', 'columnId', 'cardId'),
+  isValidIds('columnId', 'cardId'),
   validateBody(updateCardSchema),
   ctrlWrapper(cardsController.updateCard),
 );
 boardsRouter.delete(
   '/:boardId/columns/:columnId/cards/:cardId',
-  isValidIds('boardId', 'columnId', 'cardId'),
+  isValidIds('columnId', 'cardId'),
   ctrlWrapper(cardsController.deleteCard),
 );
 
