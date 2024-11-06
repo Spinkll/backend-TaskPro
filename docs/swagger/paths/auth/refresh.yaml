@@ -1,5 +1,5 @@
 tags:
-  - auts
+  - auth
 summary: Refresh User
 operationId: RefreshUser
 description: 'Refresh a user. Attention, the request must be authorized!!!!!'
@@ -25,11 +25,5 @@ responses:
             message:
               type: string
               example: Successfully is refreshed!
-            data:
-              type: object
-              properties:
-                accessToken:
-                  type: string
-                  example: gocx91Da6+mfdrgJlCn5qQ==
   '401':
     $ref: '../../components/responses/401.yaml'

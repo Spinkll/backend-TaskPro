@@ -1,9 +1,0 @@
-tags:
-  - boards
-summary: Get boards
-operationId: GetBoards
-description: 'Get a boards data.'
-security:
-  - bearerAuth: []
-requestBody:
-
