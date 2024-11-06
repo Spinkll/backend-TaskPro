@@ -24,7 +24,7 @@ export const needHelpMail = async (req, res) => {
 
   try {
     await sendEmail(
-      'surov.sergey.m@gmail.com', // Почта получателя (изменить для теста). Почта для сдачи taskpro.project@gmail.com
+      'taskpro.project@gmail.com', // Почта получателя (изменить для теста). Почта для сдачи taskpro.project@gmail.com
       'Project Team 6 Send Feedback',
       html,
     );
