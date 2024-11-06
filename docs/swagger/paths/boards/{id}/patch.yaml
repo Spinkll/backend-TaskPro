@@ -6,8 +6,8 @@ description: 'Update a board with payload'
 security:
   - bearerAuth: []
 parameters:
-  - name: boardId
-    in: path
+  - in: query
+    name: boardId
     required: true
     description: The ID of the board to patch.
     schema:

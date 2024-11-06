@@ -6,8 +6,8 @@ description: 'Update a columns with payload'
 security:
   - bearerAuth: []
 parameters:
-  - name: columnId
-    in: path
+  - in: query
+    name: columnId
     required: true
     description: The ID of the column to patch.
     schema:

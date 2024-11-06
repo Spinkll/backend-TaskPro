@@ -582,9 +582,7 @@
             "$ref": "#/components/responses/404"
           }
         }
-      }
-    },
-    "/boards/{boardId}": {
+      },
       "get": {
         "tags": [
           "boards"
@@ -595,18 +593,6 @@
         "security": [
           {
             "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "boardId",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the board to get.",
-            "schema": {
-              "type": "string",
-              "example": "65ca67e7ae7f10c88b598384"
-            }
           }
         ],
         "responses": {
@@ -645,7 +631,9 @@
             "$ref": "#/components/responses/404"
           }
         }
-      },
+      }
+    },
+    "/boards/:boardId": {
       "patch": {
         "tags": [
           "boards"
@@ -660,8 +648,8 @@
         ],
         "parameters": [
           {
+            "in": "query",
             "name": "boardId",
-            "in": "path",
             "required": true,
             "description": "The ID of the board to patch.",
             "schema": {
@@ -787,8 +775,8 @@
         ],
         "parameters": [
           {
+            "in": "query",
             "name": "boardId",
-            "in": "path",
             "required": true,
             "description": "The ID of the board to delete.",
             "schema": {
@@ -916,7 +904,7 @@
         }
       }
     },
-    "/columns/{columnId}": {
+    "/columns/:boardId": {
       "get": {
         "tags": [
           "columns"
@@ -931,13 +919,12 @@
         ],
         "parameters": [
           {
-            "name": "columnId",
-            "in": "path",
-            "required": true,
+            "in": "query",
+            "name": "boardId",
+            "required": false,
             "description": "The ID of the column to get.",
             "schema": {
-              "type": "string",
-              "example": "65ca67e7ae7f10c88b598384"
+              "type": "integer"
             }
           }
         ],
@@ -977,7 +964,9 @@
             "$ref": "#/components/responses/404"
           }
         }
-      },
+      }
+    },
+    "/columns/:columnId": {
       "patch": {
         "tags": [
           "columns"
@@ -992,8 +981,8 @@
         ],
         "parameters": [
           {
+            "in": "query",
             "name": "columnId",
-            "in": "path",
             "required": true,
             "description": "The ID of the column to patch.",
             "schema": {
@@ -1102,8 +1091,8 @@
         ],
         "parameters": [
           {
+            "in": "query",
             "name": "columnId",
-            "in": "path",
             "required": true,
             "description": "The ID of the column to delete.",
             "schema": {
@@ -1287,7 +1276,7 @@
         }
       }
     },
-    "/cards/{cardId}": {
+    "/cards/:columnId": {
       "get": {
         "tags": [
           "cards"
@@ -1302,10 +1291,10 @@
         ],
         "parameters": [
           {
-            "name": "cardId",
-            "in": "path",
+            "in": "query",
+            "name": "columnId",
             "required": true,
-            "description": "The ID of the card to get.",
+            "description": "The ID of the column to get cards.",
             "schema": {
               "type": "string",
               "example": "65ca67e7ae7f10c88b598384"
@@ -1348,7 +1337,9 @@
             "$ref": "#/components/responses/404"
           }
         }
-      },
+      }
+    },
+    "/cards/:cardId": {
       "patch": {
         "tags": [
           "cards"
@@ -1363,8 +1354,8 @@
         ],
         "parameters": [
           {
+            "in": "query",
             "name": "cardId",
-            "in": "path",
             "required": true,
             "description": "The ID of the card to patch.",
             "schema": {
@@ -1535,8 +1526,8 @@
         ],
         "parameters": [
           {
+            "in": "query",
             "name": "cardId",
-            "in": "path",
             "required": true,
             "description": "The ID of the card to delete.",
             "schema": {

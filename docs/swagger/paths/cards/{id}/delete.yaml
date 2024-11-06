@@ -6,8 +6,8 @@ description: 'Delete a card.'
 security:
   - bearerAuth: []
 parameters:
-  - name: cardId
-    in: path
+  - in: query
+    name: cardId
     required: true
     description: The ID of the card to delete.
     schema:

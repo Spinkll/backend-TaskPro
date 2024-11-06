@@ -6,13 +6,12 @@ description: 'Get a column data.'
 security:
   - bearerAuth: []
 parameters:
-  - name: columnId
-    in: path
-    required: true
+  - in: query
+    name: boardId
+    required: false
     description: The ID of the column to get.
     schema:
-      type: string
-      example: '65ca67e7ae7f10c88b598384'
+      type: integer
 
 responses:
   '200':

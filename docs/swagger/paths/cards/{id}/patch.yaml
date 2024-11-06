@@ -6,8 +6,8 @@ description: 'Update a card with payload'
 security:
   - bearerAuth: []
 parameters:
-  - name: cardId
-    in: path
+  - in: query
+    name: cardId
     required: true
     description: The ID of the card to patch.
     schema:

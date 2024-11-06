@@ -21,43 +21,43 @@ import { createCardSchema } from '../validation/cardValidation.js';
 
 const boardsRouter = Router();
 
-boardsRouter.get('/:boardId', ctrlWrapper(getBoardsController));
+boardsRouter.get('/', ctrlWrapper(getBoardsController));
 boardsRouter.post(
   '/',
   validateBody(createBoardSchema),
   ctrlWrapper(createBoardController),
 );
 boardsRouter.patch(
-  '/:boardId',
+  '/',
   validateBody(createBoardSchema),
   ctrlWrapper(updateBoardController),
 );
-boardsRouter.delete('/:boardId', ctrlWrapper(deleteBoardController));
+boardsRouter.delete('/', ctrlWrapper(deleteBoardController));
 
-boardsRouter.get('/column/:columnId', ctrlWrapper(getColumnsController));
+boardsRouter.get('/column', ctrlWrapper(getColumnsController));
 boardsRouter.post(
   '/column',
   validateBody(createColumnsSchema),
   ctrlWrapper(createColumnController),
 );
 boardsRouter.patch(
-  '/column/:columnId',
+  '/column',
   validateBody(createColumnsSchema),
   ctrlWrapper(updateColumnController),
 );
-boardsRouter.delete('/column/:columnId', ctrlWrapper(deleteColumnController));
+boardsRouter.delete('/column', ctrlWrapper(deleteColumnController));
 
-boardsRouter.get('/card/:cardId', ctrlWrapper(getCardsController));
+boardsRouter.get('/card', ctrlWrapper(getCardsController));
 boardsRouter.post(
   '/card',
   validateBody(createCardSchema),
   ctrlWrapper(createCardController),
 );
 boardsRouter.patch(
-  '/card/:cardId',
+  '/card',
   validateBody(createCardSchema),
   ctrlWrapper(updateCardController),
 );
-boardsRouter.delete('/card/:cardId', ctrlWrapper(deleteCardController));
+boardsRouter.delete('/card', ctrlWrapper(deleteCardController));
 
 export default boardsRouter;
