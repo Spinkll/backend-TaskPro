@@ -5,8 +5,6 @@ operationId: RefreshUser
 description: 'Refresh a user. Attention, the request must be authorized!!!!!'
 security:
   - bearerAuth: []
-requestBody:
-
 responses:
   '200':
     description: Refreshed a user

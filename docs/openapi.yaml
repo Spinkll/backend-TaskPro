@@ -11,6 +11,10 @@ tags:
     description: Operations with user.
   - name: boards
     description: Operations with boards.
+  - name: columns
+    description: Operations with columns.
+  - name: cards
+    description: Operations with cards.
   - name: need-help
     description: Feedback from user.
 servers:
@@ -35,14 +39,35 @@ paths:
     patch:
       $ref: ./swagger/paths/auth/patchUser.yaml
   /boards:
-    get:
-      $ref: ./swagger/paths/boards/boards/get.yaml
     post:
-      $ref: ./swagger/paths/boards/boards/post.yaml
+      $ref: ./swagger/paths/boards/post.yaml
+  /boards/{boardId}:
+    get:
+      $ref: ./swagger/paths/boards/{id}/get.yaml
     patch:
-      $ref: ./swagger/paths/boards/boards/patch.yaml
+      $ref: ./swagger/paths/boards/{id}/patch.yaml
     delete:
-      $ref: ./swagger/paths/boards/boards/patch.yaml
+      $ref: ./swagger/paths/boards/{id}/delete.yaml
+  /columns:
+    post:
+      $ref: ./swagger/paths/columns/post.yaml
+  /columns/{columnId}:
+    get:
+      $ref: ./swagger/paths/columns/{id}/get.yaml
+    patch:
+      $ref: ./swagger/paths/columns/{id}/patch.yaml
+    delete:
+      $ref: ./swagger/paths/columns/{id}/delete.yaml
+  /cards:
+    post:
+      $ref: ./swagger/paths/cards/post.yaml
+  /cards/{cardId}:
+    get:
+      $ref: ./swagger/paths/cards/{id}/get.yaml
+    patch:
+      $ref: ./swagger/paths/cards/{id}/patch.yaml
+    delete:
+      $ref: ./swagger/paths/cards/{id}/delete.yaml
   /need-help:
     post:
       $ref: ./swagger/paths/needHelp/post.yaml

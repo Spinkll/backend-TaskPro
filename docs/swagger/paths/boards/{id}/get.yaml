@@ -5,11 +5,18 @@ operationId: GetBoards
 description: 'Get a boards data.'
 security:
   - bearerAuth: []
-requestBody:
+parameters:
+  - name: boardId
+    in: path
+    required: true
+    description: The ID of the board to get.
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
 
 responses:
   '200':
-    description: Geted a user
+    description: Get a board
     content:
       application/json:
         schema:
@@ -21,14 +28,13 @@ responses:
           properties:
             status:
               type: integer
-              example: 201
+              example: 200
             message:
               type: string
               example: Successfully find a boards!
             data:
-              $ref: '../../../components/schemas/boards.yaml'
+              $ref: '../../../components/schemas/board.yaml'
   '401':
-    description: Unauthorized.
+    $ref: ../../../components/responses/401.yaml
   '404':
-    $ref: '../../../components/responses/404.yaml'
-
+    $ref: ../../../components/responses/404.yaml

@@ -1,34 +1,34 @@
 type: object
 properties:
   _id:
-    description: "Card id"
+    description: 'Card id'
     type: string
     example: 65e4decdd286b30065d54af9
   boardId:
-    description: "Board id"
+    description: 'Board id'
     type: string
     example: 65e4decdd286b30065d54af9
   columnId:
-    description: "Column id"
+    description: 'Column id'
     type: string
     example: 65e4decdd286b30065d54af9
   title:
-    description: "Board's title"
+    description: "Card's title"
     type: string
     example: 'card 1'
   description:
-    description: Board's description
+    description: Card's description
     type: string
     example: this is a card
   priority:
-    description: 'task priority type ('Without', 'Low', 'Medium', 'Hight')'
+    description: "Card priority type ('Without', 'Low', 'Medium', 'Hight')"
     type: string
     enum: ['Without', 'Low', 'Medium', 'Hight']
     default: 'Without'
     example: 'Without'
   deadline:
-    description: "tasl deadline"
-    type: date
+    description: 'Card deadline'
+    type: string
     example: '2024-10-12'
   createdAt:
     description: 'date of create'

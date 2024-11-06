@@ -1,10 +1,26 @@
 import { getUser } from '../services/auth.js';
-import { createBoard, createCard, createColumn, deleteBoard, deletecard, deleteColumn, getBoards, getCards, getColumns, parhBoard, pathCard, pathColumn } from '../services/boards.js';
+import {
+  createBoard,
+  createCard,
+  createColumn,
+  deleteBoard,
+  deletecard,
+  deleteColumn,
+  getBoards,
+  getCards,
+  getColumns,
+  parhBoard,
+  pathCard,
+  pathColumn,
+} from '../services/boards.js';
 
 export const getBoardsController = async (req, res) => {
-  const getingUser = await getUser(req.cookies.sessionId, req.cookies.sessionToken);
+  const getingUser = await getUser(
+    req.cookies.sessionId,
+    req.cookies.sessionToken,
+  );
   const boards = await getBoards(getingUser.id);
-  
+
   res.status(201).send({
     status: 201,
     message: `Successfully find a boards!`,
@@ -14,9 +30,12 @@ export const getBoardsController = async (req, res) => {
 
 export const createBoardController = async (req, res) => {
   const { body } = req;
-  const getingUser = await getUser(req.cookies.sessionId, req.cookies.sessionToken);
+  const getingUser = await getUser(
+    req.cookies.sessionId,
+    req.cookies.sessionToken,
+  );
 
-  const newBoard = await createBoard({...body, userId: getingUser.id});
+  const newBoard = await createBoard({ ...body, userId: getingUser.id });
 
   res.status(201).send({
     status: 201,
@@ -28,7 +47,10 @@ export const createBoardController = async (req, res) => {
 export const updateBoardController = async (req, res) => {
   const boardId = req.query.boardId;
   const { body } = req;
-  const getingUser = await getUser(req.cookies.sessionId, req.cookies.sessionToken);
+  const getingUser = await getUser(
+    req.cookies.sessionId,
+    req.cookies.sessionToken,
+  );
 
   const newBoard = await parhBoard(boardId, body);
 
@@ -41,17 +63,22 @@ export const updateBoardController = async (req, res) => {
 
 export const deleteBoardController = async (req, res, next) => {
   const boardId = req.query.boardId;
-  const getingUser = await getUser(req.cookies.sessionId, req.cookies.sessionToken);
+  const getingUser = await getUser(
+    req.cookies.sessionId,
+    req.cookies.sessionToken,
+  );
 
   await deleteBoard(boardId);
 
   res.status(204).send();
 };
 
-
 export const createColumnController = async (req, res) => {
   const { body } = req;
-  const getingUser = await getUser(req.cookies.sessionId, req.cookies.sessionToken);
+  const getingUser = await getUser(
+    req.cookies.sessionId,
+    req.cookies.sessionToken,
+  );
 
   const newColumn = await createColumn(body);
 
@@ -62,11 +89,14 @@ export const createColumnController = async (req, res) => {
   });
 };
 
-export const getColunsController = async (req, res) => {
-  const getingUser = await getUser(req.cookies.sessionId, req.cookies.sessionToken);
+export const getColumnsController = async (req, res) => {
+  const getingUser = await getUser(
+    req.cookies.sessionId,
+    req.cookies.sessionToken,
+  );
   const boardId = req.query.boardId;
   const columns = await getColumns(boardId);
-  
+
   res.status(201).send({
     status: 201,
     message: `Successfully find a columns!`,
@@ -77,7 +107,10 @@ export const getColunsController = async (req, res) => {
 export const updateColumnController = async (req, res) => {
   const columnId = req.query.columnId;
   const { body } = req;
-  const getingUser = await getUser(req.cookies.sessionId, req.cookies.sessionToken);
+  const getingUser = await getUser(
+    req.cookies.sessionId,
+    req.cookies.sessionToken,
+  );
 
   const newColumn = await pathColumn(columnId, body);
 
@@ -88,10 +121,12 @@ export const updateColumnController = async (req, res) => {
   });
 };
 
-
 export const deleteColumnController = async (req, res) => {
   const columnId = req.query.columnId;
-  const getingUser = await getUser(req.cookies.sessionId, req.cookies.sessionToken);
+  const getingUser = await getUser(
+    req.cookies.sessionId,
+    req.cookies.sessionToken,
+  );
 
   await deleteColumn(columnId);
 
@@ -100,7 +135,10 @@ export const deleteColumnController = async (req, res) => {
 
 export const createCardController = async (req, res) => {
   const { body } = req;
-  const getingUser = await getUser(req.cookies.sessionId, req.cookies.sessionToken);
+  const getingUser = await getUser(
+    req.cookies.sessionId,
+    req.cookies.sessionToken,
+  );
 
   const newColumn = await createCard(body);
 
@@ -112,10 +150,13 @@ export const createCardController = async (req, res) => {
 };
 
 export const getCardsController = async (req, res) => {
-  const getingUser = await getUser(req.cookies.sessionId, req.cookies.sessionToken);
+  const getingUser = await getUser(
+    req.cookies.sessionId,
+    req.cookies.sessionToken,
+  );
   const columnId = req.query.columnId;
   const columns = await getCards(columnId);
-  
+
   res.status(201).send({
     status: 201,
     message: `Successfully find a cards!`,
@@ -126,7 +167,10 @@ export const getCardsController = async (req, res) => {
 export const updateCardController = async (req, res) => {
   const cardId = req.query.cardId;
   const { body } = req;
-  const getingUser = await getUser(req.cookies.sessionId, req.cookies.sessionToken);
+  const getingUser = await getUser(
+    req.cookies.sessionId,
+    req.cookies.sessionToken,
+  );
 
   const newCard = await pathCard(cardId, body);
 
@@ -139,7 +183,10 @@ export const updateCardController = async (req, res) => {
 
 export const deleteCardController = async (req, res) => {
   const cardId = req.query.cardId;
-  const getingUser = await getUser(req.cookies.sessionId, req.cookies.sessionToken);
+  const getingUser = await getUser(
+    req.cookies.sessionId,
+    req.cookies.sessionToken,
+  );
 
   await deletecard(cardId);
 

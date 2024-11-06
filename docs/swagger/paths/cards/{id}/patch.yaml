@@ -1,0 +1,78 @@
+tags:
+  - cards
+summary: Update card
+operationId: updateCard
+description: 'Update a card with payload'
+security:
+  - bearerAuth: []
+parameters:
+  - name: cardId
+    in: path
+    required: true
+    description: The ID of the card to patch.
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - title
+          - description
+          - priority
+          - deadline
+        properties:
+          boardId:
+            description: 'Board id'
+            type: string
+            example: 65e4decdd286b30065d54af9
+          columnId:
+            description: 'Column id'
+            type: string
+            example: 65e4decdd286b30065d54af9
+          title:
+            description: "Card's title"
+            type: string
+            example: 'card 1'
+          description:
+            description: Card's description
+            type: string
+            example: this is a card
+          priority:
+            description: "Card priority type ('Without', 'Low', 'Medium', 'Hight')"
+            type: string
+            enum: ['Without', 'Low', 'Medium', 'Hight']
+            default: 'Without'
+            example: 'Without'
+          deadline:
+            description: 'Card deadline'
+            type: string
+            example: '2024-10-12'
+responses:
+  '200':
+    description: Update a title  card
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: string
+              example: 200
+            massage:
+              type: string
+              example: Successfully patched a card!
+            data:
+              type: object
+              example:
+                $ref: '../../../components/schemas/card.yaml'
+  '401':
+    $ref: '../../../components/responses/401.yaml'
+  '404':
+    $ref: '../../../components/responses/404.yaml'

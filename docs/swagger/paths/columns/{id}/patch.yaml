@@ -1,18 +1,18 @@
 tags:
-  - boards
-summary: Update board
-operationId: updateBoard
-description: 'Update a board with payload'
+  - columns
+summary: Update columns
+operationId: updateColumns
+description: 'Update a columns with payload'
 security:
   - bearerAuth: []
 parameters:
-  - in: path
-    name: boardId
+  - name: columnId
+    in: path
     required: true
+    description: The ID of the column to patch.
     schema:
       type: string
       example: '65ca67e7ae7f10c88b598384'
-    description: The ID of the board to update.
 requestBody:
   content:
     application/json:
@@ -22,21 +22,13 @@ requestBody:
           - title
         properties:
           title:
-            description: "Board's title"
+            description: "Column's title"
             type: string
-            example: 'Project 1'
-          background:
-            description: "Board's background"
-            type: string
-            example: grey
-          icon:
-            description: /src/images/icons.svg#icon-icon-1-square
-            type: string
-            example: 'Qweas23!'
+            example: 'To Do'
 
 responses:
   '200':
-    description: Update a board
+    description: Update a title column
     content:
       application/json:
         schema:
@@ -51,10 +43,12 @@ responses:
               example: 200
             massage:
               type: string
-              example: Successfully patched a board!
+              example: Successfully patched a column!
             data:
               type: object
               example:
-                $ref: '../../../components/schemas/boards.yaml'
+                $ref: '../../../components/schemas/column.yaml'
+  '401':
+    $ref: '../../../components/responses/401.yaml'
   '404':
-    description: NotFoundError
+    $ref: '../../../components/responses/404.yaml'

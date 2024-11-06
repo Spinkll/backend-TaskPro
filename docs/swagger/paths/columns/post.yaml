@@ -1,0 +1,51 @@
+tags:
+  - columns
+summary: Create column
+operationId: createColumn
+description: 'Create a column with payload'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - boardId
+          - title
+        properties:
+          boardId:
+            description: 'Board id'
+            type: string
+            example: 65e4decdd286b30065d54af9
+          title:
+            description: "Column's title"
+            type: string
+            example: 'To Do'
+
+responses:
+  '201':
+    description: Creates a column
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: string
+              example: 201
+            massage:
+              type: string
+              example: Successfully created a column!
+            data:
+              type: object
+              example:
+                $ref: '../../components/schemas/column.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '404':
+    $ref: '../../components/responses/404.yaml'
