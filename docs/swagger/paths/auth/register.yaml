@@ -52,12 +52,6 @@ responses:
             data:
               type: object
               $ref: '../../components/schemas/user.yaml'
-            token:
-              type: object
-              properties:
-                accessToken:
-                  type: string
-                  example: gocx91Da6+mfdrgJlCn5qQ==
   '409':
     $ref: '../../components/responses/409.yaml'
 

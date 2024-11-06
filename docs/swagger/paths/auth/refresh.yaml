@@ -25,11 +25,5 @@ responses:
             message:
               type: string
               example: Successfully is refreshed!
-            data:
-              type: object
-              properties:
-                accessToken:
-                  type: string
-                  example: gocx91Da6+mfdrgJlCn5qQ==
   '401':
     $ref: '../../components/responses/401.yaml'

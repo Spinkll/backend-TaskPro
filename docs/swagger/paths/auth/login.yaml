@@ -62,13 +62,6 @@ responses:
                 theme:
                   type: string
                   example: light
-            token:
-              type: object
-              properties:
-                accessToken:
-                  type: string
-                  example: gocx91Da6+mfdrgJlCn5qQ==
-
   '401':
     $ref: '../../components/responses/401.yaml'
   '404':

@@ -1,0 +1,34 @@
+tags:
+  - boards
+summary: Get boards
+operationId: GetBoards
+description: 'Get a boards data.'
+security:
+  - bearerAuth: []
+requestBody:
+
+responses:
+  '200':
+    description: Geted a user
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully find a boards!
+            data:
+              $ref: '../../../components/schemas/boards.yaml'
+  '401':
+    description: Unauthorized.
+  '404':
+    $ref: '../../../components/responses/404.yaml'
+

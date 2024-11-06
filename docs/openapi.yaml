@@ -33,11 +33,15 @@ paths:
       $ref: ./swagger/paths/auth/getUser.yaml
     patch:
       $ref: ./swagger/paths/auth/patchUser.yaml
-  /:
+  /boards/:
     get:
-      $ref: ./swagger/paths/boards/get.yaml
+      $ref: ./swagger/paths/boards/boards/get.yaml
     post:
-      $ref: ./swagger/paths/boards/post.yaml
+      $ref: ./swagger/paths/boards/boards/post.yaml
+    patch:
+      $ref: ./swagger/paths/boards/boards/patch.yaml
+    delete:
+      $ref: ./swagger/paths/boards/boards/delete.yaml
 
 components:
   securitySchemes:
