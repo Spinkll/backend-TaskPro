@@ -1,7 +1,7 @@
 tags:
   - cards
 summary: Delete card by id
-operationId: deletecard
+operationId: deleteCard
 description: 'Delete a card by id.'
 security:
   - bearerAuth: []
@@ -17,6 +17,5 @@ parameters:
 responses:
   '204':
     description: 'No Content'
-
   '404':
-    $ref: '../../../../../../../components/responses/404.yaml'
+    $ref: '../../../components/responses/404.yaml'

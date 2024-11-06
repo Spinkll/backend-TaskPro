@@ -83,7 +83,8 @@ responses:
               example: 'Successfully updated a Board!'
             data:
               type: object
-              $ref: '../../../components/schemas/Board.yaml'
+              example:
+                $ref: '../../../components/schemas/Board.yaml'
 
   '401':
     $ref: '../../../components/responses/401.yaml'

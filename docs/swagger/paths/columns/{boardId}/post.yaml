@@ -1,33 +1,35 @@
 tags:
   - columns
-summary: Update column
-operationId: updateColumn
-description: 'Update a column by id.'
+summary: Post column
+operationId: PostColumn
+description: 'create a column.'
 security:
   - bearerAuth: []
 
 parameters:
   - in: path
-    name: columnId
+    name: boardId
     required: true
     schema:
       type: string
-      example: '6727ba623af6846ad7c7abe6'
+      example: '65ca67e7ae7f10c88b598384'
 
 requestBody:
   content:
-    multipart/form-data:
+    application/json:
       schema:
         type: object
+        required:
+          - title
         properties:
           title:
             description: 'Column title'
             type: string
-            example: 'Eddy Canter Din'
+            example: 'TO DO'
 
 responses:
-  '200':
-    description: 'Patch Column by id and body'
+  '201':
+    description: Create a column
     content:
       application/json:
         schema:
@@ -39,16 +41,14 @@ responses:
           properties:
             status:
               type: integer
-              example: 200
+              example: 201
             message:
               type: string
-              example: 'Successfully updated a Column!'
+              example: Successfully found Column!
             data:
               type: object
-              $ref: '../../../../../components/schemas/Column.yaml'
-
-  '401':
-    $ref: '../../../../../components/responses/401.yaml'
+              example:
+                $ref: '../../../components/schemas/Column.yaml'
 
   '404':
-    $ref: '../../../../../components/responses/404.yaml'
+    $ref: '../../../components/responses/404.yaml'

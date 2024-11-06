@@ -1,8 +1,8 @@
 tags:
   - cards
-summary: Update card by id
-operationId: updateCard
-description: 'Update a card data.'
+summary: Get card by id
+operationId: getCard
+description: 'Get a card data.'
 security:
   - bearerAuth: []
 
@@ -16,7 +16,7 @@ parameters:
 
 responses:
   '200':
-    description: Update card by id
+    description: Get card by id
     content:
       application/json:
         schema:
@@ -31,9 +31,10 @@ responses:
               example: 200
             message:
               type: string
-              example: Successfully update Card!
+              example: Successfully found Column!
             data:
               type: object
-              $ref: '../../../../../../../components/schemas/Card.yaml'
+              example:
+                $ref: '../../../components/schemas/Card.yaml'
   '401':
-    $ref: '../../../../../../../components/responses/401.yaml'
+    $ref: '../../../components/responses/401.yaml'

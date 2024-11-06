@@ -1,6 +1,6 @@
 tags:
   - columns
-summary: Get columns by boardId
+summary: Get columns by id
 operationId: GetColumn
 description: 'Get a column data.'
 security:
@@ -34,7 +34,8 @@ responses:
               example: Successfully found Column!
             data:
               type: object
-              $ref: '../../../../../components/schemas/Column.yaml'
+              example:
+                $ref: '../../../components/schemas/Column.yaml'
 
   '404':
-    $ref: '../../../../../components/responses/404.yaml'
+    $ref: '../../../components/responses/404.yaml'

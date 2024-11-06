@@ -43,9 +43,9 @@ responses:
             data:
               type: array
               items:
-                type: string
+                type: object
                 example:
-                  $ref: '../../../../../../components/schemas/Card.yaml'
+                  $ref: '../../../components/schemas/Card.yaml'
 
   '404':
-    $ref: '../../../../../../components/responses/404.yaml'
+    $ref: '../../../components/responses/404.yaml'

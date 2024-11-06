@@ -8,7 +8,6 @@ import {
   getCardsService,
   updateCardService,
 } from '../services/cards.js';
-import { getBoardByIdService } from '../services/boards.js';
 
 const getAllCards = async (req, res, next) => {
   const { columnId } = req.params;
@@ -42,16 +41,8 @@ const getAllCards = async (req, res, next) => {
 };
 
 const createCard = async (req, res, next) => {
-  const { columnId, boardId } = req.params;
+  const { columnId } = req.params;
   const reqBody = req.body;
-
-  const board = await getBoardByIdService({
-    _id: boardId,
-  });
-  if (!board) {
-    next(createHttpError(404, 'Board not found.'));
-    return;
-  }
 
   const column = await getColumnByIdService({
     _id: columnId,
@@ -63,8 +54,8 @@ const createCard = async (req, res, next) => {
 
   const newCard = await createCardService({
     ...reqBody,
-    columnId,
-    boardId,
+    columnId: column._id,
+    boardId: column.boardId,
   });
   if (!newCard) {
     next(createHttpError(404, 'Error to create Card.'));
@@ -79,7 +70,7 @@ const createCard = async (req, res, next) => {
 };
 
 const getByIdCard = async (req, res, next) => {
-  const { columnId, cardId } = req.params;
+  const { cardId } = req.params;
 
   const card = await getCardByIdService({
     _id: cardId,
@@ -97,12 +88,12 @@ const getByIdCard = async (req, res, next) => {
 };
 
 const updateCard = async (req, res, next) => {
-  const { columnId, cardId } = req.params;
+  const { cardId } = req.params;
   const reqBody = req.body;
 
   const updateCard = await updateCardService({ _id: cardId }, reqBody);
   if (!updateCard) {
-    next(createHttpError(404, 'Card not foound.'));
+    next(createHttpError(404, 'Card not found.'));
     return;
   }
 
@@ -114,23 +105,19 @@ const updateCard = async (req, res, next) => {
 };
 
 const deleteCard = async (req, res, next) => {
-  const { columnId, cardId } = req.params;
+  const { cardId } = req.params;
 
-  const column = await getColumnByIdService({
-    _id: columnId,
-  });
-  if (!column) {
-    next(createHttpError(404, 'Column not found.'));
-    return;
-  }
-
-  const currentCard = await deleteCardService({
+  const card = await getCardByIdService({
     _id: cardId,
   });
-  if (!currentCard) {
+  if (!card) {
     next(createHttpError(404, 'Card not found.'));
     return;
   }
+
+  await deleteCardService({
+    _id: cardId,
+  });
 
   res.status(204).send();
 };

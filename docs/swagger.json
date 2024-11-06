@@ -511,7 +511,38 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "$ref": "#/components/schemas/Board"
+                        "example": {
+                          "type": "object",
+                          "required": [
+                            "title",
+                            "background",
+                            "icon"
+                          ],
+                          "properties": {
+                            "_id": {
+                              "description": "board id",
+                              "type": "string",
+                              "example": "65e4decdd286b30065d54af9"
+                            },
+                            "title": {
+                              "description": "Board's title",
+                              "type": "string",
+                              "example": "Create MagazinePro"
+                            },
+                            "background": {
+                              "description": "Board's background",
+                              "type": "string",
+                              "default": "bg-1",
+                              "example": "bg-1"
+                            },
+                            "icon": {
+                              "description": "Board's icon",
+                              "type": "string",
+                              "default": "icon-1",
+                              "example": "icon-1"
+                            }
+                          }
+                        }
                       }
                     }
                   }
@@ -709,15 +740,43 @@
                     },
                     "data": {
                       "type": "object",
-                      "$ref": "#/components/schemas/Board"
+                      "example": {
+                        "type": "object",
+                        "required": [
+                          "title",
+                          "background",
+                          "icon"
+                        ],
+                        "properties": {
+                          "_id": {
+                            "description": "board id",
+                            "type": "string",
+                            "example": "65e4decdd286b30065d54af9"
+                          },
+                          "title": {
+                            "description": "Board's title",
+                            "type": "string",
+                            "example": "Create MagazinePro"
+                          },
+                          "background": {
+                            "description": "Board's background",
+                            "type": "string",
+                            "default": "bg-1",
+                            "example": "bg-1"
+                          },
+                          "icon": {
+                            "description": "Board's icon",
+                            "type": "string",
+                            "default": "icon-1",
+                            "example": "icon-1"
+                          }
+                        }
+                      }
                     }
                   }
                 }
               }
             }
-          },
-          "401": {
-            "$ref": "#/components/responses/401"
           },
           "404": {
             "$ref": "#/components/responses/404"
@@ -824,7 +883,38 @@
                     },
                     "data": {
                       "type": "object",
-                      "$ref": "#/components/schemas/Board"
+                      "example": {
+                        "type": "object",
+                        "required": [
+                          "title",
+                          "background",
+                          "icon"
+                        ],
+                        "properties": {
+                          "_id": {
+                            "description": "board id",
+                            "type": "string",
+                            "example": "65e4decdd286b30065d54af9"
+                          },
+                          "title": {
+                            "description": "Board's title",
+                            "type": "string",
+                            "example": "Create MagazinePro"
+                          },
+                          "background": {
+                            "description": "Board's background",
+                            "type": "string",
+                            "default": "bg-1",
+                            "example": "bg-1"
+                          },
+                          "icon": {
+                            "description": "Board's icon",
+                            "type": "string",
+                            "default": "icon-1",
+                            "example": "icon-1"
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -866,16 +956,13 @@
           "204": {
             "description": "No Content"
           },
-          "401": {
-            "$ref": "#/components/responses/401"
-          },
           "404": {
             "$ref": "#/components/responses/404"
           }
         }
       }
     },
-    "/boards/:boardId/columns": {
+    "/columns/:boardId": {
       "get": {
         "tags": [
           "columns"
@@ -940,7 +1027,29 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "$ref": "#/components/schemas/Column"
+                        "example": {
+                          "type": "object",
+                          "required": [
+                            "title"
+                          ],
+                          "properties": {
+                            "_id": {
+                              "description": "Column id",
+                              "type": "string",
+                              "example": "67280ec83bdc839326b08e1b"
+                            },
+                            "boardId": {
+                              "description": "Board id",
+                              "type": "string",
+                              "example": "67280e853bdc839326b08e0f"
+                            },
+                            "title": {
+                              "description": "Column's title",
+                              "type": "string",
+                              "example": "Materials"
+                            }
+                          }
+                        }
                       }
                     }
                   }
@@ -1053,12 +1162,12 @@
         }
       }
     },
-    "/boards/:boardId/columns/:columnId": {
+    "/columns/:columnId": {
       "get": {
         "tags": [
           "columns"
         ],
-        "summary": "Get columns by boardId",
+        "summary": "Get columns by id",
         "operationId": "GetColumn",
         "description": "Get a column data.",
         "security": [
@@ -1100,7 +1209,29 @@
                     },
                     "data": {
                       "type": "object",
-                      "$ref": "#/components/schemas/Column"
+                      "example": {
+                        "type": "object",
+                        "required": [
+                          "title"
+                        ],
+                        "properties": {
+                          "_id": {
+                            "description": "Column id",
+                            "type": "string",
+                            "example": "67280ec83bdc839326b08e1b"
+                          },
+                          "boardId": {
+                            "description": "Board id",
+                            "type": "string",
+                            "example": "67280e853bdc839326b08e0f"
+                          },
+                          "title": {
+                            "description": "Column's title",
+                            "type": "string",
+                            "example": "Materials"
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -1116,7 +1247,7 @@
         "tags": [
           "columns"
         ],
-        "summary": "Update column",
+        "summary": "Update column by id",
         "operationId": "updateColumn",
         "description": "Update a column by id.",
         "security": [
@@ -1174,7 +1305,29 @@
                     },
                     "data": {
                       "type": "object",
-                      "$ref": "#/components/schemas/Column"
+                      "example": {
+                        "type": "object",
+                        "required": [
+                          "title"
+                        ],
+                        "properties": {
+                          "_id": {
+                            "description": "Column id",
+                            "type": "string",
+                            "example": "67280ec83bdc839326b08e1b"
+                          },
+                          "boardId": {
+                            "description": "Board id",
+                            "type": "string",
+                            "example": "67280e853bdc839326b08e0f"
+                          },
+                          "title": {
+                            "description": "Column's title",
+                            "type": "string",
+                            "example": "Materials"
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -1222,7 +1375,7 @@
         }
       }
     },
-    "/boards/:boardId/columns/:columnId/cards": {
+    "/cards/:columnId": {
       "get": {
         "tags": [
           "cards"
@@ -1270,7 +1423,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "type": "string",
+                        "type": "object",
                         "example": {
                           "type": "object",
                           "required": [
@@ -1485,7 +1638,7 @@
         }
       }
     },
-    "/boards/:boardId/columns/:columnId/cards/:cardId": {
+    "/cards/:cardId": {
       "get": {
         "tags": [
           "cards"
@@ -1532,7 +1685,58 @@
                     },
                     "data": {
                       "type": "object",
-                      "$ref": "#/components/schemas/Card"
+                      "example": {
+                        "type": "object",
+                        "required": [
+                          "title",
+                          "description",
+                          "priority",
+                          "date"
+                        ],
+                        "properties": {
+                          "_id": {
+                            "description": "Card id",
+                            "type": "string",
+                            "example": "67280fd53bdc839326b08e78"
+                          },
+                          "columnId": {
+                            "description": "Card columnId",
+                            "type": "string",
+                            "example": "67280ee53bdc839326b08e24"
+                          },
+                          "boardId": {
+                            "description": "Card boardId",
+                            "type": "string",
+                            "example": "67280e853bdc839326b08e0f"
+                          },
+                          "title": {
+                            "description": "Card title",
+                            "type": "string",
+                            "example": "Materials"
+                          },
+                          "description": {
+                            "description": "Card description",
+                            "type": "string",
+                            "example": "Link of materials http://materials.link.com"
+                          },
+                          "priority": {
+                            "description": "Card priority",
+                            "type": "string",
+                            "enum": [
+                              "low",
+                              "medium",
+                              "high",
+                              "without"
+                            ],
+                            "example": "without"
+                          },
+                          "date": {
+                            "description": "Card date",
+                            "type": "string",
+                            "example": "2024-10-12T05:46:48.395Z"
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -1590,7 +1794,58 @@
                     },
                     "data": {
                       "type": "object",
-                      "$ref": "#/components/schemas/Card"
+                      "example": {
+                        "type": "object",
+                        "required": [
+                          "title",
+                          "description",
+                          "priority",
+                          "date"
+                        ],
+                        "properties": {
+                          "_id": {
+                            "description": "Card id",
+                            "type": "string",
+                            "example": "67280fd53bdc839326b08e78"
+                          },
+                          "columnId": {
+                            "description": "Card columnId",
+                            "type": "string",
+                            "example": "67280ee53bdc839326b08e24"
+                          },
+                          "boardId": {
+                            "description": "Card boardId",
+                            "type": "string",
+                            "example": "67280e853bdc839326b08e0f"
+                          },
+                          "title": {
+                            "description": "Card title",
+                            "type": "string",
+                            "example": "Materials"
+                          },
+                          "description": {
+                            "description": "Card description",
+                            "type": "string",
+                            "example": "Link of materials http://materials.link.com"
+                          },
+                          "priority": {
+                            "description": "Card priority",
+                            "type": "string",
+                            "enum": [
+                              "low",
+                              "medium",
+                              "high",
+                              "without"
+                            ],
+                            "example": "without"
+                          },
+                          "date": {
+                            "description": "Card date",
+                            "type": "string",
+                            "example": "2024-10-12T05:46:48.395Z"
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -1607,7 +1862,7 @@
           "cards"
         ],
         "summary": "Delete card by id",
-        "operationId": "deletecard",
+        "operationId": "deleteCard",
         "description": "Delete a card by id.",
         "security": [
           {
@@ -1688,113 +1943,6 @@
             "description": "date of last update",
             "type": "string",
             "example": "2024-10-12T05:47:41.792Z"
-          }
-        }
-      },
-      "Board": {
-        "type": "object",
-        "required": [
-          "title",
-          "background",
-          "icon"
-        ],
-        "properties": {
-          "_id": {
-            "description": "board id",
-            "type": "string",
-            "example": "65e4decdd286b30065d54af9"
-          },
-          "title": {
-            "description": "Board's title",
-            "type": "string",
-            "example": "Create MagazinePro"
-          },
-          "background": {
-            "description": "Board's background",
-            "type": "string",
-            "default": "bg-1",
-            "example": "bg-1"
-          },
-          "icon": {
-            "description": "Board's icon",
-            "type": "string",
-            "default": "icon-1",
-            "example": "icon-1"
-          }
-        }
-      },
-      "Column": {
-        "type": "object",
-        "required": [
-          "title"
-        ],
-        "properties": {
-          "_id": {
-            "description": "Column id",
-            "type": "string",
-            "example": "67280ec83bdc839326b08e1b"
-          },
-          "boardId": {
-            "description": "Board id",
-            "type": "string",
-            "example": "67280e853bdc839326b08e0f"
-          },
-          "title": {
-            "description": "Column's title",
-            "type": "string",
-            "example": "Materials"
-          }
-        }
-      },
-      "Card": {
-        "type": "object",
-        "required": [
-          "title",
-          "description",
-          "priority",
-          "date"
-        ],
-        "properties": {
-          "_id": {
-            "description": "Card id",
-            "type": "string",
-            "example": "67280fd53bdc839326b08e78"
-          },
-          "columnId": {
-            "description": "Card columnId",
-            "type": "string",
-            "example": "67280ee53bdc839326b08e24"
-          },
-          "boardId": {
-            "description": "Card boardId",
-            "type": "string",
-            "example": "67280e853bdc839326b08e0f"
-          },
-          "title": {
-            "description": "Card title",
-            "type": "string",
-            "example": "Materials"
-          },
-          "description": {
-            "description": "Card description",
-            "type": "string",
-            "example": "Link of materials http://materials.link.com"
-          },
-          "priority": {
-            "description": "Card priority",
-            "type": "string",
-            "enum": [
-              "low",
-              "medium",
-              "high",
-              "without"
-            ],
-            "example": "without"
-          },
-          "date": {
-            "description": "Card date",
-            "type": "string",
-            "example": "2024-10-12T05:46:48.395Z"
           }
         }
       }

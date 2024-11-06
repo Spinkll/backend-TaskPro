@@ -34,9 +34,8 @@ responses:
               example: Successfully found board!
             data:
               type: object
-              $ref: '../../../components/schemas/Board.yaml'
+              example:
+                $ref: '../../../components/schemas/Board.yaml'
 
-  '401':
-    $ref: '../../../components/responses/401.yaml'
   '404':
     $ref: '../../../components/responses/404.yaml'

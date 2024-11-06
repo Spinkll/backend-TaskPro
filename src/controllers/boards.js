@@ -80,11 +80,13 @@ const updateBoard = async (req, res, next) => {
 
 const deleteBoard = async (req, res, next) => {
   const { boardId } = req.params;
-  const deletedBoard = await deleteBoardService({ _id: boardId });
-  if (!deletedBoard) {
+  const board = await getBoardByIdService({ _id: boardId });
+  if (!board) {
     next(createHttpError(404, 'Board not found'));
     return;
   }
+
+  await deleteBoardService({ _id: board._id });
 
   res.status(204).send();
 };

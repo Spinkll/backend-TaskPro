@@ -47,7 +47,8 @@ responses:
               type: array
               items:
                 type: object
-                $ref: '../../../../components/schemas/Column.yaml'
+                example:
+                  $ref: '../../../components/schemas/Column.yaml'
 
   '404':
-    $ref: '../../../../components/responses/404.yaml'
+    $ref: '../../../components/responses/404.yaml'

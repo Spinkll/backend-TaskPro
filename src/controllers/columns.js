@@ -11,17 +11,17 @@ import {
 
 const getAllColumns = async (req, res, next) => {
   const { boardId } = req.params;
-
   const board = await getBoardByIdService({
     _id: boardId,
   });
+
   if (!board) {
     next(createHttpError(404, 'Board not found'));
     return;
   }
 
   const columns = await getColumnsService({
-    boardId: boardId,
+    boardId: boardId._id,
   });
   if (!columns) {
     next(createHttpError(404, 'Column not found'));
@@ -46,6 +46,7 @@ const createColumn = async (req, res, next) => {
   const board = await getBoardByIdService({
     _id: boardId,
   });
+
   if (!board) {
     next(createHttpError(404, 'Board not found'));
     return;
@@ -53,7 +54,7 @@ const createColumn = async (req, res, next) => {
 
   const newColumn = await createColumnService({
     ...reqBody,
-    boardId: boardId,
+    boardId: board._id,
   });
   if (!newColumn) {
     next(createHttpError(404, 'Error create Column'));
@@ -68,15 +69,7 @@ const createColumn = async (req, res, next) => {
 };
 
 const getByIdColumn = async (req, res, next) => {
-  const { columnId, boardId } = req.params;
-
-  const board = await getBoardByIdService({
-    _id: boardId,
-  });
-  if (!board) {
-    next(createHttpError(404, 'Board not found'));
-    return;
-  }
+  const { columnId } = req.params;
 
   const column = await getColumnByIdService({
     _id: columnId,
@@ -94,16 +87,8 @@ const getByIdColumn = async (req, res, next) => {
 };
 
 const updateColumn = async (req, res, next) => {
-  const { columnId, boardId } = req.params;
+  const { columnId } = req.params;
   const reqBody = req.body;
-
-  const board = await getBoardByIdService({
-    _id: boardId,
-  });
-  if (!board) {
-    next(createHttpError(404, 'Board not found'));
-    return;
-  }
 
   const updatedColumn = await updateColumnService({ _id: columnId }, reqBody);
   if (!updatedColumn) {
@@ -119,21 +104,17 @@ const updateColumn = async (req, res, next) => {
 };
 
 const deleteColumn = async (req, res, next) => {
-  const { boardId, columnId } = req.params;
+  const { columnId } = req.params;
 
-  const board = await getBoardByIdService({
-    _id: boardId,
+  const columns = await getColumnByIdService({
+    _id: columnId,
   });
-  if (!board) {
-    next(createHttpError(404, 'Board not found'));
-    return;
-  }
-
-  const deletedColumn = await deleteColumnService({ _id: columnId });
-  if (!deletedColumn) {
+  if (!columns) {
     next(createHttpError(404, 'Column not found'));
     return;
   }
+
+  await deleteColumnService({ _id: columnId });
 
   res.status(204).send();
 };
