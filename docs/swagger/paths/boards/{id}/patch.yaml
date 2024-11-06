@@ -1,10 +1,18 @@
 tags:
   - boards
-summary: Create board
-operationId: createBoard
-description: 'Create a board with payload'
+summary: Update board
+operationId: updateBoard
+description: 'Update a board with payload'
 security:
   - bearerAuth: []
+parameters:
+  - in: query
+    name: boardId
+    required: true
+    description: The ID of the board to patch.
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
 requestBody:
   content:
     application/json:
@@ -20,15 +28,15 @@ requestBody:
           background:
             description: "Board's background"
             type: string
-            example: grey
+            example: '/src/images/backgrounds-desk/bg1-des-mountain.jpg'
           icon:
             description: "Board's icon"
             type: string
-            example: /src/images/icons.svg#icon-icon-1-square
+            example: /src/images/icons.svg#icon-icon-1-square'
 
 responses:
   '200':
-    description: Creates a board
+    description: Update a board
     content:
       application/json:
         schema:
@@ -43,13 +51,12 @@ responses:
               example: 200
             massage:
               type: string
-              example: Successfully created a board!
+              example: Successfully patched a board!
             data:
               type: object
               example:
-                $ref: '../../components/schemas/board.yaml'
-
+                $ref: '../../../components/schemas/board.yaml'
   '401':
-    $ref: ../../components/responses/401.yaml
+    $ref: ../../../components/responses/401.yaml
   '404':
-    $ref: ../../components/responses/404.yaml
+    $ref: ../../../components/responses/404.yaml

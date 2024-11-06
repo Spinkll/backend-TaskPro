@@ -1,0 +1,23 @@
+tags:
+  - cards
+summary: Delete card
+operationId: deleteCard
+description: 'Delete a card.'
+security:
+  - bearerAuth: []
+parameters:
+  - in: query
+    name: cardId
+    required: true
+    description: The ID of the card to delete.
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+responses:
+  '204':
+    description: delete a card
+
+  '401':
+    $ref: ../../../components/responses/401.yaml
+  '404':
+    $ref: ../../../components/responses/404.yaml

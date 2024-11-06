@@ -1,0 +1,54 @@
+tags:
+  - columns
+summary: Update columns
+operationId: updateColumns
+description: 'Update a columns with payload'
+security:
+  - bearerAuth: []
+parameters:
+  - in: query
+    name: columnId
+    required: true
+    description: The ID of the column to patch.
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - title
+        properties:
+          title:
+            description: "Column's title"
+            type: string
+            example: 'To Do'
+
+responses:
+  '200':
+    description: Update a title column
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: string
+              example: 200
+            massage:
+              type: string
+              example: Successfully patched a column!
+            data:
+              type: object
+              example:
+                $ref: '../../../components/schemas/column.yaml'
+  '401':
+    $ref: '../../../components/responses/401.yaml'
+  '404':
+    $ref: '../../../components/responses/404.yaml'

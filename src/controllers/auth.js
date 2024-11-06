@@ -20,7 +20,6 @@ export const registerController = async (req, res) => {
             email: user.user.email,
             id: user.user.id,
             theme: "light",
-            accessToken: user.session.accessToken,
             createdAt: user.user.createdAt,
             updatedAt: user.user.updatedAt,
             }
@@ -36,8 +35,7 @@ export const loginController = async (req, res) => {
 
     res.json({
         status: 200,
-        message: 'Successfully logged in an user!',
-        data: {accessToken: session.accessToken}
+        message: 'Successfully logged in an user!'
     });
 };
 
@@ -55,8 +53,7 @@ export const refreshUserController = async (req, res) => {
 
     res.json({
         status: 200,
-        message: 'Successfully is refreshed!',
-        data: {accessToken: session.accessToken}
+        message: 'Successfully is refreshed!'
     });
 };
 

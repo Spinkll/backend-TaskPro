@@ -5,16 +5,21 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  description:
-    API for a notebook application using MongoDB
+  description: API for a notebook application using MongoDB
 tags:
   - name: auth
     description: Operations with user.
   - name: boards
     description: Operations with boards.
+  - name: columns
+    description: Operations with columns.
+  - name: cards
+    description: Operations with cards.
+  - name: need-help
+    description: Feedback from user.
 servers:
-  - url: http://localhost:3000
   - url: https://backend-taskpro.onrender.com
+  - url: http://localhost:3000
 paths:
   /auth/register:
     post:
@@ -33,11 +38,41 @@ paths:
       $ref: ./swagger/paths/auth/getUser.yaml
     patch:
       $ref: ./swagger/paths/auth/patchUser.yaml
-  /:
-    get:
-      $ref: ./swagger/paths/boards/get.yaml
+  /boards:
     post:
       $ref: ./swagger/paths/boards/post.yaml
+    get:
+      $ref: ./swagger/paths/boards/{id}/get.yaml
+  /boards/:boardId:
+    patch:
+      $ref: ./swagger/paths/boards/{id}/patch.yaml
+    delete:
+      $ref: ./swagger/paths/boards/{id}/delete.yaml
+  /columns:
+    post:
+      $ref: ./swagger/paths/columns/post.yaml
+  /columns/:boardId:
+    get:
+      $ref: ./swagger/paths/columns/{id}/get.yaml
+  /columns/:columnId:
+    patch:
+      $ref: ./swagger/paths/columns/{id}/patch.yaml
+    delete:
+      $ref: ./swagger/paths/columns/{id}/delete.yaml
+  /cards:
+    post:
+      $ref: ./swagger/paths/cards/post.yaml
+  /cards/:columnId:
+    get:
+      $ref: ./swagger/paths/cards/{id}/get.yaml
+  /cards/:cardId:
+    patch:
+      $ref: ./swagger/paths/cards/{id}/patch.yaml
+    delete:
+      $ref: ./swagger/paths/cards/{id}/delete.yaml
+  /need-help:
+    post:
+      $ref: ./swagger/paths/needHelp/post.yaml
 
 components:
   securitySchemes:
