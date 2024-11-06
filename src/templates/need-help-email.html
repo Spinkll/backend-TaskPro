@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Feedback</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+      .email-container {
+        background-color: #ffffff;
+        border-radius: 8px;
+        padding: 30px;
+        max-width: 600px;
+        margin: 40px auto;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #4a90e2;
+        font-size: 26px;
+        margin-bottom: 20px;
+        font-weight: bold;
+      }
+      p {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #555;
+        margin-bottom: 20px;
+      }
+      .footer {
+        font-size: 12px;
+        color: #888;
+        text-align: center;
+        border-top: 1px solid #f1f1f1;
+        padding-top: 15px;
+        margin-top: 30px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        background-color: #4a90e2;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: bold;
+      }
+      .btn:hover {
+        background-color: #357abd;
+      }
+      .highlight {
+        background-color: #f1f8ff;
+        padding: 10px;
+        border-left: 4px solid #4a90e2;
+        margin-bottom: 20px;
+      }
+      .contact-info {
+        font-size: 14px;
+        color: #444;
+        padding-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <h1>New Feedback from {{email}}</h1>
+      <p>Dear Admin,</p>
+      <p>You have received a new message from a user. Below are the details:</p>
+
+      <div class="highlight">
+        <strong>User Comment:</strong>
+        <p>{{comment}}</p>
+      </div>
+
+      <p>
+        Please take the necessary action. If you need to reply, click the button
+        below:
+      </p>
+      <a href="mailto:{{email}}" class="btn">Reply to User</a>
+
+      <div class="contact-info">
+        <p><strong>User's Email:</strong> {{email}}</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>Thank you for using our service!</p>
+    </div>
+  </body>
+</html>
