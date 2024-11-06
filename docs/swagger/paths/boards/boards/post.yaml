@@ -27,7 +27,7 @@ requestBody:
             example: 'Qweas23!'
 
 responses:
-  '201':
+  '200':
     description: Creates a board
     content:
       application/json:
@@ -38,10 +38,16 @@ responses:
             - message
             - data
           properties:
+            status:
+              type: string
+              example: 200
+            massage:
+              type: string
+              example: Successfully created a board!
             data:
               type: object
               example:
-                $ref: '../../components/schemas/boards.yaml'
+                $ref: '../../../components/schemas/boards.yaml'
   '404':
     description: NotFoundError
 

@@ -1,0 +1,22 @@
+type: object
+properties:
+  _id:
+    description: "column id"
+    type: string
+    example: 65e4decdd286b30065d54af9
+  boardId:
+    description: "Board id"
+    type: string
+    example: 65e4decdd286b30065d54af9
+  title:
+    description: "Board's title"
+    type: string
+    example: 'To DO'
+  createdAt:
+    description: 'date of create'
+    type: string
+    example: 2024-10-12T05:46:48.395Z
+  updatedAt:
+    description: 'date of last update'
+    type: string
+    example: 2024-10-12T05:47:41.792Z
