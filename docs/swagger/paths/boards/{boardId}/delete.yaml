@@ -1,40 +1,23 @@
 tags:
   - boards
-summary: Delete board
+summary: Delete board by id
 operationId: DeleteBoard
-description: 'Delete a board data.'
+description: 'Delete a board by id.'
 security:
   - bearerAuth: []
 
 parameters:
   - in: path
-    name: id
+    name: boardId
     required: true
     schema:
       type: string
       example: '65ca67e7ae7f10c88b598384'
 
 responses:
-  '200':
-    description: delete board
-    content:
-      application/json:
-        schema:
-          type: object
-          required:
-            - status
-            - message
-            - data
-          properties:
-            status:
-              type: integer
-              example: 200
-            message:
-              type: string
-              example: Board deleted successfully
-            data:
-              type: object
-              $ref: '../../../components/schemas/Board.yaml'
-
+  '204':
+    description: 'No Content'
+  '401':
+    $ref: '../../../components/responses/401.yaml'
   '404':
     $ref: '../../../components/responses/404.yaml'

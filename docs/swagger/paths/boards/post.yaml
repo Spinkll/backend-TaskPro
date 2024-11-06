@@ -5,6 +5,7 @@ operationId: createBoard
 description: 'Create a board with payload'
 security:
   - bearerAuth: []
+
 requestBody:
   content:
     application/json:
@@ -12,19 +13,51 @@ requestBody:
         type: object
         required:
           - title
+          - background
+          - icon
         properties:
           title:
             description: "Board's title"
             type: string
-            example: 'Project 1'
+            example: 'TO DO'
           background:
             description: "Board's background"
             type: string
-            example: grey
+            enum:
+              [
+                'bg-1',
+                'bg-2',
+                'bg-3',
+                'bg-4',
+                'bg-5',
+                'bg-6',
+                'bg-7',
+                'bg-8',
+                'bg-9',
+                'bg-10',
+                'bg-11',
+                'bg-12',
+                'bg-13',
+                'bg-14',
+                'bg-15',
+                'bg-16',
+              ]
+            example: 'bg-1'
           icon:
-            description: /src/images/icons.svg#icon-icon-1-square
+            description: "Board's icon"
+            enum:
+              [
+                'icon-1',
+                'icon-2',
+                'icon-3',
+                'icon-4',
+                'icon-5',
+                'icon-6',
+                'icon-7',
+                'icon-8',
+              ]
             type: string
-            example: 'Qweas23!'
+            example: 'icon-8'
 
 responses:
   '201':
@@ -38,9 +71,16 @@ responses:
             - message
             - data
           properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully created a board!
             data:
               type: object
               example:
                 $ref: '../../components/schemas/Board.yaml'
+
   '404':
-    description: NotFoundError
+    $ref: '../../components/responses/404.yaml'

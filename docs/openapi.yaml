@@ -11,9 +11,20 @@ tags:
     description: Operations with user.
   - name: boards
     description: Operations with boards.
+  - name: columns
+    description: Operations with columns.
+  - name: cards
+    description: Operations with cards.
 servers:
   - url: http://localhost:3000
   - url: https://backend-taskpro.onrender.com
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+
 paths:
   /auth/register:
     post:
@@ -32,13 +43,11 @@ paths:
       $ref: ./swagger/paths/auth/getUser.yaml
     patch:
       $ref: ./swagger/paths/auth/patchUser.yaml
-
   /boards:
     get:
       $ref: ./swagger/paths/boards/get.yaml
     post:
       $ref: ./swagger/paths/boards/post.yaml
-
   /boards/:boardId:
     get:
       $ref: ./swagger/paths/boards/{boardId}/get.yaml
@@ -46,13 +55,11 @@ paths:
       $ref: ./swagger/paths/boards/{boardId}/patch.yaml
     delete:
       $ref: ./swagger/paths/boards/{boardId}/delete.yaml
-
- /boards/:boardId/columns:
+  /boards/:boardId/columns:
     get:
       $ref: ./swagger/paths/boards/{boardId}/columns/get.yaml
     post:
       $ref: ./swagger/paths/boards/{boardId}/columns/post.yaml
-
   /boards/:boardId/columns/:columnId:
     get:
       $ref: ./swagger/paths/boards/{boardId}/columns/{columnId}/get.yaml
@@ -60,23 +67,15 @@ paths:
       $ref: ./swagger/paths/boards/{boardId}/columns/{columnId}/patch.yaml
     delete:
       $ref: ./swagger/paths/boards/{boardId}/columns/{columnId}/delete.yaml
-
-   /boards/:boardId/columns/:columnId/cards:
+  /boards/:boardId/columns/:columnId/cards:
     get:
-      $ref: ./swagger/paths/boards/{boardId}/columns/:columnId/cards/get.yaml
+      $ref: ./swagger/paths/boards/{boardId}/columns/{columnId}/cards/get.yaml
     post:
-      $ref: ./swagger/paths/boards/{boardId}/columns/:columnId/cards/post.yaml
-
-   /boards/:boardId/columns/:columnId/cards/:cardId:
+      $ref: ./swagger/paths/boards/{boardId}/columns/{columnId}/cards/post.yaml
+  /boards/:boardId/columns/:columnId/cards/:cardId:
     get:
-      $ref: ./swagger/paths/boards/{boardId}/columns/{columnId}/:columnId/cards/get.yaml
+      $ref: ./swagger/paths/boards/{boardId}/columns/{columnId}/cards/{cardId}/get.yaml
     patch:
-      $ref: ./swagger/paths/boards/{boardId}/columns/{columnId}/patch.yaml
+      $ref: ./swagger/paths/boards/{boardId}/columns/{columnId}/cards/{cardId}/patch.yaml
     delete:
-      $ref: ./swagger/paths/boards/{boardId}/columns/{columnId}/delete.yaml
-
-components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
+      $ref: ./swagger/paths/boards/{boardId}/columns/{columnId}/cards/{cardId}/delete.yaml

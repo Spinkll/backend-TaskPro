@@ -1,14 +1,14 @@
 tags:
-  - columns
-summary: Delete column by id
-operationId: DeleteColumn
-description: 'Delete a column by id.'
+  - cards
+summary: Delete card by id
+operationId: deletecard
+description: 'Delete a card by id.'
 security:
   - bearerAuth: []
 
 parameters:
   - in: path
-    name: columnId
+    name: cardId
     required: true
     schema:
       type: string
@@ -18,5 +18,5 @@ responses:
   '204':
     description: 'No Content'
 
-  '401':
-    $ref: ../../../../../components/responses/401.yaml
+  '404':
+    $ref: '../../../../../../../components/responses/404.yaml'

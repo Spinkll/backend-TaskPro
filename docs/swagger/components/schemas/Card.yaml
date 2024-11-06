@@ -10,11 +10,11 @@ properties:
     type: string
     example: '67280fd53bdc839326b08e78'
   columnId:
-    description: 'Card id'
+    description: 'Card columnId'
     type: string
     example: '67280ee53bdc839326b08e24'
   boardId:
-    description: 'Card id'
+    description: 'Card boardId'
     type: string
     example: '67280e853bdc839326b08e0f'
   title:
@@ -28,7 +28,7 @@ properties:
   priority:
     description: 'Card priority'
     type: string
-    enum: ['low', 'medium', 'high', 'without'],
+    enum: ['low', 'medium', 'high', 'without']
     example: 'without'
   date:
     description: 'Card date'

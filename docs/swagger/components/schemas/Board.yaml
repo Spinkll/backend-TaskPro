@@ -22,26 +22,3 @@ properties:
     type: string
     default: 'icon-1'
     example: 'icon-1'
-  columns:
-    description: 'List column Board'
-    type: string
-    default:
-      [
-        {
-          'title': 'Material',
-          'boardId': '67280e953bdc839326b08e13',
-          'cards':
-            [
-              {
-                'title': 'Task #1',
-                'description': 'Task #1- create list todo',
-                'priority': 'without',
-                'date': '02-11-2024',
-                'boardId': '67280e953bdc839326b08e13',
-                'columnId': '67280f183bdc839326b08e41',
-                '_id': '67280f7a3bdc839326b08e5b',
-              },
-            ],
-          '_id': '67280f063bdc839326b08e2d',
-        },
-      ]

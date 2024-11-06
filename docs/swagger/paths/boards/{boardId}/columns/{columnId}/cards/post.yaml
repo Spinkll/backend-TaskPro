@@ -1,14 +1,14 @@
 tags:
-  - columns
-summary: Post column
-operationId: PostColumn
-description: 'create a column.'
+  - cards
+summary: Post card
+operationId: createCard
+description: 'create a card.'
 security:
   - bearerAuth: []
 
 parameters:
   - in: path
-    name: boardId
+    name: columnId
     required: true
     schema:
       type: string
@@ -21,15 +21,29 @@ requestBody:
         type: object
         required:
           - title
+          - description
+          - priority
+          - date
         properties:
           title:
             description: 'Column title'
             type: string
-            example: 'TO DO'
+            example: 'Task#1'
+          description:
+            description: 'Column title'
+            type: string
+            example: 'Task#1 - fill list task'
+          priority:
+            type: string
+            enum: ['low', 'medium', 'hight']
+            example: 'low'
+          date:
+            type: string
+            example: '2024-11-06T14:33:38.468Z'
 
 responses:
   '201':
-    description: Create a column
+    description: Create a card
     content:
       application/json:
         schema:
@@ -46,9 +60,9 @@ responses:
               type: string
               example: Successfully found Column!
             data:
-              type: object
+              type: string
               example:
-                $ref: '../../../../components/schemas/Column.yaml'
+                $ref: '../../../../../../components/schemas/Card.yaml'
 
   '404':
-    $ref: '../../../../components/responses/404.yaml'
+    $ref: '../../../../../../components/responses/404.yaml'

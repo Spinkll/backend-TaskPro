@@ -1,18 +1,18 @@
 tags:
   - boards
-summary: Update Board
-operationId: UpdateBoard
-description: 'Update a board data.'
+summary: Update board by id
+operationId: updateBoard
+description: 'Update a board by id.'
 security:
   - bearerAuth: []
 
 parameters:
   - in: path
-    name: id
+    name: boardId
     required: true
     schema:
       type: string
-      example: '6727ba623af6846ad7c7abe6'
+      example: '672a8db61a46f387714eac47'
 
 requestBody:
   content:
@@ -27,11 +27,41 @@ requestBody:
           icon:
             description: 'Board icon'
             type: string
+            enum:
+              [
+                'icon-1',
+                'icon-2',
+                'icon-3',
+                'icon-4',
+                'icon-5',
+                'icon-6',
+                'icon-7',
+                'icon-8',
+              ]
             example: 'icon-1'
           background:
             description: 'Board background'
             type: string
-            example: 'bg-1'
+            enum:
+              [
+                'bg-1',
+                'bg-2',
+                'bg-3',
+                'bg-4',
+                'bg-5',
+                'bg-6',
+                'bg-7',
+                'bg-8',
+                'bg-9',
+                'bg-10',
+                'bg-11',
+                'bg-12',
+                'bg-13',
+                'bg-14',
+                'bg-15',
+                'bg-16',
+              ]
+            example: 'bg-16'
 
 responses:
   '200':

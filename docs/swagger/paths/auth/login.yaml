@@ -1,5 +1,5 @@
 tags:
-  - auts
+  - auth
 summary: Login User
 operationId: LoginUser
 description: 'Login a user with payload'
