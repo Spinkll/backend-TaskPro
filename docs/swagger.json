@@ -30,6 +30,7 @@
       "name": "need-help",
       "description": "Feedback from user."
     },
+    {
       "name": "columns",
       "description": "Operations with columns."
     },
@@ -57,7 +58,11 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["name", "email", "password"],
+                "required": [
+                  "name",
+                  "email",
+                  "password"
+                ],
                 "properties": {
                   "name": {
                     "description": "User's name",
@@ -89,7 +94,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -141,7 +150,10 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["email", "password"],
+                "required": [
+                  "email",
+                  "password"
+                ],
                 "properties": {
                   "email": {
                     "description": "User's email",
@@ -168,7 +180,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -247,7 +263,9 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status"],
+                  "required": [
+                    "status"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -288,7 +306,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -339,7 +361,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -424,7 +450,11 @@
                   "theme": {
                     "description": "site theme type (dark, light, violet)",
                     "type": "string",
-                    "enum": ["dark", "light", "violet"],
+                    "enum": [
+                      "dark",
+                      "light",
+                      "violet"
+                    ],
                     "default": "light",
                     "example": "light"
                   }
@@ -469,7 +499,9 @@
     },
     "/boards": {
       "get": {
-        "tags": ["boards"],
+        "tags": [
+          "boards"
+        ],
         "summary": "Get boards",
         "operationId": "GetAllBoards",
         "description": "Get a boards data.",
@@ -519,7 +551,9 @@
         }
       },
       "post": {
-        "tags": ["boards"],
+        "tags": [
+          "boards"
+        ],
         "summary": "Create board",
         "operationId": "createBoard",
         "description": "Create a board with payload",
@@ -628,6 +662,90 @@
           },
           "404": {
             "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/need-help": {
+      "post": {
+        "tags": [
+          "need-help"
+        ],
+        "summary": "Send mail feedback",
+        "operationId": "sendMail",
+        "description": "Send feedback from user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "comment"
+                ],
+                "properties": {
+                  "email": {
+                    "description": "User's email",
+                    "type": "string",
+                    "example": "example@mail.com"
+                  },
+                  "comment": {
+                    "description": "User's comment",
+                    "type": "string",
+                    "example": "Need help with website"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Send mail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "type": "object",
+                        "properties": {
+                          "email": {
+                            "description": "User's email",
+                            "type": "string",
+                            "format": "email",
+                            "example": "mail@example.com"
+                          },
+                          "comment": {
+                            "description": "User's comment",
+                            "type": "string",
+                            "example": "Need help width website"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFoundError"
           }
         }
       }
@@ -840,7 +958,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -954,91 +1076,6 @@
             "$ref": "#/components/responses/404"
           }
         }
-
-      }
-    },
-    "/need-help": {
-      "post": {
-        "tags": ["need-help"],
-        "summary": "Send mail feedback",
-        "operationId": "sendMail",
-        "description": "Send feedback from user",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["email", "comment"],
-                "properties": {
-                  "email": {
-                    "description": "User's email",
-                    "type": "string",
-                    "example": "example@mail.com"
-                  },
-                  "comment": {
-                    "description": "User's comment",
-                    "type": "string",
-                    "example": "Need help with website"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Send mail",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": ["status", "message"],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "data": {
-                      "type": "object",
-                      "example": {
-                        "type": "object",
-                        "properties": {
-                          "email": {
-                            "description": "User's email",
-                            "type": "string",
-                            "format": "email",
-                            "example": "mail@example.com"
-                          },
-                          "comment": {
-                            "description": "User's comment",
-                            "type": "string",
-                            "example": "Need help width website"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "NotFoundError"
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
       }
     },
     "/columns/{boardId}": {
@@ -2086,7 +2123,11 @@
           "theme": {
             "description": "site theme type (dark, light, violet)",
             "type": "string",
-            "enum": ["dark", "light", "violet"],
+            "enum": [
+              "dark",
+              "light",
+              "violet"
+            ],
             "default": "light",
             "example": "light"
           },
@@ -2170,7 +2211,10 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message"],
+              "required": [
+                "status",
+                "message"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -2200,7 +2244,10 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message"],
+              "required": [
+                "status",
+                "message"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -2221,7 +2268,10 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message"],
+              "required": [
+                "status",
+                "message"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
