@@ -128,7 +128,15 @@ export const patchUsertById = async (sessionId, sessionToken, pachedData) => {
      photo = pachedData.photo;
     };
 
-    const pachedUser = await User.findByIdAndUpdate(currentUser.id, {...pachedData, photo: photo}, {
+    let data = {...pachedData, photo: photo};
+
+    if(pachedData.password) {
+        const hashedPassword = await bcrypt.hash(pachedData.password, 10);
+        data = {...pachedData, password: hashedPassword, photo: photo};
+    }
+    
+
+    const pachedUser = await User.findByIdAndUpdate(currentUser.id, data, {
         new: true,
     });
 
