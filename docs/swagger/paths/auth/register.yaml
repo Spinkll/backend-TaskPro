@@ -1,5 +1,5 @@
 tags:
-  - auts
+  - auth
 summary: Create User
 operationId: createUser
 description: 'Create a user with payload'

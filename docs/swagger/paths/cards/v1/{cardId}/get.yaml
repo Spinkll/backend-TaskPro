@@ -1,0 +1,40 @@
+tags:
+  - cards
+summary: Get card by id
+operationId: getCard
+description: 'Get a card data.'
+security:
+  - bearerAuth: []
+
+parameters:
+  - in: path
+    name: cardId
+    required: true
+    schema:
+      type: string
+      example: 672a8db61a46f387714eac47
+
+responses:
+  '200':
+    description: Get card by id
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully found Column!
+            data:
+              type: object
+              example:
+                $ref: '../../../../components/schemas/Card.yaml'
+  '401':
+    $ref: '../../../../components/responses/401.yaml'

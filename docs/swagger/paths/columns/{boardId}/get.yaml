@@ -1,0 +1,54 @@
+tags:
+  - columns
+summary: Get list of columns
+operationId: GetColumns
+description: Get list of columns with this endpoint
+security:
+  - bearerAuth: []
+
+parameters:
+  - in: path
+    name: boardId
+    required: true
+    schema:
+      type: string
+      example: 65ca67e7ae7f10c88b598384
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          boardId:
+            description: boardId
+            type: string
+            example: 65ca67e7ae7f10c88b598384
+
+responses:
+  '200':
+    description: Successfully found columns!
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully found columns!
+            data:
+              type: array
+              items:
+                type: object
+                example:
+                  $ref: '../../../components/schemas/Column.yaml'
+
+  '404':
+    $ref: '../../../components/responses/404.yaml'
