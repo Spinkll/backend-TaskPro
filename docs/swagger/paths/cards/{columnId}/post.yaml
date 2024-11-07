@@ -1,0 +1,68 @@
+tags:
+  - cards
+summary: Post card
+operationId: createCard
+description: 'create a card.'
+security:
+  - bearerAuth: []
+
+parameters:
+  - in: path
+    name: columnId
+    required: true
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - title
+          - description
+          - priority
+          - date
+        properties:
+          title:
+            description: 'Column title'
+            type: string
+            example: 'Task#1'
+          description:
+            description: 'Column title'
+            type: string
+            example: 'Task#1 - fill list task'
+          priority:
+            type: string
+            enum: ['low', 'medium', 'hight']
+            example: 'low'
+          date:
+            type: string
+            example: '2024-11-06T14:33:38.468Z'
+
+responses:
+  '201':
+    description: Create a card
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully found Column!
+            data:
+              type: string
+              example:
+                $ref: '../../../components/schemas/Card.yaml'
+
+  '404':
+    $ref: '../../../components/responses/404.yaml'

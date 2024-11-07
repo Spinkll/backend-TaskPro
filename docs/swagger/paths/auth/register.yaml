@@ -60,4 +60,3 @@ responses:
                   example: gocx91Da6+mfdrgJlCn5qQ==
   '409':
     $ref: '../../components/responses/409.yaml'
-

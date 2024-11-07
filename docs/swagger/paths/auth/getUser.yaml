@@ -5,6 +5,7 @@ operationId: GetUser
 description: 'Get a user data. Attention, the request must be authorized!!!!!'
 security:
   - bearerAuth: []
+
 requestBody:
 
 responses:

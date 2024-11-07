@@ -1,0 +1,22 @@
+tags:
+  - boards
+summary: Delete board by id
+operationId: DeleteBoard
+description: Delete a board by id.
+security:
+  - bearerAuth: []
+
+parameters:
+  - in: path
+    name: boardId
+    required: true
+    schema:
+      type: string
+      example: 65ca67e7ae7f10c88b598384
+
+responses:
+  '204':
+    description: No Content
+
+  '404':
+    $ref: '../../../components/responses/404.yaml'
