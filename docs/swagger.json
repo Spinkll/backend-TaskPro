@@ -72,6 +72,9 @@
                   "password": {
                     "description": "User's password, must have uppercase and lowercase letters, as well as special characters",
                     "type": "string",
+                    "minLength": 8,
+                    "maxLength": 20,
+                    "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[!@#$%^&*(),.?\\\":{}|<>]).+$",
                     "example": "Qweas23!"
                   }
                 }
@@ -99,6 +102,15 @@
                     "data": {
                       "type": "object",
                       "$ref": "#/components/schemas/user"
+                    },
+                    "token": {
+                      "type": "object",
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "gocx91Da6+mfdrgJlCn5qQ=="
+                        }
+                      }
                     }
                   }
                 }
@@ -139,6 +151,9 @@
                   "password": {
                     "description": "User's password, must have uppercase and lowercase letters, as well as special characters",
                     "type": "string",
+                    "minLength": 8,
+                    "maxLength": 20,
+                    "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[!@#$%^&*(),.?\\\":{}|<>]).+$",
                     "example": "Qweas23!"
                   }
                 }
@@ -185,10 +200,15 @@
                         "theme": {
                           "type": "string",
                           "example": "light"
-                        },
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "object",
+                      "properties": {
                         "accessToken": {
                           "type": "string",
-                          "example": "QgJWR3Nul5Yskifrbwk1tg=="
+                          "example": "gocx91Da6+mfdrgJlCn5qQ=="
                         }
                       }
                     }
@@ -2043,6 +2063,14 @@
             "description": "User's name",
             "type": "string",
             "example": "John Doe"
+          },
+          "password": {
+            "description": "User's password, must have uppercase and lowercase letters, as well as special characters",
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 20,
+            "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[!@#$%^&*(),.?\\\":{}|<>]).+$",
+            "example": "Qweasd!23"
           },
           "photo": {
             "description": "Link to Contact's photo",
