@@ -1,0 +1,35 @@
+tags:
+  - auth
+summary: Refresh User
+operationId: RefreshUser
+description: 'Refresh a user. Attention, the request must be authorized!!!!!'
+security:
+  - bearerAuth: []
+requestBody:
+
+responses:
+  '200':
+    description: Refreshed a user
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully is refreshed!
+            data:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+                  example: gocx91Da6+mfdrgJlCn5qQ==
+  '401':
+    $ref: '../../components/responses/401.yaml'

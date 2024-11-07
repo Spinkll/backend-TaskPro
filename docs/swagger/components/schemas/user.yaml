@@ -1,0 +1,40 @@
+type: object
+properties:
+  _id:
+    description: "User id"
+    type: string
+    example: 65e4decdd286b30065d54af9
+  name:
+    description: "User's name"
+    type: string
+    example: 'John Doe'
+  password:
+    description: User's password, must have uppercase and lowercase letters, as well as special characters
+    type: string
+    minLength: 8
+    maxLength: 20
+    pattern: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*(),.?\":{}|<>]).+$
+    example: Qweasd!23
+  photo:
+    description: "Link to Contact's photo"
+    type: string
+    default: 'https://res.cloudinary.com/dnfxykh8j/image/upload/v1730411910/wf6g1bi1qvd7spmurqi3.png'
+    example: https://res.cloudinary.com/dnfxykh8j/image/upload/v1730411910/wf6g1bi1qvd7spmurqi3.png
+  email:
+    description: "User's email"
+    type: string
+    example: mail@example.com
+  theme:
+    description: 'site theme type (dark, light, violet)'
+    type: string
+    enum: ['dark', 'light', 'violet']
+    default: 'light'
+    example: 'light'
+  createdAt:
+    description: 'date of create'
+    type: string
+    example: 2024-10-12T05:46:48.395Z
+  updatedAt:
+    description: 'date of last update'
+    type: string
+    example: 2024-10-12T05:47:41.792Z

@@ -1,0 +1,22 @@
+description: Something went wrong
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - message
+        - data
+      properties:
+        status:
+          type: integer
+          example: 500
+        message:
+          type: string
+          example: Something went wrong
+        data:
+          type: string
+          data:
+            type: string
+            example: "Cast to ObjectId failed for value \"67280e853bdc839326b08e\" (type string) at path \"_id\" for model \"boards\"
+

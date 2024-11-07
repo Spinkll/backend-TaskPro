@@ -1,0 +1,16 @@
+type: object
+required:
+  - title
+properties:
+  _id:
+    description: Column id
+    type: string
+    example: 67280ec83bdc839326b08e1b
+  boardId:
+    description: Board id
+    type: string
+    example: 67280e853bdc839326b08e0f
+  title:
+    description: Column's title
+    type: string
+    example: Materials

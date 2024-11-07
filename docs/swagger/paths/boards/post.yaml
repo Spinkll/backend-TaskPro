@@ -1,0 +1,54 @@
+tags:
+  - boards
+summary: Create board
+operationId: createBoard
+description: 'Create a board with payload'
+security:
+  - bearerAuth: []
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        $ref: '../../components/schemas/Board.yaml'
+
+responses:
+  '201':
+    description: Creates a board
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully created a board!
+            data:
+              type: object
+              example:
+                $ref: '../../components/schemas/Board.yaml'
+
+  '404':
+    $ref: '../../components/responses/404.yaml'
+
+  # 'default':
+  #   description: all errors
+  #   content:
+  #     application/json:
+  #       schema:
+  #         type: object
+  #         required:
+  #           - code
+  #           - message
+  #         properties:
+  #           code:
+  #             type: integer
+  #           message:
+  #             type: string
