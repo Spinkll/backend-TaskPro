@@ -1,0 +1,45 @@
+tags:
+  - need-help
+summary: Send mail feedback
+operationId: sendMail
+description: 'Send feedback from user'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - comment
+        properties:
+          email:
+            description: "User's email"
+            type: string
+            example: example@mail.com
+          comment:
+            description: "User's comment"
+            type: string
+            example: 'Need help with website'
+
+responses:
+  '200':
+    description: Send mail
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 200
+            data:
+              type: object
+              example:
+                $ref: '../../components/schemas/sendMail.yaml'
+  '404':
+    description: NotFoundError

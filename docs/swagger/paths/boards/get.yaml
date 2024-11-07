@@ -1,0 +1,41 @@
+tags:
+  - boards
+summary: Get boards
+operationId: GetAllBoards
+description: Get a boards data.
+security:
+  - bearerAuth: []
+
+# parameters:
+# - in: query
+#   name: page
+#   schema:
+#     type: integer
+#   example: 1
+
+responses:
+  '200':
+    description: Successfully found boards!
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully found boards!
+            data:
+              type: array
+              items:
+                type: object
+                example:
+                  $schema: '../../components/schemas/Board.yaml'
+  '404':
+    $ref: '../../components/responses/404.yaml'
