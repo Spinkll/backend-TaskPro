@@ -5,26 +5,12 @@ operationId: createBoard
 description: 'Create a board with payload'
 security:
   - bearerAuth: []
+
 requestBody:
   content:
     application/json:
       schema:
-        type: object
-        required:
-          - title
-        properties:
-          title:
-            description: "Board's title"
-            type: string
-            example: 'Project 1'
-          background:
-            description: "Board's background"
-            type: string
-            example: grey
-          icon:
-            description: /src/images/icons.svg#icon-icon-1-square
-            type: string
-            example: 'Qweas23!'
+        $ref: '../../components/schemas/Board.yaml'
 
 responses:
   '201':
@@ -38,10 +24,31 @@ responses:
             - message
             - data
           properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully created a board!
             data:
               type: object
               example:
-                $ref: '../../components/schemas/boards.yaml'
-  '404':
-    description: NotFoundError
+                $ref: '../../components/schemas/Board.yaml'
 
+  '404':
+    $ref: '../../components/responses/404.yaml'
+
+  # 'default':
+  #   description: all errors
+  #   content:
+  #     application/json:
+  #       schema:
+  #         type: object
+  #         required:
+  #           - code
+  #           - message
+  #         properties:
+  #           code:
+  #             type: integer
+  #           message:
+  #             type: string

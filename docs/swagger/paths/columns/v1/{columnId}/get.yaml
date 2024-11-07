@@ -1,0 +1,41 @@
+tags:
+  - columns
+summary: Get columns by id
+operationId: GetColumn
+description: Get a column data.
+security:
+  - bearerAuth: []
+
+parameters:
+  - in: path
+    name: columnId
+    required: true
+    schema:
+      type: string
+      example: 672a8db61a46f387714eac47
+
+responses:
+  '200':
+    description: Get column by columnId
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully found Column!
+            data:
+              type: object
+              example:
+                $ref: '../../../../components/schemas/Column.yaml'
+
+  '404':
+    $ref: '../../../../components/responses/404.yaml'
