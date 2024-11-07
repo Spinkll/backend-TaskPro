@@ -14,31 +14,23 @@ const columnsRouter = Router();
 columnsRouter.use(authenticate);
 
 // Routes для Columns
-columnsRouter.get(
-  '/:boardId',
-  isValidId('boardId'),
-  ctrlWrapper(columnsController.getAllColumns),
-);
+columnsRouter.get('/:boardId', ctrlWrapper(columnsController.getAllColumns));
 columnsRouter.post(
   '/:boardId',
-  isValidId('boardId'),
   validateBody(createColumnSchema),
   ctrlWrapper(columnsController.createColumn),
 );
 columnsRouter.get(
   '/v1/:columnId',
-  isValidId('columnId'),
   ctrlWrapper(columnsController.getByIdColumn),
 );
 columnsRouter.patch(
   '/v1/:columnId',
-  isValidId('columnId'),
   validateBody(updateColumnSchema),
   ctrlWrapper(columnsController.updateColumn),
 );
 columnsRouter.delete(
   '/v1/:columnId',
-  isValidId('columnId'),
   ctrlWrapper(columnsController.deleteColumn),
 );
 

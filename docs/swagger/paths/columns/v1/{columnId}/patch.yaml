@@ -15,15 +15,18 @@ parameters:
       example: 6727ba623af6846ad7c7abe6
 
 requestBody:
+  required: true
   content:
-    multipart/form-data:
+    application/json:
       schema:
         type: object
+        required:
+          - title
         properties:
           title:
-            description: Column title
+            description: Card title
             type: string
-            example: Eddy Canter Din
+            example: Materials
 
 responses:
   '200':

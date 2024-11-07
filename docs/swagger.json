@@ -784,68 +784,59 @@
           }
         ],
         "requestBody": {
+          "required": true,
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
-                "example": {
-                  "type": "object",
-                  "required": [
-                    "title",
-                    "background",
-                    "icon"
-                  ],
-                  "properties": {
-                    "_id": {
-                      "description": "board id",
-                      "type": "string",
-                      "example": "65e4decdd286b30065d54af9"
-                    },
-                    "title": {
-                      "description": "Board title",
-                      "type": "string",
-                      "example": "Create MagazinePro"
-                    },
-                    "background": {
-                      "description": "Board background",
-                      "type": "string",
-                      "enum": [
-                        "bg-1",
-                        "bg-2",
-                        "bg-3",
-                        "bg-4",
-                        "bg-5",
-                        "bg-6",
-                        "bg-7",
-                        "bg-8",
-                        "bg-9",
-                        "bg-10",
-                        "bg-11",
-                        "bg-12",
-                        "bg-13",
-                        "bg-14",
-                        "bg-15",
-                        "bg-16"
-                      ],
-                      "default": "bg-1",
-                      "example": "bg-1"
-                    },
-                    "icon": {
-                      "description": "Board icon",
-                      "type": "string",
-                      "enum": [
-                        "icon-1",
-                        "icon-2",
-                        "icon-3",
-                        "icon-4",
-                        "icon-5",
-                        "icon-6",
-                        "icon-7",
-                        "icon-8"
-                      ],
-                      "default": "icon-1",
-                      "example": "icon-1"
-                    }
+                "required": [
+                  "title",
+                  "background",
+                  "icon"
+                ],
+                "properties": {
+                  "title": {
+                    "description": "Board title",
+                    "type": "string",
+                    "example": "Create MagazinePro"
+                  },
+                  "background": {
+                    "description": "Board background",
+                    "type": "string",
+                    "enum": [
+                      "bg-1",
+                      "bg-2",
+                      "bg-3",
+                      "bg-4",
+                      "bg-5",
+                      "bg-6",
+                      "bg-7",
+                      "bg-8",
+                      "bg-9",
+                      "bg-10",
+                      "bg-11",
+                      "bg-12",
+                      "bg-13",
+                      "bg-14",
+                      "bg-15",
+                      "bg-16"
+                    ],
+                    "example": "bg-1"
+                  },
+                  "icon": {
+                    "description": "Board icon",
+                    "type": "string",
+                    "enum": [
+                      "icon-1",
+                      "icon-2",
+                      "icon-3",
+                      "icon-4",
+                      "icon-5",
+                      "icon-6",
+                      "icon-7",
+                      "icon-8"
+                    ],
+                    "example": "icon-1"
                   }
                 }
               }
@@ -1284,15 +1275,19 @@
           }
         ],
         "requestBody": {
+          "required": true,
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
+                "required": [
+                  "title"
+                ],
                 "properties": {
                   "title": {
-                    "description": "Column title",
+                    "description": "Card title",
                     "type": "string",
-                    "example": "Eddy Canter Din"
+                    "example": "Materials"
                   }
                 }
               }
@@ -1785,6 +1780,56 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "columnId",
+                  "title",
+                  "description",
+                  "priority",
+                  "date"
+                ],
+                "properties": {
+                  "columnId": {
+                    "description": "Card columnId",
+                    "type": "string",
+                    "example": "67280ee53bdc839326b08e24"
+                  },
+                  "title": {
+                    "description": "Card title",
+                    "type": "string",
+                    "example": "Materials"
+                  },
+                  "description": {
+                    "description": "Card description",
+                    "type": "string",
+                    "example": "Link of materials http://materials.link.com"
+                  },
+                  "priority": {
+                    "description": "Card priority",
+                    "type": "string",
+                    "enum": [
+                      "low",
+                      "medium",
+                      "high",
+                      "without"
+                    ],
+                    "example": "without"
+                  },
+                  "date": {
+                    "description": "Card date",
+                    "type": "string",
+                    "example": "2024-10-12T05:46:48.395Z"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Update card by id",
