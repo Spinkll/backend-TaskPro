@@ -1,0 +1,51 @@
+tags:
+  - cards
+summary: Get list of cards
+operationId: GetCards
+description: 'Get list of cards with this endpoint'
+security:
+  - bearerAuth: []
+
+parameters:
+  - in: path
+    name: columnId
+    required: true
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+
+# parameters:
+#  - in: query
+#     name: priority
+#     schema:
+#       type: 'string'
+#       enum: ['low', 'medium', 'hight']
+#       example: 'low'
+
+responses:
+  '200':
+    description: Successfully found cards!
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully found cards!
+            data:
+              type: array
+              items:
+                type: object
+                example:
+                  $ref: '../../../components/schemas/Card.yaml'
+
+  '404':
+    $ref: '../../../components/responses/404.yaml'

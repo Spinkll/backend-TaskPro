@@ -1,0 +1,55 @@
+tags:
+  - columns
+summary: Update column by id
+operationId: updateColumn
+description: Update a column by id.
+security:
+  - bearerAuth: []
+
+parameters:
+  - in: path
+    name: columnId
+    required: true
+    schema:
+      type: string
+      example: 6727ba623af6846ad7c7abe6
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - title
+        properties:
+          title:
+            description: Card title
+            type: string
+            example: Materials
+
+responses:
+  '200':
+    description: Patch Column by id and body
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Successfully updated a Column!'
+            data:
+              type: object
+              example:
+                $ref: '../../../../components/schemas/Column.yaml'
+
+  '404':
+    $ref: '../../../../components/responses/404.yaml'

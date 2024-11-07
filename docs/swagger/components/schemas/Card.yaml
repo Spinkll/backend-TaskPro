@@ -1,0 +1,40 @@
+type: object
+required:
+  - title
+  - description
+  - priority
+  - date
+properties:
+  _id:
+    description: Card id
+    type: string
+    example: 67280fd53bdc839326b08e78
+  columnId:
+    description: Card columnId
+    type: string
+    example: 67280ee53bdc839326b08e24
+  boardId:
+    description: Card boardId
+    type: string
+    example: 67280e853bdc839326b08e0f
+  title:
+    description: Card title
+    type: string
+    example: Materials
+  description:
+    description: Card description
+    type: string
+    example: Link of materials http://materials.link.com
+  priority:
+    description: Card priority
+    type: string
+    enum:
+      - low
+      - medium
+      - high
+      - without
+    example: without
+  date:
+    description: Card date
+    type: string
+    example: 2024-10-12T05:46:48.395Z
