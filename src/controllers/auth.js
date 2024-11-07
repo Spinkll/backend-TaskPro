@@ -20,9 +20,11 @@ export const registerController = async (req, res) => {
             email: user.user.email,
             id: user.user.id,
             theme: "light",
-            accessToken: user.session.accessToken,
             createdAt: user.user.createdAt,
             updatedAt: user.user.updatedAt,
+            },
+            token: {
+                accessToken: user.session.accessToken,
             }
         }
     });
