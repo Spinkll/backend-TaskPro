@@ -1,5 +1,5 @@
 tags:
-  - auts
+  - auth
 summary: Create User
 operationId: createUser
 description: 'Create a user with payload'
@@ -16,7 +16,7 @@ requestBody:
           - password
         properties:
           name:
-            description: "User's name"
+            description: User's name
             type: string
             example: 'John Doe'
           email:
@@ -24,8 +24,11 @@ requestBody:
             type: string
             example: example@mail.com
           password:
-            description: "User's password, must have uppercase and lowercase letters, as well as special characters"
+            description: User's password, must have uppercase and lowercase letters, as well as special characters
             type: string
+            minLength: 8
+            maxLength: 20
+            pattern: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*(),.?\":{}|<>]).+$
             example: 'Qweas23!'
 
 responses:
@@ -49,5 +52,11 @@ responses:
             data:
               type: object
               $ref: '../../components/schemas/user.yaml'
+            token:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+                  example: gocx91Da6+mfdrgJlCn5qQ==
   '409':
     $ref: '../../components/responses/409.yaml'

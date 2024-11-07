@@ -14,6 +14,7 @@ const PORT = Number(env('PORT', '3000'));
 export const startServer = () => {
   const app = express();
 
+<<<<<<< HEAD
   const allowedOrigin = 'http://localhost:5173';
 
   app.use(express.json());
@@ -36,6 +37,35 @@ export const startServer = () => {
       },
     }),
   );
+=======
+  const allowedOrigin = 'http://localhost:3000';
+
+  app.use(express.json());
+  app.use(
+    cors({
+      origin: allowedOrigin,
+      credentials: true,
+    }),
+  );
+
+  app.options(
+    '*',
+    cors({
+      origin: allowedOrigin,
+      credentials: true,
+    }),
+  );
+
+  app.use(cookieParser());
+
+  // app.use(
+  //   pino({
+  //     transport: {
+  //       target: 'pino-pretty',
+  //     },
+  //   }),
+  // );
+>>>>>>> main
 
   app.get('/', (req, res) => {
     res.json({

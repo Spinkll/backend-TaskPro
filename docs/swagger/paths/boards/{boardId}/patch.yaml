@@ -1,0 +1,90 @@
+tags:
+  - boards
+summary: Update board by id
+operationId: updateBoard
+description: 'Update a board by id.'
+security:
+  - bearerAuth: []
+
+parameters:
+  - in: path
+    name: boardId
+    required: true
+    schema:
+      type: string
+      example: '672a8db61a46f387714eac47'
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - title
+          - background
+          - icon
+        properties:
+          title:
+            description: Board title
+            type: string
+            example: Create MagazinePro
+          background:
+            description: Board background
+            type: string
+            enum:
+              - bg-1
+              - bg-2
+              - bg-3
+              - bg-4
+              - bg-5
+              - bg-6
+              - bg-7
+              - bg-8
+              - bg-9
+              - bg-10
+              - bg-11
+              - bg-12
+              - bg-13
+              - bg-14
+              - bg-15
+              - bg-16
+            example: bg-1
+          icon:
+            description: Board icon
+            type: string
+            enum:
+              - icon-1
+              - icon-2
+              - icon-3
+              - icon-4
+              - icon-5
+              - icon-6
+              - icon-7
+              - icon-8
+            example: icon-1
+
+responses:
+  '200':
+    description: Patch Board by id and body
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully updated a Board!
+            data:
+              type: object
+              example:
+                $ref: '../../../components/schemas/Board.yaml'
+  '404':
+    $ref: '../../../components/responses/404.yaml'

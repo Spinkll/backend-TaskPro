@@ -1,0 +1,95 @@
+tags:
+  - cards
+summary: Update card by id
+operationId: updateCard
+description: 'Update a card data.'
+security:
+  - bearerAuth: []
+
+parameters:
+  - in: path
+    name: cardId
+    required: true
+    schema:
+      type: string
+      example: 672a8db61a46f387714eac47
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - columnId
+          - title
+          - description
+          - priority
+          - date
+        properties:
+          columnId:
+            description: Card columnId
+            type: string
+            example: 67280ee53bdc839326b08e24
+          title:
+            description: Card title
+            type: string
+            example: Materials
+          description:
+            description: Card description
+            type: string
+            example: Link of materials http://materials.link.com
+          priority:
+            description: Card priority
+            type: string
+            enum:
+              - low
+              - medium
+              - high
+              - without
+            example: without
+          date:
+            description: Card date
+            type: string
+            example: 2024-10-12T05:46:48.395Z
+
+responses:
+  '200':
+    description: Update card by id
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully update Card!
+            data:
+              type: object
+              example:
+                $ref: '../../../../components/schemas/Card.yaml'
+
+  '401':
+    $ref: '../../../../components/responses/401.yaml'
+
+  'default':
+    description: all errors
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - code
+            - message
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
