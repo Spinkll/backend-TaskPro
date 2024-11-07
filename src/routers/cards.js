@@ -22,19 +22,19 @@ cardsRouter.post(
   ctrlWrapper(cardsController.createCard),
 );
 cardsRouter.get(
-  '/:cardId',
-  isValidId('columnId'),
+  '/v2/:cardId',
+  isValidId('cardId'),
   ctrlWrapper(cardsController.getByIdCard),
 );
 
 cardsRouter.patch(
-  '/:cardId',
+  '/v2/:cardId',
   isValidId('cardId'),
   validateBody(updateCardSchema),
   ctrlWrapper(cardsController.updateCard),
 );
 cardsRouter.delete(
-  '/:cardId',
+  '/v2/:cardId',
   isValidId('cardId'),
   ctrlWrapper(cardsController.deleteCard),
 );

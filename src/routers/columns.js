@@ -17,7 +17,7 @@ columnsRouter.use(authenticate);
 columnsRouter.get(
   '/:boardId',
   isValidId('boardId'),
-  columnsController.getAllColumns,
+  ctrlWrapper(columnsController.getAllColumns),
 );
 columnsRouter.post(
   '/:boardId',
@@ -26,18 +26,18 @@ columnsRouter.post(
   ctrlWrapper(columnsController.createColumn),
 );
 columnsRouter.get(
-  '/:columnId',
+  '/v1/:columnId',
   isValidId('columnId'),
   ctrlWrapper(columnsController.getByIdColumn),
 );
 columnsRouter.patch(
-  '/:columnId',
+  '/v1/:columnId',
   isValidId('columnId'),
   validateBody(updateColumnSchema),
   ctrlWrapper(columnsController.updateColumn),
 );
 columnsRouter.delete(
-  '/:columnId',
+  '/v1/:columnId',
   isValidId('columnId'),
   ctrlWrapper(columnsController.deleteColumn),
 );

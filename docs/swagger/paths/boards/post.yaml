@@ -10,54 +10,7 @@ requestBody:
   content:
     application/json:
       schema:
-        type: object
-        required:
-          - title
-          - background
-          - icon
-        properties:
-          title:
-            description: "Board's title"
-            type: string
-            example: 'TO DO'
-          background:
-            description: "Board's background"
-            type: string
-            enum:
-              [
-                'bg-1',
-                'bg-2',
-                'bg-3',
-                'bg-4',
-                'bg-5',
-                'bg-6',
-                'bg-7',
-                'bg-8',
-                'bg-9',
-                'bg-10',
-                'bg-11',
-                'bg-12',
-                'bg-13',
-                'bg-14',
-                'bg-15',
-                'bg-16',
-              ]
-            example: 'bg-1'
-          icon:
-            description: "Board's icon"
-            enum:
-              [
-                'icon-1',
-                'icon-2',
-                'icon-3',
-                'icon-4',
-                'icon-5',
-                'icon-6',
-                'icon-7',
-                'icon-8',
-              ]
-            type: string
-            example: 'icon-8'
+        $ref: '../../components/schemas/Board.yaml'
 
 responses:
   '201':
@@ -84,3 +37,18 @@ responses:
 
   '404':
     $ref: '../../components/responses/404.yaml'
+
+  # 'default':
+  #   description: all errors
+  #   content:
+  #     application/json:
+  #       schema:
+  #         type: object
+  #         required:
+  #           - code
+  #           - message
+  #         properties:
+  #           code:
+  #             type: integer
+  #           message:
+  #             type: string

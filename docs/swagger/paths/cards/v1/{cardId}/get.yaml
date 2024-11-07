@@ -12,7 +12,7 @@ parameters:
     required: true
     schema:
       type: string
-      example: '672a8db61a46f387714eac47'
+      example: 672a8db61a46f387714eac47
 
 responses:
   '200':
@@ -35,6 +35,6 @@ responses:
             data:
               type: object
               example:
-                $ref: '../../../components/schemas/Card.yaml'
+                $ref: '../../../../components/schemas/Card.yaml'
   '401':
-    $ref: '../../../components/responses/401.yaml'
+    $ref: '../../../../components/responses/401.yaml'

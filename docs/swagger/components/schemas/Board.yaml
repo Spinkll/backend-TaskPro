@@ -5,20 +5,46 @@ required:
   - icon
 properties:
   _id:
-    description: 'board id'
+    description: board id
     type: string
     example: 65e4decdd286b30065d54af9
   title:
-    description: "Board's title"
+    description: Board title
     type: string
-    example: 'Create MagazinePro'
+    example: Create MagazinePro
   background:
-    description: Board's background
+    description: Board background
     type: string
-    default: 'bg-1'
-    example: 'bg-1'
+    enum:
+      - bg-1
+      - bg-2
+      - bg-3
+      - bg-4
+      - bg-5
+      - bg-6
+      - bg-7
+      - bg-8
+      - bg-9
+      - bg-10
+      - bg-11
+      - bg-12
+      - bg-13
+      - bg-14
+      - bg-15
+      - bg-16
+    default: bg-1
+    example: bg-1
   icon:
-    description: "Board's icon"
+    description: Board icon
     type: string
-    default: 'icon-1'
-    example: 'icon-1'
+    enum:
+      - icon-1
+      - icon-2
+      - icon-3
+      - icon-4
+      - icon-5
+      - icon-6
+      - icon-7
+      - icon-8
+    default: icon-1
+    example: icon-1

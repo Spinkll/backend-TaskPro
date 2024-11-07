@@ -1,8 +1,8 @@
 tags:
   - boards
 summary: Get boards
-operationId: GetBoards
-description: 'Get a boards data.'
+operationId: GetAllBoards
+description: Get a boards data.
 security:
   - bearerAuth: []
 
@@ -36,6 +36,6 @@ responses:
               items:
                 type: object
                 example:
-                  $ref: '../../components/schemas/Board.yaml'
+                  $schema: '../../components/schemas/Board.yaml'
   '404':
     $ref: '../../components/responses/404.yaml'

@@ -479,7 +479,7 @@
           "boards"
         ],
         "summary": "Get boards",
-        "operationId": "GetBoards",
+        "operationId": "GetAllBoards",
         "description": "Get a boards data.",
         "security": [
           {
@@ -512,36 +512,7 @@
                       "items": {
                         "type": "object",
                         "example": {
-                          "type": "object",
-                          "required": [
-                            "title",
-                            "background",
-                            "icon"
-                          ],
-                          "properties": {
-                            "_id": {
-                              "description": "board id",
-                              "type": "string",
-                              "example": "65e4decdd286b30065d54af9"
-                            },
-                            "title": {
-                              "description": "Board's title",
-                              "type": "string",
-                              "example": "Create MagazinePro"
-                            },
-                            "background": {
-                              "description": "Board's background",
-                              "type": "string",
-                              "default": "bg-1",
-                              "example": "bg-1"
-                            },
-                            "icon": {
-                              "description": "Board's icon",
-                              "type": "string",
-                              "default": "icon-1",
-                              "example": "icon-1"
-                            }
-                          }
+                          "$schema": "../../components/schemas/Board.yaml"
                         }
                       }
                     }
@@ -571,57 +542,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "required": [
-                  "title",
-                  "background",
-                  "icon"
-                ],
-                "properties": {
-                  "title": {
-                    "description": "Board's title",
-                    "type": "string",
-                    "example": "TO DO"
-                  },
-                  "background": {
-                    "description": "Board's background",
-                    "type": "string",
-                    "enum": [
-                      "bg-1",
-                      "bg-2",
-                      "bg-3",
-                      "bg-4",
-                      "bg-5",
-                      "bg-6",
-                      "bg-7",
-                      "bg-8",
-                      "bg-9",
-                      "bg-10",
-                      "bg-11",
-                      "bg-12",
-                      "bg-13",
-                      "bg-14",
-                      "bg-15",
-                      "bg-16"
-                    ],
-                    "example": "bg-1"
-                  },
-                  "icon": {
-                    "description": "Board's icon",
-                    "enum": [
-                      "icon-1",
-                      "icon-2",
-                      "icon-3",
-                      "icon-4",
-                      "icon-5",
-                      "icon-6",
-                      "icon-7",
-                      "icon-8"
-                    ],
-                    "type": "string",
-                    "example": "icon-8"
-                  }
-                }
+                "$ref": "#/components/schemas/Board"
               }
             }
           }
@@ -663,19 +584,47 @@
                             "example": "65e4decdd286b30065d54af9"
                           },
                           "title": {
-                            "description": "Board's title",
+                            "description": "Board title",
                             "type": "string",
                             "example": "Create MagazinePro"
                           },
                           "background": {
-                            "description": "Board's background",
+                            "description": "Board background",
                             "type": "string",
+                            "enum": [
+                              "bg-1",
+                              "bg-2",
+                              "bg-3",
+                              "bg-4",
+                              "bg-5",
+                              "bg-6",
+                              "bg-7",
+                              "bg-8",
+                              "bg-9",
+                              "bg-10",
+                              "bg-11",
+                              "bg-12",
+                              "bg-13",
+                              "bg-14",
+                              "bg-15",
+                              "bg-16"
+                            ],
                             "default": "bg-1",
                             "example": "bg-1"
                           },
                           "icon": {
-                            "description": "Board's icon",
+                            "description": "Board icon",
                             "type": "string",
+                            "enum": [
+                              "icon-1",
+                              "icon-2",
+                              "icon-3",
+                              "icon-4",
+                              "icon-5",
+                              "icon-6",
+                              "icon-7",
+                              "icon-8"
+                            ],
                             "default": "icon-1",
                             "example": "icon-1"
                           }
@@ -693,7 +642,7 @@
         }
       }
     },
-    "/boards/:boardId": {
+    "/boards/{boardId}": {
       "get": {
         "tags": [
           "boards"
@@ -754,19 +703,47 @@
                             "example": "65e4decdd286b30065d54af9"
                           },
                           "title": {
-                            "description": "Board's title",
+                            "description": "Board title",
                             "type": "string",
                             "example": "Create MagazinePro"
                           },
                           "background": {
-                            "description": "Board's background",
+                            "description": "Board background",
                             "type": "string",
+                            "enum": [
+                              "bg-1",
+                              "bg-2",
+                              "bg-3",
+                              "bg-4",
+                              "bg-5",
+                              "bg-6",
+                              "bg-7",
+                              "bg-8",
+                              "bg-9",
+                              "bg-10",
+                              "bg-11",
+                              "bg-12",
+                              "bg-13",
+                              "bg-14",
+                              "bg-15",
+                              "bg-16"
+                            ],
                             "default": "bg-1",
                             "example": "bg-1"
                           },
                           "icon": {
-                            "description": "Board's icon",
+                            "description": "Board icon",
                             "type": "string",
+                            "enum": [
+                              "icon-1",
+                              "icon-2",
+                              "icon-3",
+                              "icon-4",
+                              "icon-5",
+                              "icon-6",
+                              "icon-7",
+                              "icon-8"
+                            ],
                             "default": "icon-1",
                             "example": "icon-1"
                           }
@@ -811,49 +788,64 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "properties": {
-                  "title": {
-                    "description": "Board title",
-                    "type": "string",
-                    "example": "Eddy Canter Din"
-                  },
-                  "icon": {
-                    "description": "Board icon",
-                    "type": "string",
-                    "enum": [
-                      "icon-1",
-                      "icon-2",
-                      "icon-3",
-                      "icon-4",
-                      "icon-5",
-                      "icon-6",
-                      "icon-7",
-                      "icon-8"
-                    ],
-                    "example": "icon-1"
-                  },
-                  "background": {
-                    "description": "Board background",
-                    "type": "string",
-                    "enum": [
-                      "bg-1",
-                      "bg-2",
-                      "bg-3",
-                      "bg-4",
-                      "bg-5",
-                      "bg-6",
-                      "bg-7",
-                      "bg-8",
-                      "bg-9",
-                      "bg-10",
-                      "bg-11",
-                      "bg-12",
-                      "bg-13",
-                      "bg-14",
-                      "bg-15",
-                      "bg-16"
-                    ],
-                    "example": "bg-16"
+                "example": {
+                  "type": "object",
+                  "required": [
+                    "title",
+                    "background",
+                    "icon"
+                  ],
+                  "properties": {
+                    "_id": {
+                      "description": "board id",
+                      "type": "string",
+                      "example": "65e4decdd286b30065d54af9"
+                    },
+                    "title": {
+                      "description": "Board title",
+                      "type": "string",
+                      "example": "Create MagazinePro"
+                    },
+                    "background": {
+                      "description": "Board background",
+                      "type": "string",
+                      "enum": [
+                        "bg-1",
+                        "bg-2",
+                        "bg-3",
+                        "bg-4",
+                        "bg-5",
+                        "bg-6",
+                        "bg-7",
+                        "bg-8",
+                        "bg-9",
+                        "bg-10",
+                        "bg-11",
+                        "bg-12",
+                        "bg-13",
+                        "bg-14",
+                        "bg-15",
+                        "bg-16"
+                      ],
+                      "default": "bg-1",
+                      "example": "bg-1"
+                    },
+                    "icon": {
+                      "description": "Board icon",
+                      "type": "string",
+                      "enum": [
+                        "icon-1",
+                        "icon-2",
+                        "icon-3",
+                        "icon-4",
+                        "icon-5",
+                        "icon-6",
+                        "icon-7",
+                        "icon-8"
+                      ],
+                      "default": "icon-1",
+                      "example": "icon-1"
+                    }
                   }
                 }
               }
@@ -897,19 +889,47 @@
                             "example": "65e4decdd286b30065d54af9"
                           },
                           "title": {
-                            "description": "Board's title",
+                            "description": "Board title",
                             "type": "string",
                             "example": "Create MagazinePro"
                           },
                           "background": {
-                            "description": "Board's background",
+                            "description": "Board background",
                             "type": "string",
+                            "enum": [
+                              "bg-1",
+                              "bg-2",
+                              "bg-3",
+                              "bg-4",
+                              "bg-5",
+                              "bg-6",
+                              "bg-7",
+                              "bg-8",
+                              "bg-9",
+                              "bg-10",
+                              "bg-11",
+                              "bg-12",
+                              "bg-13",
+                              "bg-14",
+                              "bg-15",
+                              "bg-16"
+                            ],
                             "default": "bg-1",
                             "example": "bg-1"
                           },
                           "icon": {
-                            "description": "Board's icon",
+                            "description": "Board icon",
                             "type": "string",
+                            "enum": [
+                              "icon-1",
+                              "icon-2",
+                              "icon-3",
+                              "icon-4",
+                              "icon-5",
+                              "icon-6",
+                              "icon-7",
+                              "icon-8"
+                            ],
                             "default": "icon-1",
                             "example": "icon-1"
                           }
@@ -920,9 +940,6 @@
                 }
               }
             }
-          },
-          "401": {
-            "$ref": "#/components/responses/401"
           },
           "404": {
             "$ref": "#/components/responses/404"
@@ -962,7 +979,7 @@
         }
       }
     },
-    "/columns/:boardId": {
+    "/columns/{boardId}": {
       "get": {
         "tags": [
           "columns"
@@ -1162,7 +1179,7 @@
         }
       }
     },
-    "/columns/:columnId": {
+    "/columns/v1/{columnId}": {
       "get": {
         "tags": [
           "columns"
@@ -1334,9 +1351,6 @@
               }
             }
           },
-          "401": {
-            "$ref": "#/components/responses/401"
-          },
           "404": {
             "$ref": "#/components/responses/404"
           }
@@ -1375,7 +1389,7 @@
         }
       }
     },
-    "/cards/:columnId": {
+    "/cards/{columnId}": {
       "get": {
         "tags": [
           "cards"
@@ -1638,7 +1652,7 @@
         }
       }
     },
-    "/cards/:cardId": {
+    "/cards/v1/{cardId}": {
       "get": {
         "tags": [
           "cards"
@@ -1854,6 +1868,28 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
+          },
+          "default": {
+            "description": "all errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "code",
+                    "message"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -1943,6 +1979,66 @@
             "description": "date of last update",
             "type": "string",
             "example": "2024-10-12T05:47:41.792Z"
+          }
+        }
+      },
+      "Board": {
+        "type": "object",
+        "required": [
+          "title",
+          "background",
+          "icon"
+        ],
+        "properties": {
+          "_id": {
+            "description": "board id",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "title": {
+            "description": "Board title",
+            "type": "string",
+            "example": "Create MagazinePro"
+          },
+          "background": {
+            "description": "Board background",
+            "type": "string",
+            "enum": [
+              "bg-1",
+              "bg-2",
+              "bg-3",
+              "bg-4",
+              "bg-5",
+              "bg-6",
+              "bg-7",
+              "bg-8",
+              "bg-9",
+              "bg-10",
+              "bg-11",
+              "bg-12",
+              "bg-13",
+              "bg-14",
+              "bg-15",
+              "bg-16"
+            ],
+            "default": "bg-1",
+            "example": "bg-1"
+          },
+          "icon": {
+            "description": "Board icon",
+            "type": "string",
+            "enum": [
+              "icon-1",
+              "icon-2",
+              "icon-3",
+              "icon-4",
+              "icon-5",
+              "icon-6",
+              "icon-7",
+              "icon-8"
+            ],
+            "default": "icon-1",
+            "example": "icon-1"
           }
         }
       }

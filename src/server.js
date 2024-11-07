@@ -14,7 +14,7 @@ const PORT = Number(env('PORT', '3000'));
 export const startServer = () => {
   const app = express();
 
-  const allowedOrigin = 'http://localhost:5173';
+  const allowedOrigin = 'http://localhost:3000';
 
   app.use(express.json());
   app.use(

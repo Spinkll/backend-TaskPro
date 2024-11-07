@@ -2,7 +2,7 @@ tags:
   - columns
 summary: Update column by id
 operationId: updateColumn
-description: 'Update a column by id.'
+description: Update a column by id.
 security:
   - bearerAuth: []
 
@@ -12,7 +12,7 @@ parameters:
     required: true
     schema:
       type: string
-      example: '6727ba623af6846ad7c7abe6'
+      example: 6727ba623af6846ad7c7abe6
 
 requestBody:
   content:
@@ -21,13 +21,13 @@ requestBody:
         type: object
         properties:
           title:
-            description: 'Column title'
+            description: Column title
             type: string
-            example: 'Eddy Canter Din'
+            example: Eddy Canter Din
 
 responses:
   '200':
-    description: 'Patch Column by id and body'
+    description: Patch Column by id and body
     content:
       application/json:
         schema:
@@ -46,10 +46,7 @@ responses:
             data:
               type: object
               example:
-                $ref: '../../../components/schemas/Column.yaml'
-
-  '401':
-    $ref: '../../../components/responses/401.yaml'
+                $ref: '../../../../components/schemas/Column.yaml'
 
   '404':
-    $ref: '../../../components/responses/404.yaml'
+    $ref: '../../../../components/responses/404.yaml'

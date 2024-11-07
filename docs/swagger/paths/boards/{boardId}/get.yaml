@@ -2,7 +2,7 @@ tags:
   - boards
 summary: Get board by id
 operationId: GetBoard
-description: 'Get a board data.'
+description: Get a board data.
 security:
   - bearerAuth: []
 
@@ -12,7 +12,7 @@ parameters:
     required: true
     schema:
       type: string
-      example: '65ca67e7ae7f10c88b598384'
+      example: 65ca67e7ae7f10c88b598384
 
 responses:
   '200':

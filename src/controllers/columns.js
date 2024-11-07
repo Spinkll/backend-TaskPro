@@ -8,21 +8,19 @@ import {
   getColumnsService,
   updateColumnService,
 } from '../services/columns.js';
+import { convertToMongoObjId } from '../utils/convertToMongoObjId.js';
 
 const getAllColumns = async (req, res, next) => {
   const { boardId } = req.params;
-  const board = await getBoardByIdService({
-    _id: boardId,
-  });
-
+  console.log('boardId', boardId);
+  const boardIdObj = convertToMongoObjId(boardId);
+  const board = await getBoardByIdService(boardId);
   if (!board) {
     next(createHttpError(404, 'Board not found'));
     return;
   }
-
-  const columns = await getColumnsService({
-    boardId: boardId._id,
-  });
+  console.log('board', board);
+  const columns = await getColumnsService({ boardId: board._id });
   if (!columns) {
     next(createHttpError(404, 'Column not found'));
     return;
@@ -42,7 +40,7 @@ const getAllColumns = async (req, res, next) => {
 const createColumn = async (req, res, next) => {
   const { boardId } = req.params;
   const reqBody = req.body;
-
+  console.log(columnId);
   const board = await getBoardByIdService({
     _id: boardId,
   });

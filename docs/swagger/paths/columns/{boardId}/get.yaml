@@ -2,7 +2,7 @@ tags:
   - columns
 summary: Get list of columns
 operationId: GetColumns
-description: 'Get list of columns with this endpoint'
+description: Get list of columns with this endpoint
 security:
   - bearerAuth: []
 
@@ -12,7 +12,7 @@ parameters:
     required: true
     schema:
       type: string
-      example: '65ca67e7ae7f10c88b598384'
+      example: 65ca67e7ae7f10c88b598384
 
 requestBody:
   content:
@@ -21,9 +21,9 @@ requestBody:
         type: object
         properties:
           boardId:
-            description: 'boardId'
+            description: boardId
             type: string
-            example: '65ca67e7ae7f10c88b598384'
+            example: 65ca67e7ae7f10c88b598384
 
 responses:
   '200':

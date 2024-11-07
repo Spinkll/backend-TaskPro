@@ -2,7 +2,7 @@ tags:
   - columns
 summary: Get columns by id
 operationId: GetColumn
-description: 'Get a column data.'
+description: Get a column data.
 security:
   - bearerAuth: []
 
@@ -12,7 +12,7 @@ parameters:
     required: true
     schema:
       type: string
-      example: '672a8db61a46f387714eac47'
+      example: 672a8db61a46f387714eac47
 
 responses:
   '200':
@@ -35,7 +35,7 @@ responses:
             data:
               type: object
               example:
-                $ref: '../../../components/schemas/Column.yaml'
+                $ref: '../../../../components/schemas/Column.yaml'
 
   '404':
-    $ref: '../../../components/responses/404.yaml'
+    $ref: '../../../../components/responses/404.yaml'

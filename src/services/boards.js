@@ -7,7 +7,7 @@ export const getBoardsService = async (id) => {
 };
 
 export const getBoardByIdService = async (id) => {
-  return await Board.findOne(id);
+  return await Board.findById(id);
 };
 
 export const createBoardService = async (payload) => {
