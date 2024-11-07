@@ -1,0 +1,54 @@
+tags:
+  - columns
+summary: Post column
+operationId: PostColumn
+description: create a column.
+security:
+  - bearerAuth: []
+
+parameters:
+  - in: path
+    name: boardId
+    required: true
+    schema:
+      type: string
+      example: 65ca67e7ae7f10c88b598384
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - title
+        properties:
+          title:
+            description: Column title
+            type: string
+            example: TO DO
+
+responses:
+  '201':
+    description: Create a column
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully found Column!
+            data:
+              type: object
+              example:
+                $ref: '../../../components/schemas/Column.yaml'
+
+  '404':
+    $ref: '../../../components/responses/404.yaml'
