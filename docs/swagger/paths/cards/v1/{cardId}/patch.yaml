@@ -73,8 +73,7 @@ responses:
               example: Successfully update Card!
             data:
               type: object
-              example:
-                $ref: '../../../../components/schemas/Card.yaml'
+              $ref: '../../../../components/schemas/Card.yaml'
 
   '401':
     $ref: '../../../../components/responses/401.yaml'

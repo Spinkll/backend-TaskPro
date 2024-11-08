@@ -61,8 +61,7 @@ responses:
               example: Successfully found Column!
             data:
               type: string
-              example:
-                $ref: '../../../components/schemas/Card.yaml'
+              $ref: '../../../components/schemas/Card.yaml'
 
   '404':
     $ref: '../../../components/responses/404.yaml'

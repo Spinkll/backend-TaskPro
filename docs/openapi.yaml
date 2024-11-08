@@ -12,22 +12,16 @@ tags:
     description: Operations with user.
   - name: boards
     description: Operations with boards.
-  - name: need-help
-    description: Feedback from user.
   - name: columns
     description: Operations with columns.
   - name: cards
     description: Operations with cards.
+  - name: need-help
+    description: Feedback from user.
 
 servers:
   - url: https://backend-taskpro.onrender.com
   - url: http://localhost:3000
-
-components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
 
 paths:
   /auth/register:
@@ -52,10 +46,6 @@ paths:
       $ref: ./swagger/paths/boards/get.yaml
     post:
       $ref: ./swagger/paths/boards/post.yaml
-
-  /need-help:
-    post:
-      $ref: ./swagger/paths/needHelp/post.yaml
   /boards/{boardId}:
     get:
       $ref: ./swagger/paths/boards/{boardId}/get.yaml
@@ -88,3 +78,12 @@ paths:
       $ref: ./swagger/paths/cards/v1/{cardId}/patch.yaml
     delete:
       $ref: ./swagger/paths/cards/v1/{cardId}/delete.yaml
+  /need-help:
+    post:
+      $ref: ./swagger/paths/needHelp/post.yaml
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
