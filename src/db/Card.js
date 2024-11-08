@@ -15,7 +15,7 @@ export const cardSchema = new Schema(
       ],
       default: PRIORITY_VARS.WITHOUT,
     },
-    date: { type: String, required: true },
+    dateDeadline: { type: String, required: true },
     columnId: { type: Schema.Types.ObjectId, ref: 'columns' },
     boardId: { type: Schema.Types.ObjectId, ref: 'boards' },
   },

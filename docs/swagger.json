@@ -561,7 +561,59 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Board"
+                "type": "object",
+                "required": [
+                  "title",
+                  "background",
+                  "icon"
+                ],
+                "properties": {
+                  "title": {
+                    "description": "Board title",
+                    "type": "string",
+                    "example": "Create MagazinePro"
+                  },
+                  "background": {
+                    "description": "Board background",
+                    "type": "string",
+                    "enum": [
+                      "bg-1",
+                      "bg-2",
+                      "bg-3",
+                      "bg-4",
+                      "bg-5",
+                      "bg-6",
+                      "bg-7",
+                      "bg-8",
+                      "bg-9",
+                      "bg-10",
+                      "bg-11",
+                      "bg-12",
+                      "bg-13",
+                      "bg-14",
+                      "bg-15",
+                      "bg-16"
+                    ],
+                    "default": "bg-1",
+                    "example": "bg-1"
+                  },
+                  "icon": {
+                    "description": "Board icon",
+                    "type": "string",
+                    "enum": [
+                      "icon-1",
+                      "icon-2",
+                      "icon-3",
+                      "icon-4",
+                      "icon-5",
+                      "icon-6",
+                      "icon-7",
+                      "icon-8"
+                    ],
+                    "default": "icon-1",
+                    "example": "icon-1"
+                  }
+                }
               }
             }
           }
@@ -836,22 +888,6 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "boardId": {
-                    "description": "boardId",
-                    "type": "string",
-                    "example": "65ca67e7ae7f10c88b598384"
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Successfully found columns!",
@@ -1254,7 +1290,7 @@
                     ],
                     "example": "low"
                   },
-                  "date": {
+                  "dateDeadline": {
                     "type": "string",
                     "example": "2024-11-06T14:33:38.468Z"
                   }
@@ -1780,10 +1816,11 @@
               "high",
               "without"
             ],
+            "default": "without",
             "example": "without"
           },
-          "date": {
-            "description": "Card date",
+          "dateDeadline": {
+            "description": "Card dateDeadline",
             "type": "string",
             "example": "2024-10-12T05:46:48.395Z"
           }

@@ -37,7 +37,7 @@ requestBody:
             type: string
             enum: ['low', 'medium', 'hight']
             example: 'low'
-          date:
+          dateDeadline:
             type: string
             example: '2024-11-06T14:33:38.468Z'
 

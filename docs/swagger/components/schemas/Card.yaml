@@ -33,8 +33,9 @@ properties:
       - medium
       - high
       - without
+    default: without
     example: without
-  date:
-    description: Card date
+  dateDeadline:
+    description: Card dateDeadline
     type: string
     example: 2024-10-12T05:46:48.395Z

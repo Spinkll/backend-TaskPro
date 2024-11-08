@@ -6,13 +6,6 @@ description: Get a boards data.
 security:
   - bearerAuth: []
 
-# parameters:
-# - in: query
-#   name: page
-#   schema:
-#     type: integer
-#   example: 1
-
 responses:
   '200':
     description: Successfully found boards!
