@@ -14,8 +14,8 @@ export const sendEmail = async (to, subject, html) => {
 
   try {
     await sgMail.send(msg);
-    console.log('Лист відправлено!');
+    console.log('Mail send!');
   } catch (error) {
-    console.error('Помилка при відправленні листа:', error);
+    console.error('Failed to send the email:', error);
   }
 };
