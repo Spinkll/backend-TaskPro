@@ -47,8 +47,7 @@ responses:
               example: Successfully found Column!
             data:
               type: object
-              example:
-                $ref: '../../../components/schemas/Column.yaml'
+              $ref: '../../../components/schemas/Column.yaml'
 
   '404':
     $ref: '../../../components/responses/404.yaml'
