@@ -35,7 +35,6 @@ responses:
               type: array
               items:
                 type: object
-                example:
-                  $schema: '../../components/schemas/Board.yaml'
+                $schema: '../../components/schemas/Board.yaml'
   '404':
     $ref: '../../components/responses/404.yaml'
