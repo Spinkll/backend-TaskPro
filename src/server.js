@@ -10,7 +10,7 @@ import cookieParser from 'cookie-parser';
 import { UPLOAD_DIR } from './constans/saveFiles.js';
 import { swaggerDocs } from './middlewares/swaggerDocs.js';
 import { ENV_VARS } from './constants/index.js';
-const PORT = Number(env('PORT', '3000'));
+const PORT = Number(env(ENV_VARS.PORT));
 
 export const startServer = () => {
   const app = express();
