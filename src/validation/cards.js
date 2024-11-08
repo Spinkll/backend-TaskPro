@@ -12,7 +12,7 @@ export const createCardSchema = Joi.object({
       PRIORITY_VARS.WITHOUT,
     )
     .default(PRIORITY_VARS.WITHOUT),
-  date: Joi.string().required(),
+  dateDeadline: Joi.string().required(),
 });
 
 export const updateCardSchema = Joi.object({
@@ -26,6 +26,6 @@ export const updateCardSchema = Joi.object({
       PRIORITY_VARS.WITHOUT,
     )
     .default(PRIORITY_VARS.WITHOUT),
-  date: Joi.string(),
+  dateDeadline: Joi.string(),
   columnId: Joi.string(),
 });
