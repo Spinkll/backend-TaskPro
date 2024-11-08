@@ -9,12 +9,13 @@ import { errorHandler } from './middlewares/errorHandler.js';
 import cookieParser from 'cookie-parser';
 import { UPLOAD_DIR } from './constans/saveFiles.js';
 import { swaggerDocs } from './middlewares/swaggerDocs.js';
-const PORT = Number(env('PORT', '3000'));
+import { ENV_VARS } from './constants/index.js';
+const PORT = Number(env(ENV_VARS.PORT));
 
 export const startServer = () => {
   const app = express();
 
-  const allowedOrigin = 'http://localhost:5173';
+  const allowedOrigin = env(ENV_VARS.ALLOWED_ORIGIN);
 
   app.use(express.json());
   app.use(
