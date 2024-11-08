@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import { boardsModel } from '../db/boards.js';
-
-export const createBoard = async (payload) => {
-  return await boardsModel.create(payload);
-=======
 import { Board } from '../db/Board.js';
 import { Card } from '../db/Card.js';
 import { Column } from '../db/Column.js';
@@ -34,5 +28,4 @@ export const deleteBoardService = async (id) => {
   await Card.deleteMany({ boardId: id._id });
   await Column.deleteMany({ boardId: id._id });
   return await Board.findOneAndDelete(id);
->>>>>>> main
 };
