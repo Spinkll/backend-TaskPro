@@ -1,22 +1,5 @@
 import { Router } from 'express';
 import { validateBody } from '../middlewares/validateBody.js';
-<<<<<<< HEAD
-import { createBoardSchema } from '../validation/boarders.js';
-import { ctrlWrapper } from '../utils/ctrlWrapper.js';
-import {
-  createBoardController,
-  getBoardsController,
-} from '../controllers/boards.js';
-
-const boardsRouter = Router();
-
-boardsRouter.get('/', getBoardsController);
-
-boardsRouter.post(
-  '/',
-  validateBody(createBoardSchema),
-  ctrlWrapper(createBoardController),
-=======
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { authenticate } from '../middlewares/authenticate.js';
 import boardsController from '../controllers/boards.js';
@@ -48,7 +31,6 @@ boardsRouter.delete(
   '/:boardId',
   isValidId('boardId'),
   ctrlWrapper(boardsController.deleteBoard),
->>>>>>> main
 );
 
 export default boardsRouter;

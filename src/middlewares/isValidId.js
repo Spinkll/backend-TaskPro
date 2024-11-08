@@ -12,8 +12,5 @@ export const isValidId =
         `Invalid ${idName}: ${id}. Expected a valid MongoDB ObjectId.`,
       );
     }
-<<<<<<< HEAD
-=======
     next();
->>>>>>> main
   };
