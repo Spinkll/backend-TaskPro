@@ -5,8 +5,6 @@ operationId: logoutUser
 description: 'logout a user'
 security:
   - bearerAuth: []
-requestBody:
-
 responses:
   '204':
     description: logout a user

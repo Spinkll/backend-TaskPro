@@ -39,7 +39,6 @@ responses:
               example: 200
             data:
               type: object
-              example:
-                $ref: '../../components/schemas/sendMail.yaml'
+              $ref: '../../components/schemas/sendMail.yaml'
   '404':
     description: NotFoundError
