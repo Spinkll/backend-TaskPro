@@ -4,7 +4,7 @@ export const serializeCard = (card) => {
     title: card.title,
     description: card.description,
     priority: card.priority,
-    date: card.dateDeadline,
+    dateDeadline: card.dateDeadline,
     columnId: card.columnId,
     boardId: card.boardId,
   };

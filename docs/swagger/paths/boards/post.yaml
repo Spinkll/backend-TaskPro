@@ -1,5 +1,5 @@
 tags:
-  - boards 1
+  - boards
 summary: Create board
 operationId: createBoard
 description: 'Create a board with payload'
