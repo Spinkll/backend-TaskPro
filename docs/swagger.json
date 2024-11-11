@@ -1457,7 +1457,7 @@
                     ],
                     "example": "without"
                   },
-                  "date": {
+                  "dateDeadline": {
                     "description": "Card date",
                     "type": "string",
                     "example": "2024-10-12T05:46:48.395Z"
