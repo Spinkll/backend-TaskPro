@@ -22,7 +22,7 @@ const getAllBoards = async (req, res, next) => {
   }
 
   res.status(200).json({
-    status: 'success',
+    status: 200,
     message: 'Boards retrieved successfully',
     data: data,
   });
@@ -39,7 +39,7 @@ const createBoard = async (req, res, next) => {
   }
 
   res.status(201).json({
-    status: 'success',
+    status: 201,
     message: 'Board created successfully',
     data: serializeBoard(newBoard),
   });
@@ -55,7 +55,7 @@ const getByIdBoard = async (req, res, next) => {
   }
 
   res.status(200).json({
-    status: 'success',
+    status: 200,
     message: 'Successfully found board!',
     data: serializeBoard(board),
   });
@@ -72,7 +72,7 @@ const updateBoard = async (req, res, next) => {
   }
 
   res.status(200).json({
-    status: 'success',
+    status: 200,
     message: 'Board updated successfully',
     data: serializeBoard(updatedBoard),
   });
