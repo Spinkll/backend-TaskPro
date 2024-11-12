@@ -17,10 +17,21 @@ export const startServer = () => {
 
   const allowedOrigin = env(ENV_VARS.ALLOWED_ORIGIN);
 
+  const corsOptions = {
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigin.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
+  };
+
   app.use(express.json());
   app.use(
     cors({
-      origin: allowedOrigin,
+      origin: corsOptions,
       credentials: true,
     }),
   );
@@ -28,7 +39,7 @@ export const startServer = () => {
   app.options(
     '*',
     cors({
-      origin: allowedOrigin,
+      origin: corsOptions,
       credentials: true,
     }),
   );
